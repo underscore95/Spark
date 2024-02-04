@@ -1,18 +1,18 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "opengl/shaders/ShaderProgram.h"
+#include "graphics/shaders/ShaderProgram.h"
 #include <spdlog/spdlog.h>
 #include "errors/OpenGLErrorHandler.h"
 #include <magic_enum.hpp>
-#include "opengl/buffers/Buffer.h"
+#include "graphics/buffers/Buffer.h"
 #include <cassert>
-#include "opengl/buffers/BufferLayout.h"
-#include "opengl/buffers/VertexBuffer.h"
-#include "opengl/VertexArray.h"
-#include "opengl/Renderer.h"
-#include "opengl/textures/Texture.h"
+#include "graphics/buffers/BufferLayout.h"
+#include "graphics/buffers/VertexBuffer.h"
+#include "graphics/VertexArray.h"
+#include "graphics/Renderer.h"
+#include "graphics/textures/Texture.h"
 #include <glm/glm.hpp>
-#include "opengl/MVP.h"
+#include "graphics/MVP.h"
 
 int main(int argc, char** argv) {
 	assert(sizeof(unsigned int) == sizeof(GLuint));

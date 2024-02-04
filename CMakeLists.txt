@@ -14,7 +14,7 @@ project ("Spark")
 include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
 # Add source to this project's executable.
-add_executable (Spark "src/Main.cpp" "src/opengl/shaders/Shader.h" "src/opengl/shaders/Shader.cpp" "src/opengl/shaders/ShaderProgram.h" "src/opengl/shaders/ShaderProgram.cpp" "src/errors/OpenGLErrorHandler.h" "src/errors/OpenGLErrorHandler.cpp" "src/opengl/buffers/Buffer.h"  "src/opengl/Renderer.h" "src/opengl/Renderer.cpp" "src/opengl/buffers/Buffer.cpp" "src/opengl/VertexArray.h" "src/opengl/VertexArray.cpp"  "src/opengl/buffers/BufferLayout.h"   "src/opengl/buffers/IndexBuffer.h" "src/opengl/buffers/VertexBuffer.h" "src/opengl/TypeConverter.h" "src/stb/stb_image.cpp" "src/stb/stb_image.h" "src/opengl/textures/Texture.h" "src/opengl/textures/Texture.cpp" "src/stb/stb_image.h" "src/opengl/MVP.h" "src/opengl/MVP.cpp")
+add_executable (Spark "src/Main.cpp" "src/graphics/shaders/Shader.h" "src/graphics/shaders/Shader.cpp" "src/graphics/shaders/ShaderProgram.h" "src/graphics/shaders/ShaderProgram.cpp" "src/errors/OpenGLErrorHandler.h" "src/errors/OpenGLErrorHandler.cpp" "src/graphics/buffers/Buffer.h"  "src/graphics/Renderer.h" "src/graphics/Renderer.cpp" "src/graphics/buffers/Buffer.cpp" "src/graphics/VertexArray.h" "src/graphics/VertexArray.cpp"  "src/graphics/buffers/BufferLayout.h"   "src/graphics/buffers/IndexBuffer.h" "src/graphics/buffers/VertexBuffer.h" "src/graphics/TypeConverter.h" "src/stb/stb_image.cpp" "src/stb/stb_image.h" "src/graphics/textures/Texture.h" "src/graphics/textures/Texture.cpp" "src/stb/stb_image.h" "src/graphics/MVP.h" "src/graphics/MVP.cpp")
 
 find_package(glfw3 3.3 REQUIRED)
 find_package(OpenGL REQUIRED)
