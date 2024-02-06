@@ -13,8 +13,9 @@ project ("Spark")
 
 include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
-# Add source to this project's executable.
-add_executable (Spark "src/Main.cpp" "src/opengl/shaders/Shader.h" "src/opengl/shaders/Shader.cpp" "src/opengl/shaders/ShaderProgram.h" "src/opengl/shaders/ShaderProgram.cpp" "src/errors/OpenGLErrorHandler.h" "src/errors/OpenGLErrorHandler.cpp" "src/opengl/buffers/Buffer.h"  "src/opengl/Renderer.h" "src/opengl/Renderer.cpp" "src/opengl/buffers/Buffer.cpp" "src/opengl/VertexArray.h" "src/opengl/VertexArray.cpp"  "src/opengl/buffers/BufferLayout.h"   "src/opengl/buffers/IndexBuffer.h" "src/opengl/buffers/VertexBuffer.h" "src/opengl/TypeConverter.h" "src/stb/stb_image.cpp" "src/stb/stb_image.h" "src/opengl/textures/Texture.h" "src/opengl/textures/Texture.cpp" "src/stb/stb_image.h" "src/opengl/MVP.h" "src/opengl/MVP.cpp")
+include_directories(${CMAKE_SOURCE_DIR}/src/)
+
+add_executable (Spark "src/engine/Node.h" "src/Main.cpp" "src/engine/Node.cpp" "src/engine/Scene.h")
 
 find_package(glfw3 3.3 REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -33,6 +34,4 @@ add_custom_target(copy_resources ALL
 
 add_dependencies(Spark copy_resources)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET Spark PROPERTY CXX_STANDARD 20)
-endif()
+set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
