@@ -20,12 +20,8 @@ include_directories(${CMAKE_SOURCE_DIR}/src/)
 add_library(Spark SHARED
     "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp")
 
-find_package(glfw3 3.3 REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(glm REQUIRED)
-find_package(GLEW REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 
-target_link_libraries(Spark PRIVATE glfw OpenGL::GL glm::glm GLEW::GLEW magic_enum::magic_enum)
+target_link_libraries(Spark PRIVATE magic_enum::magic_enum)
 
 set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
