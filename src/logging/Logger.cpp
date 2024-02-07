@@ -31,7 +31,6 @@ void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const s
 
 Spark::Logging::Logger::Logger(const LogLevel level, const std::string& name) : level{ level }, name{ name }
 {
-	debug("Logger Initialised");
 }
 
 void Spark::Logging::Logger::info(const std::string& message)

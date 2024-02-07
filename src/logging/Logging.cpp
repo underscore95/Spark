@@ -34,22 +34,4 @@ void Spark::Logging::registerLogger(std::unique_ptr<Spark::Logging::Logger> logg
 
 	// Register the logger
 	loggers.insert(std::pair<std::string, std::shared_ptr<Logger>>(logger->getName(), std::move(logger)));
-
-#ifndef NDEBUG
-	// Ensures the logger was successfully registered
-	getLogger(loggerName)->debug("Logger Registered");
-#endif
 }
-
-// Register sparks logger
-#ifndef SPARK_INTERNAL_LOGGER
-#define SPARK_INTERNAL_LOGGER
-namespace SparkInternal::Logging {
-	bool registerSparkLogger() {
-		Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
-		return true;
-	}
-
-	bool didRegisterSparkLogger = registerSparkLogger();
-}
-#endif
