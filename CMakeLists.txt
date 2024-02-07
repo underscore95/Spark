@@ -9,6 +9,7 @@ endif()
 project ("Spark" LANGUAGES CXX)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
@@ -25,6 +26,9 @@ set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 
 # Set the installation directory for your library
 set(INSTALL_DESTINATION lib)
+
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include
+        FILES_MATCHING PATTERN "*.h")
 
 # Define the target to install (your game engine library)
 install(TARGETS Spark
