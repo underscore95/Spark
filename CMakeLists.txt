@@ -1,7 +1,4 @@
-﻿# CMakeList.txt : CMake project for Spark, include source and define
-# project specific logic here.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.8)
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -25,3 +22,25 @@ find_package(magic_enum CONFIG REQUIRED)
 target_link_libraries(Spark PRIVATE magic_enum::magic_enum)
 
 set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
+
+# Set the installation directory for your library
+set(INSTALL_DESTINATION lib)
+
+# Define the target to install (your game engine library)
+install(TARGETS Spark
+        EXPORT SparkTargets
+        LIBRARY DESTINATION ${INSTALL_DESTINATION}
+        ARCHIVE DESTINATION ${INSTALL_DESTINATION}
+        RUNTIME DESTINATION ${INSTALL_DESTINATION}
+        INCLUDES DESTINATION include)
+
+# Export the target
+install(EXPORT SparkTargets
+       FILE "SparkTargets.cmake"
+       NAMESPACE Spark::
+       DESTINATION ${INSTALL_DESTINATION})
+
+# Install the package configuration file
+install(FILES ${CMAKE_SOURCE_DIR}/SparkConfig.cmake
+        DESTINATION ${INSTALL_DESTINATION})
+
