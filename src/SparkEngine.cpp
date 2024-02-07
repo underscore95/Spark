@@ -6,7 +6,10 @@ bool initialised = false;
 
 void Spark::init()
 {
-	if (isInitialised()) return;
+	if (isInitialised()) { 
+		auto logger = Spark::Logging::getLogger("spark");
+		logger.warning("Attempted to initialise Spark Engine twice");
+		return; }
 
 	initialised = true;
 	Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
