@@ -10,6 +10,6 @@ namespace Spark::Logging {
 		INFO = 0, WARN = 1, SEVERE = 2
 	};
 
-	std::shared_ptr<Logger> getLogger(const std::string& name);
+	Logger& getLogger(const std::string& name);
 	void registerLogger(std::unique_ptr<Spark::Logging::Logger> logger);
 }

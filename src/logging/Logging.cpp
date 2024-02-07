@@ -9,7 +9,7 @@ using namespace Spark::Logging;
 
 std::unordered_map<std::string, std::shared_ptr<Logger>> loggers;
 
-std::shared_ptr<Logger> Spark::Logging::getLogger(const std::string& name)
+Logger& Spark::Logging::getLogger(const std::string& name)
 {
 #ifndef NDEBUG
 	auto it = loggers.find(name);
@@ -17,7 +17,7 @@ std::shared_ptr<Logger> Spark::Logging::getLogger(const std::string& name)
 		std::cout << "No logger with name " << name << " exists." << std::endl;
 	}
 #endif
-	return loggers.at(name);
+	return *(loggers.at(name));
 }
 
 void Spark::Logging::registerLogger(std::unique_ptr<Spark::Logging::Logger> logger)
