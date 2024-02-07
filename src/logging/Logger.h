@@ -5,9 +5,10 @@
 
 namespace Spark::Logging {
 	class Logger {
+	public:
+		LogLevel level;
 	private:
 		std::string name;
-		LogLevel level;
 
 		void log(const LogLevel level, const bool debug, const std::string& message);
 

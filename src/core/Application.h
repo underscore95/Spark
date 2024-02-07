@@ -8,6 +8,6 @@ namespace Spark {
 		Application();
 		virtual ~Application();
 
-		virtual void start();
+		virtual void start() = 0;
 	};
 }
