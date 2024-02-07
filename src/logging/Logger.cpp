@@ -16,7 +16,7 @@ void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const s
 	const std::string currentTime = Spark::Utils::getDateTimeString();
 	const std::string logLevelName = std::string(magic_enum::enum_name(level));
 	const std::string isDebug = debug ? "[DEBUG] " : "";
-	const std::string log = "[" + currentTime + "] [" + logLevelName + "] " + isDebug + message;
+	const std::string log = "[" + currentTime + "] [" + logLevelName + "] " + isDebug + "[" + name + "] " + message;
 
 	// Now actually log it
 	std::cout << log;
