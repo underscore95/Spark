@@ -53,3 +53,8 @@ void Spark::Logging::Logger::debug(const std::string& message)
 {
 	log(LogLevel::INFO, true, message);
 }
+
+const std::string& Spark::Logging::Logger::getName() const
+{
+	return name;
+}

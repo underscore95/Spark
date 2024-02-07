@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 namespace Spark::Logging {
 	class Logger;
@@ -9,5 +10,6 @@ namespace Spark::Logging {
 		INFO = 0, WARN = 1, SEVERE = 2
 	};
 
-	 Spark::Logging::Logger& getLogger(const std::string& name);
+	std::shared_ptr<Logger> getLogger(const std::string& name);
+	void registerLogger(std::unique_ptr<Spark::Logging::Logger> logger);
 }

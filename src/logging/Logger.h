@@ -18,5 +18,7 @@ namespace Spark::Logging {
 		void warning(const std::string& message);
 		void severe(const std::string& message);
 		void debug(const std::string& message);
+
+		const std::string& getName() const;
 	};
 }
