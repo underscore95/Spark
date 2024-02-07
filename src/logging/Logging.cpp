@@ -4,6 +4,7 @@
 #ifndef NDEBUG
 #include <iostream>
 #endif
+#include "SparkLogger.h"
 
 using namespace Spark::Logging;
 
