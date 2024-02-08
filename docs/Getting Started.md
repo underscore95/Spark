@@ -1,4 +1,5 @@
 # Getting Started
+You should call `Spark::init()` before doing anything with Spark!
 
 ## Supported Platforms
 [x] Windows
