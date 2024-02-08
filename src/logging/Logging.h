@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include <chrono>
 
 namespace Spark::Logging {
 	class Logger;

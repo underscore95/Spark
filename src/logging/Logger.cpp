@@ -1,7 +1,6 @@
 #include "Logger.h"
+#include "InternalLogging.h"
 #include <iostream>
-#include <magic_enum.hpp>
-#include "utils/DateUtils.h"
 
 using namespace Spark::Logging;
 
@@ -12,21 +11,7 @@ void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const s
 #endif
 
 	if (level < this->level) return;
-
-	const std::string currentTime = Spark::Utils::getDateTimeString();
-	const std::string logLevelName = std::string(magic_enum::enum_name(level));
-	const std::string isDebug = debug ? "[DEBUG] " : "";
-	const std::string log = "[" + currentTime + "] [" + logLevelName + "] " + isDebug + "[" + name + "] " + message;
-
-	// Now actually log it
-	std::cout << log;
-
-	if (level >= LogLevel::SEVERE) {
-		std::cout << std::endl;
-	}
-	else {
-		std::cout << "\n";
-	}
+	SparkInternal::Logging::log(std::chrono::system_clock::now(), level, name, message, debug);
 }
 
 Spark::Logging::Logger::Logger(const LogLevel level, const std::string& name) : level{ level }, name{ name }
