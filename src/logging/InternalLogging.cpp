@@ -32,7 +32,7 @@ namespace SparkInternal::Logging {
 			const std::string logLevelName = log.debug ? "DEBUG" : std::string(magic_enum::enum_name(log.level));
 			const std::string logString = "[" + currentTime + "] [" + logLevelName + "] " + "[" + log.loggerName + "] " + log.message;
 
-			std::cout << "4" << logString;
+			std::cout << logString;
 
 			if (log.level >= Spark::Logging::LogLevel::SEVERE) {
 				std::cout << std::endl;
