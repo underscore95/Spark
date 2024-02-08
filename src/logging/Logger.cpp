@@ -3,7 +3,7 @@
 
 using namespace Spark::Logging;
 
-void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const std::string& message)
+void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const std::string& message) const
 {
 #ifdef NDEBUG
 	if (debug) return;
@@ -17,22 +17,22 @@ Spark::Logging::Logger::Logger(const LogLevel level, const std::string& name) : 
 {
 }
 
-void Spark::Logging::Logger::info(const std::string& message)
+void Spark::Logging::Logger::info(const std::string& message) const
 {
 	log(LogLevel::INFO, false, message);
 }
 
-void Spark::Logging::Logger::warning(const std::string& message)
+void Spark::Logging::Logger::warning(const std::string& message) const
 {
 	log(LogLevel::WARN, false, message);
 }
 
-void Spark::Logging::Logger::severe(const std::string& message)
+void Spark::Logging::Logger::severe(const std::string& message) const
 {
 	log(LogLevel::SEVERE, false, message);
 }
 
-void Spark::Logging::Logger::debug(const std::string& message)
+void Spark::Logging::Logger::debug(const std::string& message) const
 {
 	log(LogLevel::INFO, true, message);
 }
