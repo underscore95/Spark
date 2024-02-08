@@ -1,5 +1,8 @@
 # Getting Started
 
+## Supported Platforms
+[x] Windows
+
 ## Spark.h
 You can use `#include <Spark.h>` to include most important headers.
 
