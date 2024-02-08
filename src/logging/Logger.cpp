@@ -1,6 +1,5 @@
 #include "Logger.h"
 #include "InternalLogging.h"
-#include <iostream>
 
 using namespace Spark::Logging;
 
