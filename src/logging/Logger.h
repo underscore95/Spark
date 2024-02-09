@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include "Logging.h"
+
+#include "std.h"
 
 namespace Spark::Logging {
 	class Logger {

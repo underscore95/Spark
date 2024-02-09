@@ -1,9 +1,9 @@
 #include "InternalLogging.h"
-#include <queue>
-#include <mutex>
-#include <thread>
-#include "utils/DateUtils.h"
-#include <iostream>
+
+#include "utils.h"
+
+#include "std.h"
+
 #include <magic_enum.hpp>
 
 namespace SparkInternal::Logging {
@@ -11,7 +11,7 @@ namespace SparkInternal::Logging {
 	// Blocking function, will handle all the logs in queue
 	void handleLogs();
 
-	std::queue<SparkInternal::Logging::Log> logQueue;
+	std::deque<SparkInternal::Logging::Log> logQueue;
 	std::mutex logQueueMutex;
 	std::condition_variable logQueueCondition;
 

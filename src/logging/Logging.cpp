@@ -1,9 +1,5 @@
 #include "Logging.h"
 #include "Logger.h"
-#include <unordered_map>
-#ifndef NDEBUG
-#include <iostream>
-#endif
 
 using namespace Spark::Logging;
 

@@ -1,11 +1,9 @@
 #include "EventHandler.h"
-#include <unordered_map>
-#include <map>
 #include "EventListener.h"
-#include <vector>
-#include "logging/Logger.h"
-#include "logging/Logging.h"
+
 #include <magic_enum.hpp>
+#include "logging.h"
+#include "std.h"
 
 namespace Spark::Events {
 
