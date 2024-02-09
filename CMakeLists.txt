@@ -27,6 +27,7 @@ set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 
 # Precompiled Headers
 target_precompile_headers(Spark PRIVATE "src/precompiled_headers/std.h" "src/precompiled_headers/logging.h" "src/precompiled_headers/utils.h")
+set(CMAKE_PCH_INSTANTIATE_TEMPLATES ON)
 
 # Set the installation directory for your library
 set(INSTALL_DESTINATION lib)
