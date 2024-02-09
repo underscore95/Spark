@@ -56,17 +56,21 @@ namespace Spark::Events {
 
 	void callEvent(const Event& event)
 	{
-		if (event.type == EventType::NONE) {
+		const auto type = event.getType();
+		if (type == EventType::NONE) {
 			auto& logger = Spark::Logging::getLogger("spark");
 			logger.warning("Called event with NONE type");
 			return;
 		}
 
-		std::map<EventPriority, std::vector<const EventListener*>>& typeListeners = listeners[event.type];
+		EventContainer container(event);
+
+		std::map<EventPriority, std::vector<const EventListener*>>& typeListeners = listeners[type];
 		for (std::pair< EventPriority, std::vector<const EventListener*>> priorityPair : typeListeners) { // priority, vector<listener>
 			std::vector<const EventListener*>& relevantListeners = priorityPair.second;
 			for (const EventListener* listener : relevantListeners) {
-				listener->onEvent(event);
+				listener->onEvent(container);
+				if (container.handled) return;
 			}
 		}
 	}

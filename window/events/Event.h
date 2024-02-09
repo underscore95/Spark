@@ -7,6 +7,6 @@ namespace Spark::Events {
 	};
 
 	struct Event {
-		EventType type = EventType::NONE;
+		virtual const EventType getType() const = 0;
 	};
 }

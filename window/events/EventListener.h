@@ -3,6 +3,7 @@
 #include "Event.h"
 #include "EventPriority.h"
 #include <unordered_set>
+#include "EventContainer.h"
 
 namespace Spark::Events {
 	class EventListener {
@@ -26,6 +27,6 @@ namespace Spark::Events {
 		virtual const EventPriority getPriority() const final;
 		virtual const std::unordered_set<EventType>& getSubscriptions() const final;
 
-		virtual void onEvent(const Event& event) const = 0;
+		virtual void onEvent(EventContainer& event) const = 0;
 	};
 }
