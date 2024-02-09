@@ -1,9 +1,9 @@
 #include "InternalLogging.h"
-#include <queue>
-#include <mutex>
-#include <thread>
-#include "utils/DateUtils.h"
-#include <iostream>
+
+#include "utils.h"
+
+#include "std.h"
+
 #include <magic_enum.hpp>
 
 namespace SparkInternal::Logging {

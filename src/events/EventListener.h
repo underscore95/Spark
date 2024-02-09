@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Event.h"
-#include <unordered_set>
 #include "EventContainer.h"
+
+#include "std.h"
 
 namespace Spark::Events {
 	class EventListener {
