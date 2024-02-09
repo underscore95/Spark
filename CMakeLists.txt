@@ -16,7 +16,7 @@ include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 include_directories(${CMAKE_SOURCE_DIR}/src/)
 
 add_library(Spark SHARED
-    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp")
+    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowCloseEvent.h" "src/events/EventContainer.h" )
 
 find_package(magic_enum CONFIG REQUIRED)
 
