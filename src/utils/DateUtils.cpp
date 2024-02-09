@@ -1,7 +1,4 @@
 #include "DateUtils.h"
-#include <iomanip>
-#include <sstream>
-#include <string>
 
 const std::string Spark::Utils::getDateTimeString(std::chrono::system_clock::time_point time)
 {
