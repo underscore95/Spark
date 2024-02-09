@@ -2,20 +2,9 @@
 #include "EventHandler.h"
 
 namespace Spark::Events {
-	EventListener::EventListener(EventType type) : priority{ 0 }
-	{
-		subscriptions.insert(type);
-		registerListener(this);
-	}
-
 	EventListener::EventListener(const EventType type, const short priority) : priority{ priority }
 	{
 		subscriptions.insert(type);
-		registerListener(this);
-	}
-
-	EventListener::EventListener(const std::unordered_set<EventType>& types) : subscriptions{ types }, priority{ 0 }
-	{
 		registerListener(this);
 	}
 

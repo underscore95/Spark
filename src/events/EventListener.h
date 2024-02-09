@@ -11,14 +11,10 @@ namespace Spark::Events {
 		std::unordered_set<EventType> subscriptions;
 
 	public:
-		// Listen to one event with normal priority
-		EventListener(const EventType type);
 		// Listen to one event with custom priority
-		EventListener(const EventType type, const short priority);
-		// Listen to multiple events with normal priority
-		EventListener(const std::unordered_set<EventType>& types);
+		EventListener(const EventType type, const short priority = 0);
 		// Listen to multiple events with one custom priority
-		EventListener(const std::unordered_set<EventType>& types, const short priority);
+		EventListener(const std::unordered_set<EventType>& types, const short priority = 0);
 
 		EventListener(const EventListener&) = delete;
 		~EventListener();
