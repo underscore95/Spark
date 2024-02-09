@@ -16,7 +16,7 @@ include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 include_directories(${CMAKE_SOURCE_DIR}/src/)
 
 add_library(Spark SHARED
-    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "window/events/Event.h" "window/events/EventHandler.h" "window/events/EventHandler.cpp" "window/events/EventListener.h" "window/events/EventListener.cpp" "window/events/EventPriority.h" "window/events/Events.h" "window/events/events/WindowCloseEvent.h" "window/events/EventContainer.h" )
+    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "window/events/Event.h" "window/events/EventHandler.h" "window/events/EventHandler.cpp" "window/events/EventListener.h" "window/events/EventListener.cpp"  "window/events/Events.h" "window/events/events/WindowCloseEvent.h" "window/events/EventContainer.h" )
 
 find_package(magic_enum CONFIG REQUIRED)
 
