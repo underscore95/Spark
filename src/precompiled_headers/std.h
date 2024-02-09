@@ -10,6 +10,7 @@
 #include <deque>
 #include <stack>
 #include <string>
+#include <queue>
 
 // Multithreading
 

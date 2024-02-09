@@ -11,7 +11,7 @@ namespace SparkInternal::Logging {
 	// Blocking function, will handle all the logs in queue
 	void handleLogs();
 
-	std::deque<SparkInternal::Logging::Log> logQueue;
+	std::queue<SparkInternal::Logging::Log> logQueue;
 	std::mutex logQueueMutex;
 	std::condition_variable logQueueCondition;
 
