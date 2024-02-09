@@ -16,6 +16,10 @@ namespace Spark::Events {
 
 	void registerListener(const EventListener* listener)
 	{
+		auto& logger = Spark::Logging::getLogger("spark");
+		logger.debug("Registered listener");
+
+
 		const short priority = listener->getPriority();
 		const std::unordered_set<EventType> types = listener->getSubscriptions();
 
@@ -41,6 +45,9 @@ namespace Spark::Events {
 
 	void unregisterListener(const EventListener* listener)
 	{
+		auto& logger = Spark::Logging::getLogger("spark");
+		logger.debug("Unregistered listener");
+
 		const short priority = listener->getPriority();
 		const std::unordered_set<EventType> types = listener->getSubscriptions();
 
