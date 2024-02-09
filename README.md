@@ -9,7 +9,9 @@ Contact me on discord: underscore95
 Warning: Will likely be abandoned eventually.
 
 ## Features
+- [x] Documentation
 - [x] Console Logging
+- [x] Events
 - [ ] Store logs in files
 - [ ] Window
 - [ ] Renderer
