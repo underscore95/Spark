@@ -1,13 +1,22 @@
 #include "GLFWWindow.h"
 #include "logging/Logger.h"
 #include "logging/Logging.h"
+#include "events/EventHandler.h"
+#include "events/Events.h"
 
-void errorCallback(int error, const char* description)
-{
+void errorCallback(int error, const char* description) {
 	auto& logger = Spark::Logging::getLogger("spark");
 	std::stringstream ss;
 	ss << "glfw error occurred. (Error Code: " << error << ")\n" << description;
 	logger.severe(ss);
+}
+
+void Spark::Window::GLFWWindow::windowResizeCallback(GLFWwindow* window, int width, int height)
+{
+	dimensions.x = width;
+	dimensions.y = height;
+	Spark::Events::Types::WindowResize e;
+	Spark::Events::callEvent(e);
 }
 
 bool Spark::Window::GLFWWindow::createWindow()
@@ -28,6 +37,12 @@ bool Spark::Window::GLFWWindow::createWindow()
 	}
 
 	glfwMakeContextCurrent(window);
+	glfwSetWindowUserPointer(window, this);
+
+	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* win, int w, int h) {
+		static_cast<GLFWWindow*>(glfwGetWindowUserPointer(win))->windowResizeCallback(win, w, h);
+		});
+
 	return true;
 }
 

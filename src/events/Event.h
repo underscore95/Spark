@@ -3,7 +3,7 @@
 namespace Spark::Events {
 	enum class EventType {
 		NONE,
-		WindowClose
+		WindowResize
 	};
 
 	struct Event {
