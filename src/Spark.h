@@ -12,8 +12,3 @@
 #include "events/Events.h"
 #include "events/EventListener.h"
 #include "events/EventContainer.h"
-
-// PCH
-#include "logging.h"
-#include "std.h"
-#include "utils.h"
