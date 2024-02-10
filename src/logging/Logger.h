@@ -11,13 +11,14 @@ namespace Spark::Logging {
 		LogLevel level;
 	private:
 		std::string name;
+		bool fileLoggingEnabled;
 
 		void log(const LogLevel level, const bool debug, const std::string& message) const;
 
 	public:
 		const std::string creationTime = Spark::Utils::getDateTimeString(std::chrono::system_clock::now(), true);
 
-		Logger(const LogLevel level, const std::string& name);
+		Logger(const LogLevel level, const std::string& name, const bool fileLoggingEnabled = true);
 
 		void info(const std::string& message) const;
 		void warning(const std::string& message) const;
