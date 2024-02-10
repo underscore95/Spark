@@ -10,9 +10,8 @@ Warning: Will likely be abandoned eventually.
 
 ## Features
 - [x] Documentation
-- [x] Console Logging
+- [x] Logging
 - [x] Events
-- [ ] Store logs in files
 - [x] Window
 - [ ] Renderer
 - [ ] Camera

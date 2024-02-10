@@ -3,6 +3,7 @@
 #include "Logging.h"
 
 #include "pch.h"
+#include "utils/DateUtils.h"
 
 namespace Spark::Logging {
 	class Logger {
@@ -14,6 +15,8 @@ namespace Spark::Logging {
 		void log(const LogLevel level, const bool debug, const std::string& message) const;
 
 	public:
+		const std::string creationTime = Spark::Utils::getDateTimeString(std::chrono::system_clock::now(), true);
+
 		Logger(const LogLevel level, const std::string& name);
 
 		void info(const std::string& message) const;
@@ -26,6 +29,6 @@ namespace Spark::Logging {
 		void debug(std::stringstream& ss) const;
 		void severe(std::stringstream& ss) const;
 
-		const std::string& getName() const;
+		const std::string getName() const;
 	};
 }
