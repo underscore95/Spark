@@ -1,5 +1,6 @@
 #include "GLFWWindow.h"
-#include "logging.h"
+#include "logging/Logger.h"
+#include "logging/Logging.h"
 
 void errorCallback(int error, const char* description)
 {

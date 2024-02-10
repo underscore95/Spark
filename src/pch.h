@@ -1,6 +1,6 @@
 #pragma once
 
-// Data Structures
+// STD Data Structures
 
 #include <vector>
 #include <set>
@@ -12,12 +12,12 @@
 #include <string>
 #include <queue>
 
-// Multithreading
+// STD Multithreading
 
 #include <mutex>
 #include <thread>
 
-// Useful things
+// STD Useful things
 
 #include <algorithm>
 #include <iostream>
