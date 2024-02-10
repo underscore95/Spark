@@ -4,6 +4,10 @@
 
 #include "core/Application.h"
 
+// Window
+#include "window/abstract/Window.h"
+#include "window/api/WindowFactory.h"
+
 // Logging
 #include "logging/Logger.h"
 #include "logging/Logging.h"
