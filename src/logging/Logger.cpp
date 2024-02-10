@@ -10,10 +10,10 @@ void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const s
 #endif
 
 	if (level < this->level) return;
-	SparkInternal::Logging::log(std::chrono::system_clock::now(), level, name, creationTime, message, debug);
+	SparkInternal::Logging::log(std::chrono::system_clock::now(), level, name, creationTime, message, debug, fileLoggingEnabled);
 }
 
-Spark::Logging::Logger::Logger(const LogLevel level, const std::string& name) : level{ level }, name{ name }
+Spark::Logging::Logger::Logger(const LogLevel level, const std::string& name, const bool fileLoggingEnabled) : level{ level }, name{ name }, fileLoggingEnabled{ fileLoggingEnabled }
 {
 }
 

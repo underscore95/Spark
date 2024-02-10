@@ -44,28 +44,31 @@ namespace SparkInternal::Logging {
 			const std::string s = ss.str();
 			std::cout << s;
 
-			// Add to log file
-			std::stringstream fileName;
-			fileName << "logs/" << log.loggerName << "/";
-			std::filesystem::create_directories(fileName.str());
-			fileName << log.loggerCreationTime << ".log";
+			if (log.logToFile) {
+				// Add to log file
+				std::stringstream fileName;
+				fileName << "logs/" << log.loggerName << "/";
+				std::filesystem::create_directories(fileName.str());
+				fileName << log.loggerCreationTime << ".log";
 
-			std::ofstream file(fileName.str(), std::ios::app); // Open file in append mode
-			if (file.is_open()) {
-				file << s;
-				file.close();
-			} else {
-				std::cout << "Failed to open log file: " << fileName.str() << std::endl;
+				std::ofstream file(fileName.str(), std::ios::app); // Open file in append mode
+				if (file.is_open()) {
+					file << s;
+					file.close();
+				}
+				else {
+					std::cout << "Failed to open log file: " << fileName.str() << std::endl;
+				}
 			}
 		}
 	}
 
 	void log(const std::chrono::system_clock::time_point& time, const Spark::Logging::LogLevel& level, const std::string& loggerName, const std::string& loggerCreationTime,
-		const std::string& message, const bool debug) {
-		{
-			std::lock_guard<std::mutex> lock(logQueueMutex);
-			logQueue.emplace(time, level, loggerName, loggerCreationTime, message, debug);
-		}
-		logQueueCondition.notify_one();
+		const std::string& message, const bool debug, const bool logToFile) {
+			{
+				std::lock_guard<std::mutex> lock(logQueueMutex);
+				logQueue.emplace(time, level, loggerName, loggerCreationTime, message, debug, logToFile);
+			}
+			logQueueCondition.notify_one();
 	}
 }
