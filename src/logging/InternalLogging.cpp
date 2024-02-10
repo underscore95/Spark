@@ -1,6 +1,7 @@
 #include "InternalLogging.h"
 
 #include "utils/DateUtils.h"
+#include "Logger.h"
 
 #include <magic_enum.hpp>
 
@@ -18,6 +19,7 @@ namespace SparkInternal::Logging {
 	void handleLogs() {
 		thread.detach();
 		while (true) {
+			// Consume the next log
 			std::unique_lock<std::mutex> lock(logQueueMutex);
 			logQueueCondition.wait(lock, [] { return !logQueue.empty(); });
 
@@ -26,25 +28,43 @@ namespace SparkInternal::Logging {
 
 			lock.unlock();
 
+			// Build log message
 			const std::string currentTime = Spark::Utils::getDateTimeString();
 			const std::string logLevelName = log.debug ? "DEBUG" : std::string(magic_enum::enum_name(log.level));
-			const std::string logString = "[" + currentTime + "] [" + logLevelName + "] " + "[" + log.loggerName + "] " + log.message;
+			std::stringstream ss;
+			ss << "[" << currentTime << "] [" << logLevelName << "] " << "[" << log.loggerName << "] " << log.message;
 
-			std::cout << logString;
+			// Add endl if severe log
+			if (log.level >= Spark::Logging::LogLevel::SEVERE)
+				ss << std::endl;
+			else
+				ss << "\n";
 
-			if (log.level >= Spark::Logging::LogLevel::SEVERE) {
-				std::cout << std::endl;
-			}
-			else {
-				std::cout << "\n";
+			// Print to console
+			const std::string s = ss.str();
+			std::cout << s;
+
+			// Add to log file
+			std::stringstream fileName;
+			fileName << "logs/" << log.loggerName << "/";
+			std::filesystem::create_directories(fileName.str());
+			fileName << log.loggerCreationTime << ".log";
+
+			std::ofstream file(fileName.str(), std::ios::app); // Open file in append mode
+			if (file.is_open()) {
+				file << s;
+				file.close();
+			} else {
+				std::cout << "Failed to open log file: " << fileName.str() << std::endl;
 			}
 		}
 	}
 
-	void log(const std::chrono::system_clock::time_point& time, const Spark::Logging::LogLevel& level, const std::string& loggerName, const std::string& message, const bool debug) {
+	void log(const std::chrono::system_clock::time_point& time, const Spark::Logging::LogLevel& level, const std::string& loggerName, const std::string& loggerCreationTime,
+		const std::string& message, const bool debug) {
 		{
 			std::lock_guard<std::mutex> lock(logQueueMutex);
-			logQueue.emplace(time, level, loggerName, message, debug);
+			logQueue.emplace(time, level, loggerName, loggerCreationTime, message, debug);
 		}
 		logQueueCondition.notify_one();
 	}

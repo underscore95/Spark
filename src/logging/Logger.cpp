@@ -10,7 +10,7 @@ void Spark::Logging::Logger::log(const LogLevel level, const bool debug, const s
 #endif
 
 	if (level < this->level) return;
-	SparkInternal::Logging::log(std::chrono::system_clock::now(), level, name, message, debug);
+	SparkInternal::Logging::log(std::chrono::system_clock::now(), level, name, creationTime, message, debug);
 }
 
 Spark::Logging::Logger::Logger(const LogLevel level, const std::string& name) : level{ level }, name{ name }
@@ -57,7 +57,7 @@ void Spark::Logging::Logger::severe(std::stringstream& ss) const
 	severe(ss.str());
 }
 
-const std::string& Spark::Logging::Logger::getName() const
+const std::string Spark::Logging::Logger::getName() const
 {
 	return name;
 }
