@@ -8,6 +8,7 @@ std::unique_ptr<Spark::Window::Window> Spark::Window::create(const std::string& 
 	// GLFW WINDOWS
 #ifdef _WIN32
 	return std::make_unique<Spark::Window::GLFWWindow>(title, dimensions);
+#else
+	throw std::runtime_error("Platform not supported for window creation.");
 #endif
-
 }
