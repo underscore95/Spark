@@ -4,6 +4,10 @@
 
 #include "core/Application.h"
 
+// Window
+#include "window/abstract/Window.h"
+#include "window/api/WindowFactory.h"
+
 // Logging
 #include "logging/Logger.h"
 #include "logging/Logging.h"
@@ -12,8 +16,3 @@
 #include "events/Events.h"
 #include "events/EventListener.h"
 #include "events/EventContainer.h"
-
-// PCH
-#include "logging.h"
-#include "std.h"
-#include "utils.h"

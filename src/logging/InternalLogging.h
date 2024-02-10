@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Logging.h"
-#include <chrono>
+#include "pch.h"
 
 namespace SparkInternal::Logging {
 

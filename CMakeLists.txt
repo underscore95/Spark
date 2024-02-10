@@ -6,7 +6,7 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("Spark" LANGUAGES CXX VERSION 1.2)
+project ("Spark" LANGUAGES CXX VERSION 1.3)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -14,19 +14,23 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/)
-include_directories(${CMAKE_SOURCE_DIR}/src/precompiled_headers/)
 
 add_library(Spark SHARED
-    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowCloseEvent.h" "src/events/EventContainer.h"  "src/precompiled_headers/std.h" "src/precompiled_headers/std.cpp" "src/precompiled_headers/logging.h" "src/precompiled_headers/logging.cpp" "src/precompiled_headers/utils.h" "src/precompiled_headers/utils.cpp")
+    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowCloseEvent.h" "src/events/EventContainer.h"  "src/pch.h"      "src/window/abstract/Window.h" "src/window/abstract/Window.cpp" "src/window/glfw/GLFWWindow.h" "src/window/glfw/GLFWWindow.cpp" "src/window/api/WindowFactory.h" "src/window/api/WindowFactory.cpp")
 
 find_package(magic_enum CONFIG REQUIRED)
-
 target_link_libraries(Spark PRIVATE magic_enum::magic_enum)
+
+find_package(glfw3 3.3 REQUIRED)
+target_link_libraries(Spark PRIVATE glfw)
+
+find_package(glm REQUIRED)
+target_link_libraries(Spark PUBLIC glm::glm)
 
 set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 
 # Precompiled Headers
-target_precompile_headers(Spark PRIVATE "src/precompiled_headers/std.h" "src/precompiled_headers/logging.h" "src/precompiled_headers/utils.h")
+target_precompile_headers(Spark PRIVATE "src/pch.h")
 set(CMAKE_PCH_INSTANTIATE_TEMPLATES ON)
 
 # Set the installation directory for your library
