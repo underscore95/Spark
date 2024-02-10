@@ -13,7 +13,7 @@ Warning: Will likely be abandoned eventually.
 - [x] Console Logging
 - [x] Events
 - [ ] Store logs in files
-- [ ] Window
+- [x] Window
 - [ ] Renderer
 - [ ] Camera
 - [ ] Automated Tests
