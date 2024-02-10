@@ -17,13 +17,16 @@ include_directories(${CMAKE_SOURCE_DIR}/src/)
 include_directories(${CMAKE_SOURCE_DIR}/src/precompiled_headers/)
 
 add_library(Spark SHARED
-    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowCloseEvent.h" "src/events/EventContainer.h"  "src/precompiled_headers/std.h" "src/precompiled_headers/std.cpp" "src/precompiled_headers/logging.h" "src/precompiled_headers/logging.cpp" "src/precompiled_headers/utils.h" "src/precompiled_headers/utils.cpp")
+    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/SparkEngine.h" "src/SparkEngine.cpp"  "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowCloseEvent.h" "src/events/EventContainer.h"  "src/precompiled_headers/std.h" "src/precompiled_headers/std.cpp" "src/precompiled_headers/logging.h" "src/precompiled_headers/logging.cpp" "src/precompiled_headers/utils.h" "src/precompiled_headers/utils.cpp" "src/window/abstract/Window.h" "src/window/abstract/Window.cpp" "src/window/glfw/GLFWWindow.h" )
 
 find_package(magic_enum CONFIG REQUIRED)
 target_link_libraries(Spark PRIVATE magic_enum::magic_enum)
 
 find_package(glfw3 3.3 REQUIRED)
 target_link_libraries(Spark PRIVATE glfw)
+
+find_package(glm REQUIRED)
+target_link_libraries(Spark PUBLIC glm::glm)
 
 set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 
