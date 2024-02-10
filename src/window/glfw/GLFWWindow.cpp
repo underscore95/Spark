@@ -5,11 +5,9 @@
 void errorCallback(int error, const char* description)
 {
 	auto& logger = Spark::Logging::getLogger("spark");
-	std::string message;
 	std::stringstream ss;
 	ss << "glfw error occurred. (Error Code: " << error << ")\n" << description;
-	ss.str(message);
-	logger.severe(message);
+	logger.severe(ss);
 }
 
 bool Spark::Window::GLFWWindow::createWindow()
