@@ -37,6 +37,26 @@ void Spark::Logging::Logger::debug(const std::string& message) const
 	log(LogLevel::INFO, true, message);
 }
 
+void Spark::Logging::Logger::info(std::stringstream& ss) const
+{
+	info(ss.str());
+}
+
+void Spark::Logging::Logger::warning(std::stringstream& ss) const
+{
+	warning(ss.str());
+}
+
+void Spark::Logging::Logger::debug(std::stringstream& ss) const
+{
+	debug(ss.str());
+}
+
+void Spark::Logging::Logger::severe(std::stringstream& ss) const
+{
+	severe(ss.str());
+}
+
 const std::string& Spark::Logging::Logger::getName() const
 {
 	return name;
