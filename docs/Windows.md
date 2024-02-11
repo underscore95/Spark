@@ -8,13 +8,15 @@ The following code will create the window using a supported dependency (e.g glfw
 window = Spark::Window::create("My Spark Game");
 
 if (!window->isSuccessfullyInitialised()) {
-	std::cout << "Failed to init window\n";
+	logger.severe("Failed to init window");
 }
 ```
 
-Your game loop should look something like this:
+Your application update method should look something like this:
 ```
-while (window->isWindowOpen()) {
-	window->update();
+window->update();
+
+if (!window->isWindowOpen()) {
+	stop();
 }
 ```
