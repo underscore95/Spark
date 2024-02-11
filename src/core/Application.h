@@ -9,6 +9,7 @@ namespace Spark {
 		virtual ~Application();
 
 		// Feel free to override this function, but make sure to call Application's stop() in your function
+		// This function being called is the only way for an Application to stop.
 		virtual void stop();
 
 		virtual void update() = 0;
