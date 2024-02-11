@@ -14,11 +14,12 @@ namespace SparkInternal::Logging {
 	std::mutex logQueueMutex;
 	std::condition_variable logQueueCondition;
 
-	std::thread thread(handleLogs);
+	std::thread loggingThread(handleLogs);
+	bool handlingLogs = false;
 
 	void handleLogs() {
-		thread.detach();
-		while (true) {
+		handlingLogs = true;
+		while (handlingLogs) {
 			// Consume the next log
 			std::unique_lock<std::mutex> lock(logQueueMutex);
 			logQueueCondition.wait(lock, [] { return !logQueue.empty(); });
@@ -70,5 +71,11 @@ namespace SparkInternal::Logging {
 				logQueue.emplace(time, level, loggerName, loggerCreationTime, message, debug, logToFile);
 			}
 			logQueueCondition.notify_one();
+	}
+
+	void onExit()
+	{
+		handlingLogs = false;
+		loggingThread.join();
 	}
 }
