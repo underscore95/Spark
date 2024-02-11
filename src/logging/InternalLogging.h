@@ -27,4 +27,7 @@ namespace SparkInternal::Logging {
 	// Add a log to the queue
 	void log(const std::chrono::system_clock::time_point& time, const Spark::Logging::LogLevel& level,
 		const std::string& loggerName, const std::string& loggerCreationTime, const std::string& message, const bool debug, const bool logToFile);
+
+	// Called when spark exits
+	void onExit();
 }
