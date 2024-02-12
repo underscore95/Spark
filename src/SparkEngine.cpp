@@ -30,7 +30,9 @@ namespace SparkInternal {
 		Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
 
 		auto& logger = Spark::Logging::getLogger("spark");
-		logger.info("Initialised Spark Engine");
+		std::stringstream ss;
+		ss << "Initialised Spark Engine " << SPARK_VERSION;
+		logger.info(ss);
 
 		app = appInitialiser(); // This should be the last thing in the init function
 		mainLoop();
