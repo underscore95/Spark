@@ -5,6 +5,7 @@
 
 namespace SparkInternal {
 	Spark::Application* app;
+	unsigned int fps = 0;
 
 	static void handleExit()
 	{
@@ -17,9 +18,28 @@ namespace SparkInternal {
 	}
 
 	static void mainLoop() {
+		float deltaTime = 1.0 / 120.0;
+
+		auto lastFPSCalculation = std::chrono::system_clock::now();
+		unsigned int framesThisSecond = 0;
 		while (app->isRunning()) {
-			app->update();
+			auto startFrame = std::chrono::system_clock::now();
+
+			// MAIN GAME LOGIC -------
+			app->update(deltaTime);
 			app->render();
+			// END MAIN GAME LOGIC -----
+
+			auto endFrame = std::chrono::system_clock::now();
+			deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(endFrame - startFrame).count();
+
+			++framesThisSecond;
+			if (endFrame - lastFPSCalculation >= std::chrono::seconds(1)) {
+				fps = framesThisSecond;
+				std::cout << "updating fps: " << fps << "\n";
+				framesThisSecond = 0;
+				lastFPSCalculation = endFrame;
+			}
 		}
 
 		handleExit();
@@ -37,4 +57,9 @@ namespace SparkInternal {
 		app = appInitialiser(); // This should be the last thing in the init function
 		mainLoop();
 	}
+}
+
+const unsigned int Spark::getFPS()
+{
+	return SparkInternal::fps;
 }

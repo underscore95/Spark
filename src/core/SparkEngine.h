@@ -12,4 +12,6 @@ namespace Spark {
 	init() {
 		SparkInternal::init([] { return new T(); });
 	}
+
+	const unsigned int getFPS();
 }
