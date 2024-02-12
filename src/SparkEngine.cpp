@@ -17,9 +17,17 @@ namespace SparkInternal {
 	}
 
 	static void mainLoop() {
+		float deltaTime = 1.0 / 120.0;
 		while (app->isRunning()) {
-			app->update();
+			auto startFrame = std::chrono::system_clock::now();
+
+			// MAIN GAME LOGIC -------
+			app->update(deltaTime);
 			app->render();
+			// END MAIN GAME LOGIC -----
+
+			auto endFrame = std::chrono::system_clock::now();
+			deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(endFrame - startFrame).count();
 		}
 
 		handleExit();
