@@ -38,8 +38,10 @@ namespace Spark::Entity {
 
 	// Add a new component to the entity
 	template <typename T>
-	typename std::enable_if<std::is_base_of<BaseComponent, T>::value && !std::is_same<BaseComponent, T>::value>::type
-		addComponent(unsigned int entityId) {
+	T& addComponent(unsigned int entityId) {
+		static_assert(std::is_base_of<BaseComponent, T>::value && !std::is_same<BaseComponent, T>::value,
+			"T must be a derived class of BaseComponent");
+
 		BaseComponent* component = new T();
 		std::string componentId = typeid(T).name();
 		auto& entity = SparkInternal::Entity::entities[entityId];
@@ -51,6 +53,7 @@ namespace Spark::Entity {
 #endif
 
 		entity.insert(std::pair(componentId, component));
+		return *component;
 	}
 
 	// Find all entities with all components, optionally specify a count
