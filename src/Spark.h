@@ -3,7 +3,6 @@
 // This will include most important .h files in spark
 
 #include "core/Application.h"
-#include "core/SparkEngine.h"
 
 // Window
 #include "window/abstract/Window.h"
