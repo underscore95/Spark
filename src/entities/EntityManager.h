@@ -7,7 +7,7 @@
 
 namespace SparkInternal::Entity {
 	std::unordered_map<unsigned int, std::unordered_map<std::string, Spark::Entity::BaseComponent*>> entities;
-	unsigned int nextEntityId = 0;
+	unsigned int lastEntityId = 0;
 
 	void onExit() {
 		for (auto& entityPair : entities) {
@@ -33,7 +33,7 @@ namespace Spark::Entity {
 	// Returns a new entity id, which you can use to add components to.
 	unsigned int addEntity() {
 		// Entities don't really exist, all we use is an id, so we don't need to do anything other than return a new unique id
-		return ++SparkInternal::Entity::nextEntityId;
+		return ++SparkInternal::Entity::lastEntityId;
 	}
 
 	// Add a new component to the entity
