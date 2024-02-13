@@ -28,3 +28,5 @@
 #include <fstream>
 #include <filesystem>
 #include <functional>
+#include <typeinfo>
+#include <limits.h>
