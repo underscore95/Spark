@@ -20,3 +20,5 @@
 // Entities
 #include "entities/BaseComponent.h"
 #include "entities/EntityManager.h"
+#include "entities/ComponentTypeRegistry.h"
+#include "entities/View.h"
