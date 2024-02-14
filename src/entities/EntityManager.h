@@ -17,16 +17,6 @@ namespace SparkInternal::Entity {
 		}
 		entities.clear();
 	}
-
-	template<typename... Ts>
-	void insertComponentIds(std::unordered_set<std::string>& componentIds) {}
-
-	template<typename T, typename... Ts>
-	void insertComponentIds(std::unordered_set<std::string>& componentIds) {
-		const std::string id = typeid(T).name();
-		componentIds.insert(id);
-		insertComponentIds<Ts...>(componentIds);
-	}
 }
 
 namespace Spark::Entity {
@@ -67,7 +57,7 @@ namespace Spark::Entity {
 
 		// Get all required components
 		std::unordered_set<std::string> componentIds;
-		SparkInternal::Entity::insertComponentIds<T...>(componentIds);
+		//(componentIds.insert(SparkInternal::ComponentTypeRegistry::getInstance().getTypeId<T>()), ...);
 
 		// Loop over all entities, if entity contains all components, entity matches
 		for (const auto& entity : SparkInternal::Entity::entities) {
