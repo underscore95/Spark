@@ -42,7 +42,7 @@ namespace Spark::Entity {
 		auto& entity = SparkInternal::Entity::entities[entityId];
 #ifndef NDEBUG
 		if (entity.find(componentId) != entity.end()) {
-			auto& logger = Spark::Logging::getLogger("spark");
+			auto& logger = Spark::getLogger("spark");
 			logger.warning("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId));
 		}
 #endif

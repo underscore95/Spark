@@ -11,7 +11,7 @@ namespace SparkInternal {
 
 	static void handleExit()
 	{
-		auto& logger = Spark::Logging::getLogger("spark");
+		auto& logger = Spark::getLogger("spark");
 		logger.info("Exiting Spark Engine...");
 
 		SparkInternal::Systems::onExit();
@@ -57,7 +57,7 @@ namespace SparkInternal {
 	{
 		Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
 
-		auto& logger = Spark::Logging::getLogger("spark");
+		auto& logger = Spark::getLogger("spark");
 		std::stringstream ss;
 		ss << "Initialised Spark Engine " << SPARK_VERSION;
 		logger.info(ss);

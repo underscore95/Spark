@@ -21,7 +21,7 @@ void Spark::Window::GLFWWindow::windowResizeCallback(GLFWwindow* window, int wid
 
 bool Spark::Window::GLFWWindow::createWindow()
 {
-	auto& logger = Spark::Logging::getLogger("spark");
+	auto& logger = Spark::getLogger("spark");
 	glfwSetErrorCallback(errorCallback);
 
 	if (!glfwInit()) {

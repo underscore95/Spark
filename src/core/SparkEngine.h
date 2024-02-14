@@ -9,7 +9,7 @@ namespace SparkInternal {
 namespace Spark {
 	template<typename T>
 	typename std::enable_if<std::is_base_of<Spark::Application, T>::value && !std::is_same<Spark::Application, T>::value>::type
-	init() {
+	inline init() {
 		SparkInternal::init([] { return new T(); });
 	}
 
