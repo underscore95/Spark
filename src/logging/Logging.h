@@ -12,3 +12,7 @@ namespace Spark::Logging {
 	Logger& getLogger(const std::string& name);
 	void registerLogger(std::unique_ptr<Spark::Logging::Logger> logger);
 }
+
+namespace Spark {
+	inline Spark::Logging::Logger& getLogger(const std::string& name) { return Spark::Logging::getLogger(name); }
+}
