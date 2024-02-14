@@ -97,7 +97,7 @@ namespace Spark::Entity {
 	}
 
 	// Get all components on an entity
-	inline std::unordered_map<size_t, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
+	inline const std::unordered_map<size_t, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
 		return SparkInternal::Entity::entities[entityId];
 	}
 }
