@@ -13,6 +13,8 @@ Warning: Will likely be abandoned eventually.
 - [x] Logging
 - [x] Events
 - [x] Window
+- [x] Entities
+- [ ] Systems
 - [ ] Renderer
 - [ ] Camera
 - [ ] Automated Tests
