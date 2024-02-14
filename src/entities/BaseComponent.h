@@ -7,5 +7,6 @@ namespace Spark::Entity {
 	private:
 
 	public:
+		virtual ~BaseComponent() {}
 	};
 }
