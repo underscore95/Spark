@@ -17,6 +17,9 @@ namespace SparkInternal::Entity {
 			}
 		}
 		entities.clear();
+
+		auto* typeRegistry = &(SparkInternal::Entity::ComponentTypeRegistry::getInstance());
+		delete typeRegistry;
 	}
 }
 
