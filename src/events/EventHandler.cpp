@@ -15,7 +15,7 @@ namespace Spark::Events {
 
 	void registerListener(const EventListener* listener)
 	{
-		auto& logger = Spark::Logging::getLogger("spark");
+		auto& logger = SparkInternal::getLogger();
 		logger.debug("Registered listener");
 
 
@@ -28,13 +28,13 @@ namespace Spark::Events {
 			// Duplicate listener registration warning
 			auto it = std::find(typeListeners.begin(), typeListeners.end(), listener);
 			if (it != typeListeners.end()) {
-				auto& logger = Spark::Logging::getLogger("spark");
+				auto& logger = SparkInternal::getLogger();
 				logger.warning("Duplicate registration for event listener " + std::to_string((unsigned long long)listener) + " (type=" + std::string(magic_enum::enum_name(type)) + ")");
 			}
 
 			// NONE event type
 			if (type == EventType::NONE) {
-				auto& logger = Spark::Logging::getLogger("spark");
+				auto& logger = SparkInternal::getLogger();
 				logger.warning("Registered event listener with event type NONE: " + std::to_string((unsigned long long)listener));
 			}
 #endif
@@ -44,7 +44,7 @@ namespace Spark::Events {
 
 	void unregisterListener(const EventListener* listener)
 	{
-		auto& logger = Spark::Logging::getLogger("spark");
+		auto& logger = SparkInternal::getLogger();
 		logger.debug("Unregistered listener");
 
 		const short priority = listener->getPriority();
@@ -63,7 +63,7 @@ namespace Spark::Events {
 	{
 		const auto type = event.getType();
 		if (type == EventType::NONE) {
-			auto& logger = Spark::Logging::getLogger("spark");
+			auto& logger = SparkInternal::getLogger();
 			logger.warning("Called event with NONE type");
 			return;
 		}

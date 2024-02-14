@@ -7,7 +7,7 @@ You can register your games logger using
 `Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "loggerName");`
 
 You can get a reference to a logger using
-`Spark::Logging::getLogger("loggerName");`
+`Spark::getLogger("loggerName");`
 
 SEVERE logs will flush output buffers (std::endl), but lower log levels will not.
 

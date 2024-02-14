@@ -5,7 +5,7 @@
 #include "events/Events.h"
 
 void errorCallback(int error, const char* description) {
-	auto& logger = Spark::Logging::getLogger("spark");
+	auto& logger = SparkInternal::getLogger();
 	std::stringstream ss;
 	ss << "glfw error occurred. (Error Code: " << error << ")\n" << description;
 	logger.severe(ss);
@@ -21,7 +21,7 @@ void Spark::Window::GLFWWindow::windowResizeCallback(GLFWwindow* window, int wid
 
 bool Spark::Window::GLFWWindow::createWindow()
 {
-	auto& logger = Spark::Logging::getLogger("spark");
+	auto& logger = SparkInternal::getLogger();
 	glfwSetErrorCallback(errorCallback);
 
 	if (!glfwInit()) {
