@@ -3,6 +3,7 @@
 #include "logging/Logging.h"
 #include "logging/InternalLogging.h"
 #include "entities/EntityManager.h"
+#include "systems/SystemManager.h"
 
 namespace SparkInternal {
 	Spark::Application* app;
@@ -13,8 +14,9 @@ namespace SparkInternal {
 		auto& logger = Spark::Logging::getLogger("spark");
 		logger.info("Exiting Spark Engine...");
 
-		SparkInternal::Logging::onExit();
+		SparkInternal::Systems::onExit();
 		SparkInternal::Entity::onExit();
+		SparkInternal::Logging::onExit();
 
 		delete app;
 	}
@@ -27,10 +29,15 @@ namespace SparkInternal {
 		while (app->isRunning()) {
 			auto startFrame = std::chrono::system_clock::now();
 
-			// MAIN GAME LOGIC -------
+			// ------- MAIN GAME LOGIC -------
+			// ------- UPDATE -------
 			app->update(deltaTime);
+			SparkInternal::Systems::onUpdate(deltaTime);
+
+			// ------- RENDER -------
 			app->render();
-			// END MAIN GAME LOGIC -----
+			SparkInternal::Systems::onRender();
+			// ------- END MAIN GAME LOGIC -----
 
 			auto endFrame = std::chrono::system_clock::now();
 			deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(endFrame - startFrame).count();
