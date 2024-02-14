@@ -6,10 +6,10 @@
 #include "logging/Logging.h"
 
 namespace SparkInternal::Entity {
-	std::unordered_map<unsigned int, std::unordered_map<std::string, Spark::Entity::BaseComponent*>> entities;
-	unsigned int lastEntityId = 0;
+	inline std::unordered_map<unsigned int, std::unordered_map<std::string, Spark::Entity::BaseComponent*>> entities;
+	inline unsigned int lastEntityId = 0;
 
-	void onExit() {
+	inline void onExit() {
 		for (auto& entityPair : entities) {
 			for (auto& componentPair : entityPair.second) {
 				delete componentPair.second;
@@ -21,14 +21,14 @@ namespace SparkInternal::Entity {
 
 namespace Spark::Entity {
 	// Returns a new entity id, which you can use to add components to.
-	unsigned int addEntity() {
+	inline unsigned int addEntity() {
 		// Entities don't really exist, all we use is an id, so we don't need to do anything other than return a new unique id
 		return ++SparkInternal::Entity::lastEntityId;
 	}
 
 	// Add a new component to the entity
 	template <typename T>
-	T& addComponent(unsigned int entityId) {
+	inline T& addComponent(unsigned int entityId) {
 		static_assert(std::is_base_of<BaseComponent, T>::value && !std::is_same<BaseComponent, T>::value,
 			"T must be a derived class of BaseComponent");
 
@@ -51,7 +51,7 @@ namespace Spark::Entity {
 	// The default if no count is specified will return all matching entities.
 	// O(nm) where n is amount of entities and m is amount of components
 	template <typename... T>
-	const std::vector<unsigned int>& getEntities(unsigned int count = UINT_MAX) {
+	inline const std::vector<unsigned int>& getEntities(unsigned int count = UINT_MAX) {
 		std::vector<unsigned int> matchingEntities;
 		if (count == 0) return matchingEntities;
 
@@ -80,7 +80,7 @@ namespace Spark::Entity {
 	}
 
 	// Remove an entity, deleting all its components
-	void removeEntity(unsigned int entityId) {
+	inline void removeEntity(unsigned int entityId) {
 		auto it = SparkInternal::Entity::entities.find(entityId);
 		if (it != SparkInternal::Entity::entities.end()) {
 			auto& entity = SparkInternal::Entity::entities.at(entityId);
@@ -93,7 +93,7 @@ namespace Spark::Entity {
 	}
 
 	// Get all components on an entity
-	std::unordered_map<std::string, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
+	inline std::unordered_map<std::string, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
 		return SparkInternal::Entity::entities[entityId];
 	}
 }
