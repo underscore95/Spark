@@ -42,3 +42,6 @@ for (auto entity : view) {
 	ModelManager::renderModel(modelComp.modelId, transformComp.position);
 }
 ```
+
+# Notes
+This is based on ENTT: `https://github.com/skypjack/entt/`
