@@ -42,7 +42,7 @@ namespace Spark::Entity {
 		static_assert(std::is_base_of<BaseComponent, T>::value && !std::is_same<BaseComponent, T>::value,
 			"T must be a derived class of BaseComponent");
 
-		BaseComponent* component = new T();
+		T* component = new T();
 		std::string componentId = typeid(T).name();
 		auto& entity = SparkInternal::Entity::entities[entityId];
 #ifndef NDEBUG
