@@ -4,9 +4,10 @@
 #include "BaseComponent.h"
 #include "logging/Logger.h"
 #include "logging/Logging.h"
+#include "ComponentTypeRegistry.h"
 
 namespace SparkInternal::Entity {
-	inline std::unordered_map<unsigned int, std::unordered_map<std::string, Spark::Entity::BaseComponent*>> entities;
+	inline std::unordered_map<unsigned int, std::unordered_map<size_t, Spark::Entity::BaseComponent*>> entities;
 	inline unsigned int lastEntityId = 0;
 
 	inline void onExit() {
@@ -33,12 +34,12 @@ namespace Spark::Entity {
 			"T must be a derived class of BaseComponent");
 
 		T* component = new T();
-		std::string componentId = typeid(T).name();
+		size_t componentId = SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>();
 		auto& entity = SparkInternal::Entity::entities[entityId];
 #ifndef NDEBUG
 		if (entity.find(componentId) != entity.end()) {
 			auto& logger = Spark::Logging::getLogger("spark");
-			logger.warning("Adding duplicate component " + componentId + " to entity " + std::to_string(entityId));
+			logger.warning("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId));
 		}
 #endif
 
@@ -56,8 +57,8 @@ namespace Spark::Entity {
 		if (count == 0) return matchingEntities;
 
 		// Get all required components
-		std::unordered_set<std::string> componentIds;
-		//(componentIds.insert(SparkInternal::ComponentTypeRegistry::getInstance().getTypeId<T>()), ...);
+		std::unordered_set<size_t> componentIds;
+		(componentIds.insert(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()), ...);
 
 		// Loop over all entities, if entity contains all components, entity matches
 		for (const auto& entity : SparkInternal::Entity::entities) {
@@ -93,7 +94,7 @@ namespace Spark::Entity {
 	}
 
 	// Get all components on an entity
-	inline std::unordered_map<std::string, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
+	inline std::unordered_map<size_t, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
 		return SparkInternal::Entity::entities[entityId];
 	}
 }
