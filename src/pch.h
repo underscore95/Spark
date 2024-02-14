@@ -11,6 +11,7 @@
 #include <stack>
 #include <string>
 #include <queue>
+#include <tuple>
 
 // STD Multithreading
 
