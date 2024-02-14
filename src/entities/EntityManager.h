@@ -55,8 +55,8 @@ namespace Spark::Entity {
 	// The default if no count is specified will return all matching entities.
 	// O(nm) where n is amount of entities and m is amount of components
 	template <typename... T>
-	inline const std::vector<unsigned int> getEntities(unsigned int count = UINT_MAX) {
-		std::vector<unsigned int> matchingEntities;
+	inline const std::vector<std::pair<unsigned int, std::unordered_map<size_t, Spark::Entity::BaseComponent*>>> getEntities(unsigned int count = UINT_MAX) {
+		std::vector<std::pair<unsigned int, std::unordered_map<size_t, Spark::Entity::BaseComponent*>>> matchingEntities;
 		if (count == 0) return matchingEntities;
 
 		// Get all required components
@@ -74,9 +74,8 @@ namespace Spark::Entity {
 				}
 			}
 
-
 			if (hasAllComponents) {
-				matchingEntities.push_back(entity.first);
+				matchingEntities.push_back(entity);
 				if (matchingEntities.size() >= count) break;
 			}
 		}
