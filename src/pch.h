@@ -32,3 +32,4 @@
 #include <typeinfo>
 #include <limits.h>
 #include <typeindex>
+#include <iterator>
