@@ -16,3 +16,7 @@ namespace Spark::Logging {
 namespace Spark {
 	inline Spark::Logging::Logger& getLogger(const std::string& name) { return Spark::Logging::getLogger(name); }
 }
+
+namespace SparkInternal {
+	inline Spark::Logging::Logger& getLogger() { return Spark::Logging::getLogger("spark"); }
+}

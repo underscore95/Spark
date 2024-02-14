@@ -45,7 +45,7 @@ namespace Spark::Entity {
 			auto it = entities.find(entityId);
 #ifndef NDEBUG
 			if (it == entities.end()) {
-				auto& logger = Spark::getLogger("spark");
+				auto& logger = SparkInternal::getLogger();
 				logger.severe("Tried to get components of entity " + std::to_string(entityId) + " that isn't in view");
 			}
 #endif
