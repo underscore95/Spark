@@ -29,3 +29,8 @@ Spark::Entity::View::iterator Spark::Entity::View::end() const
 {
     return iterator(entities.end());
 }
+
+size_t Spark::Entity::View::count() const
+{
+    return entities.size();
+}

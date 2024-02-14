@@ -37,6 +37,8 @@ namespace Spark::Entity {
 		iterator begin() const;
 		iterator end() const;
 
+		size_t count() const;
+
 		// Get all components of a specific type on this entity
 		template<typename... T>
 		inline std::tuple<T&...> get(unsigned int entityId) const {
