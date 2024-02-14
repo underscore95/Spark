@@ -11,6 +11,7 @@
 #include <stack>
 #include <string>
 #include <queue>
+#include <tuple>
 
 // STD Multithreading
 
@@ -30,3 +31,5 @@
 #include <functional>
 #include <typeinfo>
 #include <limits.h>
+#include <typeindex>
+#include <iterator>

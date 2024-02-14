@@ -2,6 +2,7 @@
 #include "logging/Logger.h"
 #include "logging/Logging.h"
 #include "logging/InternalLogging.h"
+#include "entities/EntityManager.h"
 
 namespace SparkInternal {
 	Spark::Application* app;
@@ -13,6 +14,7 @@ namespace SparkInternal {
 		logger.info("Exiting Spark Engine...");
 
 		SparkInternal::Logging::onExit();
+		SparkInternal::Entity::onExit();
 
 		delete app;
 	}
@@ -36,7 +38,6 @@ namespace SparkInternal {
 			++framesThisSecond;
 			if (endFrame - lastFPSCalculation >= std::chrono::seconds(1)) {
 				fps = framesThisSecond;
-				std::cout << "updating fps: " << fps << "\n";
 				framesThisSecond = 0;
 				lastFPSCalculation = endFrame;
 			}

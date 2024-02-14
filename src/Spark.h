@@ -16,3 +16,9 @@
 #include "events/Events.h"
 #include "events/EventListener.h"
 #include "events/EventContainer.h"
+
+// Entities
+#include "entities/BaseComponent.h"
+#include "entities/EntityManager.h"
+#include "entities/ComponentTypeRegistry.h"
+#include "entities/View.h"
