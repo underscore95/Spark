@@ -30,3 +30,4 @@
 #include <functional>
 #include <typeinfo>
 #include <limits.h>
+#include <typeindex>
