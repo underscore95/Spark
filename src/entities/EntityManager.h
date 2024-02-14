@@ -101,4 +101,9 @@ namespace Spark::Entity {
 			SparkInternal::Entity::entities.erase(entityId);
 		}
 	}
+
+	// Get all components on an entity
+	std::unordered_map<std::string, Spark::Entity::BaseComponent*>& getEntity(unsigned int entityId) {
+		return SparkInternal::Entity::entities[entityId];
+	}
 }
