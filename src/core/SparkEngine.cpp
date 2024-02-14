@@ -38,7 +38,6 @@ namespace SparkInternal {
 			++framesThisSecond;
 			if (endFrame - lastFPSCalculation >= std::chrono::seconds(1)) {
 				fps = framesThisSecond;
-				std::cout << "updating fps: " << fps << "\n";
 				framesThisSecond = 0;
 				lastFPSCalculation = endFrame;
 			}
