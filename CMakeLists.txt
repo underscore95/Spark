@@ -35,13 +35,13 @@ set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 target_precompile_headers(Spark PRIVATE "src/pch.h")
 set(CMAKE_PCH_INSTANTIATE_TEMPLATES ON)
 
-# Set the installation directory for your library
+# Set the installation directory
 set(INSTALL_DESTINATION lib)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include
         FILES_MATCHING PATTERN "*.h")
 
-# Define the target to install (your game engine library)
+# Define the target to install
 install(TARGETS Spark
         EXPORT SparkTargets
         LIBRARY DESTINATION ${INSTALL_DESTINATION}
