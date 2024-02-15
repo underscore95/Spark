@@ -7,7 +7,7 @@ if (POLICY CMP0141)
 endif()
 
 # Version
-project ("Spark" LANGUAGES CXX VERSION 0.6.1)
+project ("Spark" LANGUAGES CXX VERSION 0.6.2)
 add_compile_definitions(-DSPARK_VERSION="v${CMAKE_PROJECT_VERSION}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -59,3 +59,15 @@ install(EXPORT SparkTargets
 install(FILES ${CMAKE_SOURCE_DIR}/SparkConfig.cmake
         DESTINATION ${INSTALL_DESTINATION})
 
+# Testing
+enable_testing()
+
+add_executable(SparkTests "tests/test.cpp")
+
+target_link_libraries(SparkTests PRIVATE Spark)
+
+# Google Testing
+find_package(GTest CONFIG REQUIRED)
+target_link_libraries(SparkTests PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
+
+add_test(NAME SparkTests COMMAND SparkTests)
