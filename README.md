@@ -17,9 +17,9 @@ Warning: Will likely be abandoned eventually.
 - [x] Window
 - [x] Entities
 - [x] Systems
+- [x] Automated Tests
 - [ ] Renderer
 - [ ] Camera
-- [ ] Automated Tests
 - [ ] User Input
 - [ ] Sound Effects
 - [ ] Music
