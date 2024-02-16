@@ -9,7 +9,7 @@
 namespace Spark::Entity {
 	class View {
 	private:
-		const std::unordered_map<unsigned int, std::unordered_map<size_t, Spark::Entity::BaseComponent*>> entities;
+		const std::unordered_map<unsigned int, std::vector<Spark::Entity::BaseComponent*>> entities;
 
 	public:
 		// Entity id iterator
@@ -31,7 +31,7 @@ namespace Spark::Entity {
 
 		View() = delete;
 		View(const View&) = delete;
-		View(const std::unordered_map<unsigned int, std::unordered_map<size_t, Spark::Entity::BaseComponent*>>& entities)
+		View(const std::unordered_map<unsigned int, std::vector<Spark::Entity::BaseComponent*>>& entities)
 			: entities{ entities } {};
 
 		iterator begin() const;
@@ -50,7 +50,7 @@ namespace Spark::Entity {
 			}
 #endif
 			// Get all the component ids/components on this entity
-			const std::unordered_map<size_t, Spark::Entity::BaseComponent*>& thisEntity = it->second;
+			const std::vector<Spark::Entity::BaseComponent*>& thisEntity = it->second;
 
 			// Get all the requested components
 			return std::tie(dynamic_cast<T&>(*thisEntity.at(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()))...);

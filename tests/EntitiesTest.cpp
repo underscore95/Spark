@@ -23,9 +23,9 @@ TEST(Entities, addComponentAndGetEntity) {
 
     const auto& comps = Spark::Entity::getEntity(entity);
     ASSERT_EQ(comps.size(), 1); // Ensure only one component added
-    auto it = comps.find(testComponentId);
-    ASSERT_TRUE(it != comps.end()); // Ensure TestComponent is added
-    TestComponent* testComponent = dynamic_cast<TestComponent*>(it->second);
+    auto baseComponent = comps[testComponentId];
+    ASSERT_TRUE(baseComponent != nullptr); // Ensure TestComponent is added
+    TestComponent* testComponent = dynamic_cast<TestComponent*>(baseComponent);
     ASSERT_TRUE(testComponent != nullptr); // Ensure correct component type
     ASSERT_EQ(testComponent->a, 2); // Ensure component data is set correctly
 
