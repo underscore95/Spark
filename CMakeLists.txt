@@ -18,7 +18,7 @@ include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 include_directories(${CMAKE_SOURCE_DIR}/src/)
 
 add_library(Spark SHARED
-    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/core/SparkEngine.h"   "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowResize.h" "src/events/EventContainer.h"  "src/pch.h"      "src/window/abstract/Window.h" "src/window/abstract/Window.cpp" "src/window/glfw/GLFWWindow.h" "src/window/glfw/GLFWWindow.cpp" "src/window/api/WindowFactory.h" "src/window/api/WindowFactory.cpp" "src/core/SparkEngine.cpp" "src/entities/BaseComponent.h" "src/entities/EntityManager.h" "src/entities/ComponentTypeRegistry.h" "src/entities/View.h" "src/entities/View.cpp" "src/systems/System.h" "src/systems/SystemManager.h" "src/systems/SystemManager.cpp" "tests/entities/entities_test.cpp" )
+    "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/core/SparkEngine.h"   "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowResize.h" "src/events/EventContainer.h"  "src/pch.h"      "src/window/abstract/Window.h" "src/window/abstract/Window.cpp" "src/window/glfw/GLFWWindow.h" "src/window/glfw/GLFWWindow.cpp" "src/window/api/WindowFactory.h" "src/window/api/WindowFactory.cpp" "src/core/SparkEngine.cpp" "src/entities/BaseComponent.h" "src/entities/EntityManager.h" "src/entities/ComponentTypeRegistry.h" "src/entities/View.h" "src/entities/View.cpp" "src/systems/System.h" "src/systems/SystemManager.h" "src/systems/SystemManager.cpp")
 
 find_package(magic_enum CONFIG REQUIRED)
 target_link_libraries(Spark PRIVATE magic_enum::magic_enum)
@@ -38,10 +38,14 @@ set(CMAKE_PCH_INSTANTIATE_TEMPLATES ON)
 # Testing
 enable_testing()
 
-add_executable(SparkTests   "tests/TestMain.cpp" "tests/entities/entities_test.cpp" )
+add_executable(SparkTests  "tests/EntitiesTest.cpp" )
+set_property(TARGET SparkTests PROPERTY CXX_STANDARD 26)
 
-# Google Testing
-find_package(GTest REQUIRED)
-target_link_libraries(SparkTests PRIVATE Spark GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
+include_directories(${CMAKE_SOURCE_DIR}/tests/)
 
-gtest_discover_tests(SparkTests)
+# GTest
+find_package(GTest CONFIG REQUIRED)
+target_link_libraries(SparkTests PRIVATE GTest::gtest_main)
+target_link_libraries(SparkTests PRIVATE Spark)
+
+add_test(NAME SparkTests COMMAND SparkTests)
