@@ -44,38 +44,4 @@ add_executable(SparkTests "tests/test.cpp")
 find_package(GTest REQUIRED)
 target_link_libraries(SparkTests PRIVATE Spark GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
 
-add_test(NAME SparkTests COMMAND SparkTests)
-
-# Install
-# Set the installation directory
-set(INSTALL_DESTINATION lib)
-
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include
-        FILES_MATCHING PATTERN "*.h")
-
-# Define the target to install
-install(
-    TARGETS Spark
-    EXPORT SparkTargets
-    LIBRARY DESTINATION ${INSTALL_DESTINATION}
-    ARCHIVE DESTINATION ${INSTALL_DESTINATION}
-    RUNTIME DESTINATION ${INSTALL_DESTINATION}
-    INCLUDES DESTINATION include
-    COMPONENT dev
-)
-
-install(
-    TARGETS SparkTests
-    RUNTIME DESTINATION ${INSTALL_DESTINATION}
-    COMPONENT test
-)
-
-# Export the target
-install(EXPORT SparkTargets
-       FILE "SparkTargets.cmake"
-       NAMESPACE Spark::
-       DESTINATION ${INSTALL_DESTINATION})
-
-# Install the package configuration file
-install(FILES ${CMAKE_SOURCE_DIR}/SparkConfig.cmake
-        DESTINATION ${INSTALL_DESTINATION})
+gtest_discover_tests(SparkTests)
