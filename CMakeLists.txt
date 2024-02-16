@@ -49,3 +49,6 @@ target_link_libraries(SparkTests PRIVATE GTest::gtest_main)
 target_link_libraries(SparkTests PRIVATE Spark)
 
 add_test(NAME SparkTests COMMAND SparkTests)
+
+# Include Headers
+file(COPY "${CMAKE_SOURCE_DIR}/src/" DESTINATION "${CMAKE_BINARY_DIR}/include")
