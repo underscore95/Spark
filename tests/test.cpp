@@ -2,7 +2,7 @@
 #include <iostream>
 
 TEST(TestTests, Test) {
-    std::cout << "\n\n\nTest!!!!\n\n\n";
+
 }
 
 int main(int argc, char** argv) {

@@ -35,6 +35,18 @@ set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 target_precompile_headers(Spark PRIVATE "src/pch.h")
 set(CMAKE_PCH_INSTANTIATE_TEMPLATES ON)
 
+# Testing
+enable_testing()
+
+add_executable(SparkTests "tests/test.cpp")
+
+# Google Testing
+find_package(GTest REQUIRED)
+target_link_libraries(SparkTests PRIVATE Spark GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
+
+add_test(NAME SparkTests COMMAND SparkTests)
+
+# Install
 # Set the installation directory
 set(INSTALL_DESTINATION lib)
 
@@ -42,12 +54,21 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include
         FILES_MATCHING PATTERN "*.h")
 
 # Define the target to install
-install(TARGETS Spark
-        EXPORT SparkTargets
-        LIBRARY DESTINATION ${INSTALL_DESTINATION}
-        ARCHIVE DESTINATION ${INSTALL_DESTINATION}
-        RUNTIME DESTINATION ${INSTALL_DESTINATION}
-        INCLUDES DESTINATION include)
+install(
+    TARGETS Spark
+    EXPORT SparkTargets
+    LIBRARY DESTINATION ${INSTALL_DESTINATION}
+    ARCHIVE DESTINATION ${INSTALL_DESTINATION}
+    RUNTIME DESTINATION ${INSTALL_DESTINATION}
+    INCLUDES DESTINATION include
+    COMPONENT dev
+)
+
+install(
+    TARGETS SparkTests
+    RUNTIME DESTINATION ${INSTALL_DESTINATION}
+    COMPONENT test
+)
 
 # Export the target
 install(EXPORT SparkTargets
@@ -58,16 +79,3 @@ install(EXPORT SparkTargets
 # Install the package configuration file
 install(FILES ${CMAKE_SOURCE_DIR}/SparkConfig.cmake
         DESTINATION ${INSTALL_DESTINATION})
-
-# Testing
-enable_testing()
-
-add_executable(SparkTests "tests/test.cpp")
-
-target_link_libraries(SparkTests PRIVATE Spark)
-
-# Google Testing
-find_package(GTest CONFIG REQUIRED)
-target_link_libraries(SparkTests PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
-
-add_test(NAME SparkTests COMMAND SparkTests)
