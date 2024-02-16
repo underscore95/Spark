@@ -7,7 +7,7 @@ if (POLICY CMP0141)
 endif()
 
 # Version
-project ("Spark" LANGUAGES CXX VERSION 0.6.1)
+project ("Spark" LANGUAGES CXX VERSION 0.7.0)
 add_compile_definitions(-DSPARK_VERSION="v${CMAKE_PROJECT_VERSION}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -35,27 +35,20 @@ set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 target_precompile_headers(Spark PRIVATE "src/pch.h")
 set(CMAKE_PCH_INSTANTIATE_TEMPLATES ON)
 
-# Set the installation directory for your library
-set(INSTALL_DESTINATION lib)
+# Testing
+enable_testing()
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include
-        FILES_MATCHING PATTERN "*.h")
+add_executable(SparkTests  "tests/EntitiesTest.cpp" )
+set_property(TARGET SparkTests PROPERTY CXX_STANDARD 26)
 
-# Define the target to install (your game engine library)
-install(TARGETS Spark
-        EXPORT SparkTargets
-        LIBRARY DESTINATION ${INSTALL_DESTINATION}
-        ARCHIVE DESTINATION ${INSTALL_DESTINATION}
-        RUNTIME DESTINATION ${INSTALL_DESTINATION}
-        INCLUDES DESTINATION include)
+include_directories(${CMAKE_SOURCE_DIR}/tests/)
 
-# Export the target
-install(EXPORT SparkTargets
-       FILE "SparkTargets.cmake"
-       NAMESPACE Spark::
-       DESTINATION ${INSTALL_DESTINATION})
+# GTest
+find_package(GTest CONFIG REQUIRED)
+target_link_libraries(SparkTests PRIVATE GTest::gtest_main)
+target_link_libraries(SparkTests PRIVATE Spark)
 
-# Install the package configuration file
-install(FILES ${CMAKE_SOURCE_DIR}/SparkConfig.cmake
-        DESTINATION ${INSTALL_DESTINATION})
+add_test(NAME SparkTests COMMAND SparkTests)
 
+# Include Headers
+file(COPY "${CMAKE_SOURCE_DIR}/src/" DESTINATION "${CMAKE_BINARY_DIR}/include")

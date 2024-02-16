@@ -11,13 +11,18 @@ namespace SparkInternal::Entity {
 	inline std::unordered_map<unsigned int, std::unordered_map<size_t, Spark::Entity::BaseComponent*>> entities;
 	inline unsigned int lastEntityId = 0;
 
-	inline void onExit() {
+	inline void removeAllEntities() {
 		for (auto& entityPair : entities) {
 			for (auto& componentPair : entityPair.second) {
 				delete componentPair.second;
 			}
 		}
+
 		entities.clear();
+	}
+
+	inline void onExit() {
+		removeAllEntities();
 
 		auto* typeRegistry = &(SparkInternal::Entity::ComponentTypeRegistry::getInstance());
 		delete typeRegistry;
