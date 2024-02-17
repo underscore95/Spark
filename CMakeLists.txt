@@ -50,5 +50,12 @@ target_link_libraries(SparkTests PRIVATE Spark)
 
 add_test(NAME SparkTests COMMAND SparkTests)
 
-# Include Headers
-file(COPY "${CMAKE_SOURCE_DIR}/src/" DESTINATION "${CMAKE_BINARY_DIR}/include")
+# Copy headers to output dir
+# This copies .cpp too, idk how to fix that
+add_custom_command(TARGET SparkTests
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/include
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_BINARY_DIR}/include
+)
