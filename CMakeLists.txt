@@ -7,7 +7,7 @@ if (POLICY CMP0141)
 endif()
 
 # Version
-project ("Spark" LANGUAGES CXX VERSION 0.7.1)
+project ("Spark" LANGUAGES CXX VERSION 0.8.0)
 add_compile_definitions(-DSPARK_VERSION="v${CMAKE_PROJECT_VERSION}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -20,6 +20,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/)
 add_library(Spark SHARED
     "src/logging/Logger.cpp" "src/logging/Logger.h" "src/logging/Logging.cpp" "src/logging/Logging.h" "src/utils/DateUtils.h" "src/utils/DateUtils.cpp" "src/core/Application.cpp" "src/core/Application.h"  "src/Spark.h" "src/core/SparkEngine.h"   "src/logging/InternalLogging.h" "src/logging/InternalLogging.cpp" "src/events/Event.h" "src/events/EventHandler.h" "src/events/EventHandler.cpp" "src/events/EventListener.h" "src/events/EventListener.cpp"  "src/events/Events.h" "src/events/events/WindowResize.h" "src/events/EventContainer.h"  "src/pch.h"      "src/window/abstract/Window.h" "src/window/abstract/Window.cpp" "src/window/glfw/GLFWWindow.h" "src/window/glfw/GLFWWindow.cpp" "src/window/api/WindowFactory.h" "src/window/api/WindowFactory.cpp" "src/core/SparkEngine.cpp" "src/entities/BaseComponent.h" "src/entities/EntityManager.h" "src/entities/ComponentTypeRegistry.h" "src/entities/View.h" "src/entities/View.cpp" "src/systems/System.h" "src/systems/SystemManager.h" "src/systems/SystemManager.cpp")
 
+# Spark Dependencies
 find_package(magic_enum CONFIG REQUIRED)
 target_link_libraries(Spark PRIVATE magic_enum::magic_enum)
 
@@ -29,6 +30,10 @@ target_link_libraries(Spark PRIVATE glfw)
 find_package(glm REQUIRED)
 target_link_libraries(Spark PUBLIC glm::glm)
 
+find_package(GLEW REQUIRED)
+target_link_libraries(Spark PRIVATE GLEW::GLEW)
+
+# CPP Version
 set_property(TARGET Spark PROPERTY CXX_STANDARD 26)
 
 # Precompiled Headers
