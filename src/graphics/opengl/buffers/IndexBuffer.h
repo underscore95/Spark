@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graphics/abstract/IndexBuffer.h"
+#include "graphics/abstract/buffers/IndexBuffer.h"
 
 namespace Spark::Graphics::GL {
 	class IndexBuffer :

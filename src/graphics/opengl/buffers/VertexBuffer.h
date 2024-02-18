@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graphics/abstract/VertexBuffer.h"
+#include "graphics/abstract/buffers/VertexBuffer.h"
 
 namespace Spark::Graphics::GL {
 	class VertexBuffer :

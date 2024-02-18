@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graphics/abstract/VertexArray.h"
+#include "graphics/abstract/buffers/VertexArray.h"
 
 namespace Spark::Graphics::GL {
 	class VertexArray :
