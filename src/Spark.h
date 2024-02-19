@@ -29,3 +29,4 @@
 
 // Graphics
 #include "graphics/abstract/MVP.h"
+#include "graphics/api/GraphicsFactory.h"

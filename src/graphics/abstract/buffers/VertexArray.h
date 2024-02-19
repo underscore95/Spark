@@ -29,5 +29,9 @@ namespace Spark::Graphics {
 
 		virtual	void bind() const = 0;
 		virtual void unbind() const = 0;
+
+		virtual const unsigned int getIndicesCount() const final {
+			return indexBuffer->getCount();
+		}
 	};
 }

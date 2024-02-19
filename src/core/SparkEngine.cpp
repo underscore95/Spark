@@ -4,6 +4,7 @@
 #include "logging/InternalLogging.h"
 #include "entities/EntityManager.h"
 #include "systems/SystemManager.h"
+#include "graphics/api/GraphicsFactory.h"
 
 namespace SparkInternal {
 	Spark::Application* app;
@@ -55,6 +56,8 @@ namespace SparkInternal {
 
 	void init(std::function<Spark::Application* ()> appInitialiser)
 	{
+		SparkInternal::Graphics::createRenderer();
+
 		Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
 
 		auto& logger = SparkInternal::getLogger();
