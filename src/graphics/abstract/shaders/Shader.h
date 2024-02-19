@@ -4,13 +4,13 @@
 
 namespace Spark::Graphics {
 	class Shader {
-	private:
+	protected:
 		std::string source;
 		std::string filePath;
 		unsigned int rendererId;
 
 		void read();
-		virtual void compile() = 0;
+		virtual void compile() { assert("Missing shader compile implementation."); };
 
 	public:
 		Shader(const std::string& filePath);
