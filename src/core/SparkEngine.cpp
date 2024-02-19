@@ -56,7 +56,7 @@ namespace SparkInternal {
 
 	void init(std::function<Spark::Application* ()> appInitialiser)
 	{
-		SparkInternal::Graphics::createRenderer();
+		SparkInternal::Graphics::init();
 
 		Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
 

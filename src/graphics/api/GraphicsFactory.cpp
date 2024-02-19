@@ -12,9 +12,12 @@
 
 namespace SparkInternal::Graphics {
 	std::unique_ptr<Spark::Graphics::Renderer> renderer;
+	std::unique_ptr<Spark::Graphics::MVP> mvp;
 
-	void createRenderer()
+	void init()
 	{
+		mvp = std::make_unique<Spark::Graphics::MVP>();
+
 #ifdef _WIN32
 		renderer = std::make_unique<Spark::Graphics::GL::Renderer>();
 #else
@@ -24,6 +27,11 @@ namespace SparkInternal::Graphics {
 }
 
 namespace Spark::Graphics {
+	MVP& getMVP()
+	{
+		return *SparkInternal::Graphics::mvp;
+	}
+
 	const Renderer& getRenderer()
 	{
 		return *SparkInternal::Graphics::renderer;

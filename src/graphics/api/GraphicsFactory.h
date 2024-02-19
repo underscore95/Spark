@@ -3,10 +3,17 @@
 #include "graphics/abstract/buffers/VertexArray.h"
 #include "graphics/abstract/shaders/Shader.h"
 #include "graphics/abstract/Renderer.h"
+#include "graphics/abstract/MVP.h"
 
 #include "pch.h"
 
 namespace Spark::Graphics {
+	/*
+	* Note that this is not passed into any shader programs automatically.
+	* \return valid reference to the main model view projection matrix.
+	*/
+	MVP& getMVP();
+
 	/*
 	* \return valid const reference to the main renderer.
 	*/
@@ -61,7 +68,5 @@ namespace Spark::Graphics {
 }
 
 namespace SparkInternal::Graphics {
-	void createRenderer();
-
-	void onExit();
+	void init();
 }
