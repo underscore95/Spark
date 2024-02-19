@@ -55,7 +55,7 @@ namespace Spark::Graphics {
 #endif
 	}
 
-	std::unique_ptr<VertexArray> createVertexArray(const std::shared_ptr<IndexBuffer>& indexBuffer, const std::shared_ptr<VertexBuffer>& vertexBuffer, const std::shared_ptr<VertexBufferLayout>& vertexBufferLayout)
+	std::unique_ptr<VertexArray> createVertexArray(const std::shared_ptr<IndexBuffer> indexBuffer, const std::shared_ptr<VertexBuffer> vertexBuffer, const std::shared_ptr<VertexBufferLayout> vertexBufferLayout)
 	{
 #ifdef _WIN32
 		return std::make_unique<Spark::Graphics::GL::VertexArray>(indexBuffer, vertexBuffer, vertexBufferLayout);
@@ -64,7 +64,7 @@ namespace Spark::Graphics {
 #endif
 	}
 
-	std::unique_ptr<Shader> createVertexShader(const std::string& filePath)
+	std::unique_ptr<Shader> createVertexShader(const std::string filePath)
 	{
 #ifdef _WIN32
 		return std::make_unique<Spark::Graphics::GL::VertexShader>(filePath);
@@ -73,7 +73,7 @@ namespace Spark::Graphics {
 #endif
 	}
 
-	std::unique_ptr<Shader> createFragmentShader(const std::string& filePath)
+	std::unique_ptr<Shader> createFragmentShader(const std::string filePath)
 	{
 #ifdef _WIN32
 		return std::make_unique<Spark::Graphics::GL::FragmentShader>(filePath);
