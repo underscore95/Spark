@@ -29,6 +29,10 @@ bool Spark::Window::GLFWWindow::createWindow()
 		return false;
 	}
 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+
 	window = glfwCreateWindow(dimensions.x, dimensions.y, title.c_str(), NULL, NULL);
 	if (!window) {
 		logger.severe("Failed to create GLFW window");
