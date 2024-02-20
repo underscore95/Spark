@@ -56,8 +56,7 @@ namespace SparkInternal {
 
 	void init(std::function<Spark::Application* ()> appInitialiser)
 	{
-		SparkInternal::Graphics::init();
-
+		// Logging should be first thing done
 		Spark::Logging::registerLogger(std::make_unique<Spark::Logging::Logger>(Spark::Logging::LogLevel::INFO, "spark"));
 
 		auto& logger = SparkInternal::getLogger();
@@ -65,6 +64,10 @@ namespace SparkInternal {
 		ss << "Initialised Spark Engine " << SPARK_VERSION;
 		logger.info(ss);
 
+		// Graphics
+		SparkInternal::Graphics::init();
+
+		// Start the game
 		app = appInitialiser(); // This should be the last thing in the init function
 		mainLoop();
 	}

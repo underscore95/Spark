@@ -7,6 +7,8 @@
 
 #include "pch.h"
 
+#include "window/abstract/Window.h"
+
 namespace Spark::Graphics {
 	/*
 	* Note that this is not passed into any shader programs automatically.
@@ -15,9 +17,11 @@ namespace Spark::Graphics {
 	MVP& getMVP();
 
 	/*
-	* \return valid const reference to the main renderer.
+	* \param window The window to render on
+	* 
+	* \return unique pointer to a renderer
 	*/
-	const Renderer& getRenderer();
+	std::unique_ptr<Renderer> createRenderer(Spark::Window::Window& window);
 
 	/*
 	* \param size Size of the data buffer in bytes.

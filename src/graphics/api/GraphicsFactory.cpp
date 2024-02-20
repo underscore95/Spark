@@ -11,18 +11,11 @@
 #endif
 
 namespace SparkInternal::Graphics {
-	std::unique_ptr<Spark::Graphics::Renderer> renderer;
 	std::unique_ptr<Spark::Graphics::MVP> mvp;
 
 	void init()
 	{
 		mvp = std::make_unique<Spark::Graphics::MVP>();
-
-#ifdef _WIN32
-		renderer = std::make_unique<Spark::Graphics::GL::Renderer>();
-#else
-		throw std::runtime_error("No graphics implementations for this platform.");
-#endif
 	}
 }
 
@@ -32,9 +25,13 @@ namespace Spark::Graphics {
 		return *SparkInternal::Graphics::mvp;
 	}
 
-	const Renderer& getRenderer()
+	std::unique_ptr<Renderer> createRenderer(Spark::Window::Window& window)
 	{
-		return *SparkInternal::Graphics::renderer;
+#ifdef _WIN32
+		return std::make_unique<Spark::Graphics::GL::Renderer>();
+#else
+		throw std::runtime_error("No graphics implementations for this platform.");
+#endif
 	}
 
 	std::unique_ptr<VertexBuffer> createVertexBuffer(unsigned int size, const void* data)

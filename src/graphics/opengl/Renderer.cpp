@@ -45,6 +45,7 @@ static void GLAPIENTRY errorCallback(GLenum source, GLenum type, GLuint id, GLen
 Spark::Graphics::GL::Renderer::Renderer()
 {
 	auto& logger = SparkInternal::getLogger();
+	logger.info("Initialising OpenGL...");
 
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
@@ -53,15 +54,17 @@ Spark::Graphics::GL::Renderer::Renderer()
 		logger.severe(ss);
 	}
 
+	logger.info("Initialised OpenGL!");
+
 	{
 		std::stringstream ss;
-		ss << "OpenGL Version {}" << (char*)glGetString(GL_VERSION);
+		ss << "OpenGL Version " << (char*)glGetString(GL_VERSION);
 		logger.info(ss);
 	}
 
 	{
 		std::stringstream ss;
-		ss << "GLEW Version {}" << (char*)glewGetString(GLEW_VERSION);
+		ss << "GLEW Version " << (char*)glewGetString(GLEW_VERSION);
 		logger.info(ss);
 	}
 
