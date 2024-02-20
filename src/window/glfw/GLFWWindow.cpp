@@ -31,7 +31,9 @@ bool Spark::Window::GLFWWindow::createWindow()
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+	glfwSwapInterval(1);
 
 	window = glfwCreateWindow(dimensions.x, dimensions.y, title.c_str(), NULL, NULL);
 	if (!window) {
