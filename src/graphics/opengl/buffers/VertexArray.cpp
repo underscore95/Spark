@@ -3,9 +3,8 @@
 #include <GL/glew.h>
 
 namespace Spark::Graphics::GL {
-
-	VertexArray::VertexArray(const std::shared_ptr<IndexBuffer>& indexBuffer, const std::shared_ptr<VertexBuffer>& vertexBuffer, const std::shared_ptr<VertexBufferLayout>& vertexBufferLayout)
-		: Spark::Graphics::VertexArray(indexBuffer, vertexBuffer, vertexBufferLayout) {
+	void VertexArray::init()
+	{
 		glGenVertexArrays(1, &rendererId);
 		bind();
 
@@ -23,6 +22,12 @@ namespace Spark::Graphics::GL {
 
 		indexBuffer->bind();
 	}
+
+	VertexArray::VertexArray(std::unique_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
+		std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
+		std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
+		: Spark::Graphics::VertexArray(std::move(indexBuffer), std::move(vertexBuffer), std::move(vertexBufferLayout))
+	{}
 
 	VertexArray::~VertexArray() {
 		glDeleteVertexArrays(1, &rendererId);

@@ -4,5 +4,7 @@ namespace Spark::Graphics::GL {
 	class FragmentShader : public Spark::Graphics::Shader {
 	private:
 		void compile() override;
+	public:
+		FragmentShader(const std::string& filePath);
 	};
 }

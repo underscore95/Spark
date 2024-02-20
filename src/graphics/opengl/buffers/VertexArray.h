@@ -7,8 +7,12 @@ namespace Spark::Graphics::GL {
 		public Spark::Graphics::VertexArray {
 	private:
 		unsigned int rendererId;
+	protected:
+		void init() override;
 	public:
-		VertexArray(const std::shared_ptr<IndexBuffer>& indexBuffer, const std::shared_ptr<VertexBuffer>& vertexBuffer, const std::shared_ptr<VertexBufferLayout>& vertexBufferLayout);
+		VertexArray(std::unique_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
+			std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
+			std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout);
 		~VertexArray();
 
 		void bind() const override;

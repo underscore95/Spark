@@ -14,7 +14,7 @@ namespace Spark::Graphics {
 		* \param size Size of the data buffer in bytes.
 		* \param data Pointer to the data buffer.
 		*/
-		Buffer(unsigned int size, const void* data) : size{ size }, data{ data } {}
+		Buffer(unsigned int size, const void* data) : size{ size }, data{ data }, rendererId{ 0 } {}
 		~Buffer() { delete[] data; }
 
 		const unsigned int getRendererId() const { return rendererId; }
