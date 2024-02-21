@@ -21,7 +21,7 @@ TEST(Entities, addComponentAndGetEntity) {
 
     const auto testComponentId = SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<TestComponent>();
 
-    const auto& comps = Spark::Entity::getEntity(entity);
+    const auto& comps = Spark::Entity::getEntity(entity).components;
     ASSERT_EQ(comps.size(), 1); // Ensure only one component added
     auto baseComponent = comps[testComponentId];
     ASSERT_TRUE(baseComponent != nullptr); // Ensure TestComponent is added
@@ -61,7 +61,7 @@ TEST(Entities, removeEntity) {
     auto entity = Spark::Entity::addEntity();
     Spark::Entity::addComponent<TestComponent>(entity);
     Spark::Entity::removeEntity(entity);
-    const auto& comps = Spark::Entity::getEntity(entity);
+    const auto& comps = Spark::Entity::getEntity(entity).components;
     ASSERT_TRUE(comps.empty()); // Ensure entity is removed
 
     SparkInternal::Entity::removeAllEntities();

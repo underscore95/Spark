@@ -6,11 +6,12 @@
 #include "logging/Logging.h"
 #include "ComponentTypeRegistry.h"
 #include "EntityID.h"
+#include "Entity.h"
 
 namespace Spark::Entity {
 	class View {
 	private:
-		const std::unordered_map<EntityID, std::vector<Spark::Entity::BaseComponent*>> entities;
+		const std::unordered_map<EntityID, Entity> entities;
 
 	public:
 		// Entity id iterator
@@ -32,7 +33,7 @@ namespace Spark::Entity {
 
 		View() = delete;
 		View(const View&) = delete;
-		View(const std::unordered_map<EntityID, std::vector<Spark::Entity::BaseComponent*>>& entities)
+		View(const std::unordered_map<EntityID, Entity>& entities)
 			: entities{ entities } {};
 
 		iterator begin() const;
@@ -50,11 +51,11 @@ namespace Spark::Entity {
 				logger.severe("Tried to get components of entity " + std::to_string(entityId) + " that isn't in view");
 			}
 #endif
-			// Get all the component ids/components on this entity
-			const std::vector<Spark::Entity::BaseComponent*>& thisEntity = it->second;
+			// Get this entity
+			const Entity& thisEntity = it->second;
 
 			// Get all the requested components
-			return std::tie(dynamic_cast<T&>(*thisEntity.at(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()))...);
+			return std::tie(dynamic_cast<T&>(*thisEntity.components.at(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()))...);
 		}
 
 	};

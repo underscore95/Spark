@@ -7,14 +7,15 @@
 #include "ComponentTypeRegistry.h"
 #include "View.h"
 #include "EntityID.h"
+#include "Entity.h"
 
 namespace SparkInternal::Entity {
-	inline std::unordered_map<Spark::Entity::EntityID, std::vector<Spark::Entity::BaseComponent*>> entities;
+	inline std::unordered_map<Spark::Entity::EntityID, Spark::Entity::Entity> entities;
 	inline Spark::Entity::EntityID lastEntityId = 0;
 
 	inline void removeAllEntities() {
 		for (auto& entityPair : entities) {
-			for (auto component : entityPair.second) {
+			for (auto component : entityPair.second.components) {
 				if (component != nullptr) {
 					delete component;
 				}
@@ -35,7 +36,6 @@ namespace SparkInternal::Entity {
 namespace Spark::Entity {
 	// Returns a new entity id, which you can use to add components to.
 	inline EntityID addEntity() {
-		// Entities don't really exist, all we use is an id, so we don't need to do anything other than return a new unique id
 		return ++SparkInternal::Entity::lastEntityId;
 	}
 
@@ -49,16 +49,16 @@ namespace Spark::Entity {
 		ComponentID componentId = SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>();
 		auto& entity = SparkInternal::Entity::entities[entityId];
 #ifndef NDEBUG
-		if (entity.capacity() > componentId && entity[componentId] != nullptr) {
+		if (entity.components.capacity() > componentId && entity.components[componentId] != nullptr) {
 			auto& logger = SparkInternal::getLogger();
 			logger.warning("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId));
 		}
 #endif
 
-		if (entity.capacity() <= componentId) {
-			entity.resize(componentId + 1);
+		if (entity.components.capacity() <= componentId) {
+			entity.components.resize(componentId + 1);
 		}
-		entity[componentId] = component;
+		entity.components[componentId] = component;
 		return *component;
 	}
 
@@ -68,7 +68,7 @@ namespace Spark::Entity {
 	// O(nm) where n is amount of entities and m is amount of components
 	template <typename... T>
 	inline const Spark::Entity::View getEntities(unsigned int count = UINT_MAX) {
-		std::unordered_map<EntityID, std::vector<Spark::Entity::BaseComponent*>> matchingEntities;
+		std::unordered_map<EntityID, Entity> matchingEntities;
 		if (count == 0) return matchingEntities;
 
 		// Get all required components
@@ -82,12 +82,12 @@ namespace Spark::Entity {
 
 		// Loop over all entities, if entity contains all components, entity matches
 		for (auto& entity : SparkInternal::Entity::entities) {
-			if (entity.second.size() <= largestComponentId) continue; // Early exit
+			if (entity.second.components.size() <= largestComponentId) continue; // Early exit
 
 			bool hasAllComponents = true;
 			// Check if entity contains all required components
 			for (const auto& componentId : componentIds) {
-				if (entity.second[componentId] == nullptr) {
+				if (entity.second.components[componentId] == nullptr) {
 					hasAllComponents = false;
 					break;
 				}
@@ -106,7 +106,7 @@ namespace Spark::Entity {
 		auto it = SparkInternal::Entity::entities.find(entityId);
 		if (it != SparkInternal::Entity::entities.end()) {
 			auto& entity = SparkInternal::Entity::entities.at(entityId);
-			for (auto& component : entity) {
+			for (auto& component : entity.components) {
 				delete component;
 			}
 
@@ -114,8 +114,8 @@ namespace Spark::Entity {
 		}
 	}
 
-	// Get all components on an entity
-	inline const std::vector<Spark::Entity::BaseComponent*>& getEntity(EntityID entityId) {
+	// Get an entity
+	inline const Entity& getEntity(EntityID entityId) {
 		return SparkInternal::Entity::entities[entityId];
 	}
 }
