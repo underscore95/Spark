@@ -90,6 +90,11 @@ void Spark::Window::GLFWWindow::setDimensions(const glm::uvec2& dimensions)
 	}
 }
 
+void Spark::Window::GLFWWindow::setSwapInterval(int interval)
+{
+	glfwSwapInterval(interval);
+}
+
 void Spark::Window::GLFWWindow::swapBuffers()
 {
 	glfwSwapBuffers(window);

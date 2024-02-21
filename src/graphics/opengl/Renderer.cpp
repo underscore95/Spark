@@ -72,7 +72,7 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 	glEnable(GL_DEBUG_OUTPUT);
 	glDebugMessageCallback(errorCallback, 0);
 
-	glfwSwapInterval(1); // TODO: Make a function for this in window
+	window->setSwapInterval(1);
 }
 
 void Spark::Graphics::GL::Renderer::draw(const VertexArray& vertexArray, const ShaderProgram& shaders) const
