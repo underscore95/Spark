@@ -22,5 +22,8 @@ namespace Spark::Window {
 
 		void setTitle(const std::string& title) override;
 		void setDimensions(const glm::uvec2& dimensions) override;
+
+		void swapBuffers() override;
+		void setSwapInterval(int interval) override;
 	};
 }

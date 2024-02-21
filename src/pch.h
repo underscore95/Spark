@@ -33,3 +33,4 @@
 #include <limits.h>
 #include <typeindex>
 #include <iterator>
+#include <cassert>
