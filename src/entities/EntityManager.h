@@ -51,7 +51,7 @@ namespace Spark::Entity {
 #ifndef NDEBUG
 		if (entity.components.capacity() > componentId && entity.components[componentId] != nullptr) {
 			auto& logger = SparkInternal::getLogger();
-			logger.warning("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId));
+			logger.severe("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId) + " (possible memory leaks!)");
 		}
 #endif
 
@@ -59,6 +59,7 @@ namespace Spark::Entity {
 			entity.components.resize(componentId + 1);
 		}
 		entity.components[componentId] = component;
+		++(entity.numComponents);
 		return *component;
 	}
 
