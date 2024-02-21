@@ -46,7 +46,7 @@ namespace Spark::Entity {
 			"T must be a derived class of BaseComponent");
 
 		T* component = new T();
-		size_t componentId = SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>();
+		ComponentID componentId = SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>();
 		auto& entity = SparkInternal::Entity::entities[entityId];
 #ifndef NDEBUG
 		if (entity.capacity() > componentId && entity[componentId] != nullptr) {
@@ -72,7 +72,7 @@ namespace Spark::Entity {
 		if (count == 0) return matchingEntities;
 
 		// Get all required components
-		std::unordered_set<size_t> componentIds;
+		std::unordered_set<ComponentID> componentIds;
 		(componentIds.insert(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()), ...);
 
 		auto largestComponentId = 0;
