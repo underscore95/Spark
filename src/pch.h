@@ -34,7 +34,3 @@
 #include <typeindex>
 #include <iterator>
 #include <cassert>
-
-// STB
-
-#include <stb_image.h>
