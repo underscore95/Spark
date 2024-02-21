@@ -12,6 +12,4 @@ namespace Spark::Graphics {
 		virtual void draw(const VertexArray& vertexArray, const ShaderProgram& shaders) const = 0;
 		virtual void clear() const = 0;
 	};
-
-	inline std::unique_ptr<Renderer> renderer;
 }
