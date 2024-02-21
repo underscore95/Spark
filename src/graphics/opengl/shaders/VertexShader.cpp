@@ -6,4 +6,11 @@ Spark::Graphics::GL::VertexShader::VertexShader(const std::string& filePath) : S
 {
 	read();
 	compileShader(GL_VERTEX_SHADER, source, filePath, rendererId);
+
+#ifndef NDEBUG
+	if (rendererId == 0) {
+		auto& logger = SparkInternal::getLogger();
+		logger.warning("OpenGL FragmentShader has id 0");
+	}
+#endif
 }

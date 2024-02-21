@@ -15,6 +15,13 @@ Spark::Graphics::GL::ShaderProgram::ShaderProgram(const std::vector<Shader>& sha
 	for (const auto& shader : shaders) {
 		glDeleteShader(shader.getRendererId());
 	}
+
+#ifndef NDEBUG
+	if (rendererId == 0) {
+		auto& logger = SparkInternal::getLogger();
+		logger.warning("OpenGL ShaderProgram has id 0");
+	}
+#endif
 }
 
 Spark::Graphics::GL::ShaderProgram::~ShaderProgram() {
