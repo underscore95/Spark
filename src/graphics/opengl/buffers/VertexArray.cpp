@@ -2,6 +2,9 @@
 
 #include <GL/glew.h>
 
+#include "logging/Logger.h"
+#include "logging/Logging.h"
+
 namespace Spark::Graphics::GL {
 	void VertexArray::init()
 	{
@@ -26,8 +29,17 @@ namespace Spark::Graphics::GL {
 	VertexArray::VertexArray(std::unique_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
 		std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
 		std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
-		: Spark::Graphics::VertexArray(std::move(indexBuffer), std::move(vertexBuffer), std::move(vertexBufferLayout))
-	{}
+		: Spark::Graphics::VertexArray(std::move(indexBuffer), std::move(vertexBuffer), std::move(vertexBufferLayout)),
+		rendererId{ 0 }
+	{
+		init();
+#ifndef NDEBUG
+		if (rendererId == 0) {
+			auto& logger = SparkInternal::getLogger();
+			logger.warning("VAO ID for OpenGL Vertex Array is 0");
+		}
+#endif
+	}
 
 	VertexArray::~VertexArray() {
 		glDeleteVertexArrays(1, &rendererId);

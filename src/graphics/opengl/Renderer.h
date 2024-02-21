@@ -4,6 +4,8 @@
 
 namespace Spark::Graphics::GL {
 	class Renderer : public Spark::Graphics::Renderer {
+	private:
+
 	public:
 		Renderer();
 

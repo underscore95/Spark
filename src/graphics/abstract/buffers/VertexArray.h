@@ -14,8 +14,6 @@ namespace Spark::Graphics {
 		std::unique_ptr<IndexBuffer> indexBuffer;
 		std::unique_ptr<VertexBuffer> vertexBuffer;
 		std::unique_ptr<VertexBufferLayout> vertexBufferLayout;
-
-		virtual void init() { assert("Missing vertex array init implementation."); };
 	public:
 		/*
 		* \param indexBuffer The index buffer
@@ -27,7 +25,6 @@ namespace Spark::Graphics {
 			std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
 			: indexBuffer{ std::move(indexBuffer) }, vertexBuffer{ std::move(vertexBuffer) }, vertexBufferLayout{ std::move(vertexBufferLayout) }
 		{
-			init();
 		}
 
 		virtual	void bind() const = 0;
