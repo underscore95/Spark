@@ -32,6 +32,27 @@ TEST(Entities, addComponentAndGetEntity) {
     SparkInternal::Entity::removeAllEntities();
 }
 
+TEST(EntitiesTest, numComponents) {
+    auto id = Spark::Entity::addEntity();
+    auto& testComponent = Spark::Entity::addComponent<TestComponent>(id);
+    const auto& entity = Spark::Entity::getEntity(id);
+
+    ASSERT_EQ(entity.numComponents, 1);
+    SparkInternal::Entity::removeAllEntities();
+}
+
+TEST(EntitiesTest, removeComponents) {
+    auto id = Spark::Entity::addEntity();
+    auto& testComponent = Spark::Entity::addComponent<TestComponent>(id);
+    const auto& entity = Spark::Entity::getEntity(id);
+
+    ASSERT_EQ(entity.numComponents, 1);
+    Spark::Entity::removeComponents<TestComponent>(id);
+
+    // Removing last component should delete the entity
+    ASSERT_EQ(0, Spark::Entity::getEntities<TestComponent>().count());
+}
+
 TEST(Entities, addComponentAndView) {
     SparkInternal::Entity::removeAllEntities();
 
