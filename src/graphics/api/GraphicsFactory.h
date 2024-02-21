@@ -24,6 +24,11 @@ namespace Spark::Graphics {
 	std::unique_ptr<Renderer> createRenderer(Spark::Window::Window& window);
 
 	/*
+	* \return unique pointer to a vertex buffer layout
+	*/
+	std::unique_ptr<VertexBufferLayout> createVertexBufferLayout();
+
+	/*
 	* \param size Size of the data buffer in bytes.
 	* \param data Pointer to the data buffer.
 	*

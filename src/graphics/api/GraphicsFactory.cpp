@@ -4,6 +4,7 @@
 #include "graphics/opengl/Renderer.h"
 #include "graphics/opengl/buffers/IndexBuffer.h"
 #include "graphics/opengl/buffers/VertexBuffer.h"
+#include "graphics/opengl/buffers/VertexBufferLayout.h"
 #include "graphics/opengl/buffers/VertexArray.h"
 #include "graphics/opengl/shaders/FragmentShader.h"
 #include "graphics/opengl/shaders/VertexShader.h"
@@ -31,6 +32,15 @@ namespace Spark::Graphics {
 		return std::make_unique<Spark::Graphics::GL::Renderer>();
 #else
 		throw std::runtime_error("No graphics implementations for this platform.");
+#endif
+	}
+
+	std::unique_ptr<VertexBufferLayout> createVertexBufferLayout()
+	{
+#ifdef _WIN32
+			return std::make_unique<Spark::Graphics::GL::VertexBufferLayout>();
+#else
+			throw std::runtime_error("No graphics implementations for this platform.");
 #endif
 	}
 
