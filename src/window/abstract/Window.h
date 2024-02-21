@@ -32,5 +32,7 @@ namespace Spark::Window {
 
 		virtual void setTitle(const std::string& title) = 0;
 		virtual void setDimensions(const glm::uvec2& dimensions) = 0;
+		
+		virtual void swapBuffers() = 0;
 	};
 }
