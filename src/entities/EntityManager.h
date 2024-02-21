@@ -114,6 +114,7 @@ namespace Spark::Entity {
 
 		// Loop over all entities, if entity contains all components, entity matches
 		for (auto& entity : SparkInternal::Entity::entities) {
+			if (entity.second.numComponents < componentIds.size()) continue;
 			if (entity.second.components.size() <= largestComponentId) continue; // Early exit
 
 			bool hasAllComponents = true;
