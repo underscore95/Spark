@@ -42,7 +42,7 @@ bool Spark::Window::GLFWWindow::createWindow()
 	}
 
 	glfwMakeContextCurrent(window);
-	//glfwSetWindowUserPointer(window, this);
+	glfwSetWindowUserPointer(window, this);
 
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* win, int w, int h) {
 		static_cast<GLFWWindow*>(glfwGetWindowUserPointer(win))->windowResizeCallback(win, w, h);
