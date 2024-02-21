@@ -18,7 +18,7 @@ Warning: Will likely be abandoned eventually.
 - [x] Entities
 - [x] Systems
 - [x] Automated Tests
-- [ ] Renderer
+- [ ] Renderer - WIP
 - [ ] Camera
 - [ ] User Input
 - [ ] Sound Effects
