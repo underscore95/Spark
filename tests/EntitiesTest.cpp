@@ -21,13 +21,33 @@ TEST(Entities, addComponentAndGetEntity) {
 
     const auto testComponentId = SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<TestComponent>();
 
-    const auto& comps = Spark::Entity::getEntity(entity);
+    const auto& comps = Spark::Entity::getEntity(entity).components;
     ASSERT_EQ(comps.size(), 1); // Ensure only one component added
     auto baseComponent = comps[testComponentId];
     ASSERT_TRUE(baseComponent != nullptr); // Ensure TestComponent is added
     TestComponent* testComponent = dynamic_cast<TestComponent*>(baseComponent);
     ASSERT_TRUE(testComponent != nullptr); // Ensure correct component type
     ASSERT_EQ(testComponent->a, 2); // Ensure component data is set correctly
+
+    SparkInternal::Entity::removeAllEntities();
+}
+
+TEST(Entities, addComponentAndView) {
+    SparkInternal::Entity::removeAllEntities();
+
+    auto entId = Spark::Entity::addEntity();
+    auto& test = Spark::Entity::addComponent<TestComponent>(entId);
+    test.a = 2;
+
+    auto& view = Spark::Entity::getEntities<TestComponent>();
+    for (auto entity : view) {
+        auto [ testComponent ] = view.get<TestComponent>(entity);
+        ASSERT_EQ(testComponent.a, 2); // Ensure component data is set correctly
+        // Ensure it is updated
+        testComponent.a = 3;
+    }
+
+    ASSERT_EQ(test.a, 3);
 
     SparkInternal::Entity::removeAllEntities();
 }
@@ -61,7 +81,7 @@ TEST(Entities, removeEntity) {
     auto entity = Spark::Entity::addEntity();
     Spark::Entity::addComponent<TestComponent>(entity);
     Spark::Entity::removeEntity(entity);
-    const auto& comps = Spark::Entity::getEntity(entity);
+    const auto& comps = Spark::Entity::getEntity(entity).components;
     ASSERT_TRUE(comps.empty()); // Ensure entity is removed
 
     SparkInternal::Entity::removeAllEntities();
