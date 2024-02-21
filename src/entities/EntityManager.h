@@ -62,6 +62,37 @@ namespace Spark::Entity {
 		return *component;
 	}
 
+	/*
+	* Remove components from an entity.
+	* This function will silently fail if no entity with the ID exists.
+	* The entity will be removed if there are no remaining components attached.
+	* 
+	* \param entityID The entity to remove components from
+	* 
+	* \tparam T Zero or more components to remove from the entity
+	*/
+	template <typename... T>
+	inline void removeComponents(const EntityID& entityId) {
+		std::unordered_set<ComponentID> componentIds;
+		(componentIds.insert(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()), ...);
+
+		auto it = SparkInternal::Entity::entities.find(entityId);
+		if (it == SparkInternal::Entity::entities.end()) return; // Entity doesn't exist
+
+		auto& comps = it->second.components;
+		for (auto compId : componentIds) {
+			if (comps[compId] != nullptr) {
+				delete comps[compId];
+				comps[compId] = nullptr;
+				--(it->second.numComponents);
+			}
+		}
+
+		if (it->second.numComponents == 0) {
+			SparkInternal::Entity::entities.erase(entityId);
+		}
+	}
+
 	// Find all entities with all components, optionally specify a count
 	// If a count is specified, and there is more than count matching entities, which entities are returned is undefined.
 	// The default if no count is specified will return all matching entities.
