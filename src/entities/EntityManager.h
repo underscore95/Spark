@@ -51,7 +51,7 @@ namespace Spark::Entity {
 #ifndef NDEBUG
 		if (entity.components.capacity() > componentId && entity.components[componentId] != nullptr) {
 			auto& logger = SparkInternal::getLogger();
-			logger.warning("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId));
+			logger.severe("Adding duplicate component " + std::to_string(componentId) + " to entity " + std::to_string(entityId) + " (possible memory leaks!)");
 		}
 #endif
 
@@ -59,7 +59,39 @@ namespace Spark::Entity {
 			entity.components.resize(componentId + 1);
 		}
 		entity.components[componentId] = component;
+		++(entity.numComponents);
 		return *component;
+	}
+
+	/*
+	* Remove components from an entity.
+	* This function will silently fail if no entity with the ID exists.
+	* The entity will be removed if there are no remaining components attached.
+	* 
+	* \param entityID The entity to remove components from
+	* 
+	* \tparam T Zero or more components to remove from the entity
+	*/
+	template <typename... T>
+	inline void removeComponents(const EntityID& entityId) {
+		std::unordered_set<ComponentID> componentIds;
+		(componentIds.insert(SparkInternal::Entity::ComponentTypeRegistry::getInstance().getTypeId<T>()), ...);
+
+		auto it = SparkInternal::Entity::entities.find(entityId);
+		if (it == SparkInternal::Entity::entities.end()) return; // Entity doesn't exist
+
+		auto& comps = it->second.components;
+		for (auto compId : componentIds) {
+			if (comps[compId] != nullptr) {
+				delete comps[compId];
+				comps[compId] = nullptr;
+				--(it->second.numComponents);
+			}
+		}
+
+		if (it->second.numComponents == 0) {
+			SparkInternal::Entity::entities.erase(entityId);
+		}
 	}
 
 	// Find all entities with all components, optionally specify a count
@@ -82,6 +114,7 @@ namespace Spark::Entity {
 
 		// Loop over all entities, if entity contains all components, entity matches
 		for (auto& entity : SparkInternal::Entity::entities) {
+			if (entity.second.numComponents < componentIds.size()) continue;
 			if (entity.second.components.size() <= largestComponentId) continue; // Early exit
 
 			bool hasAllComponents = true;
