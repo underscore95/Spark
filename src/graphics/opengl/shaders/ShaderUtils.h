@@ -32,7 +32,7 @@ namespace Spark::Graphics::GL {
 		else {
 			std::stringstream ss;
 			ss << "Compiled shader with path '" << filePath << " successfully.";
-			logger.info(ss);
+			logger.debug(ss);
 		}
 	}
 }
