@@ -1,7 +1,7 @@
 # ECS
 
 Spark uses an ECS (Entity Component System) to handle "game objects". 
-Almost everything in your game is an entity, and entities can have components which store information. (Such as ModelComponent storing a reference to the model)
+Almost everything in your game is an entity, entities can have components which store information. (Such as ModelComponent storing a reference to the model), and systems will run code (e.g handling collisions, rendering sprites)
 This file contains documentation on Entities, Components, and Systems due to how intertwined they are.
 
 ## Entities & Components
@@ -14,9 +14,10 @@ You can create a component by creating a class which inherits from `Spark::Entit
 You can add a component to your entity using `auto& comp = Spark::Entity::addComponent<YourComponent>(entity);`. Note that your component must have a default constructor. (planned to change)
 
 ### Getting components on an entity
-`const auto& comps = Spark::Entity::getEntity(entity);`
-This will return a reference to a map of internal component ids and component pointers.
-You should not be storing these pointers though.
+`const auto& entity = Spark::Entity::getEntity(entity);`
+This will return a reference to an Entity which contains vector of component pointers.
+Note that this vector may contain nullptr if the entity doesn't have a certain component.
+You should not be storing these pointers.
 
 ### Removing entities
 `Spark::Entity::removeEntity(entity);` will remove the entity and free the components' memory.
@@ -27,7 +28,7 @@ A view is a collection of entities which have a specific set of components.
 `auto& view = Spark::Entity::getEntities<TestComponent, Test2Component>(); // Contains all entities with TestComponent and Test2Component`
 
 You can iterate views:
-`for (auto entity : view) {} // entity is an entity id (unsigned int)`
+`for (auto entity : view) {} // entity is an entity id (unsigned long long)`
 
 You can get components on a specific entity in a view:
 `auto [ testComponent ] = view.get<TestComponent>(entity); // Would be used when iterating over a view`
