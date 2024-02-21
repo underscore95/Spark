@@ -17,7 +17,7 @@ You can add a component to your entity using `auto& comp = Spark::Entity::addCom
 `const auto& entity = Spark::Entity::getEntity(entity);`
 This will return a reference to an Entity which contains vector of component pointers.
 Note that this vector may contain nullptr if the entity doesn't have a certain component.
-You should not be storing these pointers.
+You may store these pointers, but note that they will become dangling pointers if the component or entity is removed.
 
 ### Removing entities
 `Spark::Entity::removeEntity(entity);` will remove the entity and free the components' memory.
