@@ -32,6 +32,26 @@ TEST(Entities, addComponentAndGetEntity) {
     SparkInternal::Entity::removeAllEntities();
 }
 
+TEST(Entities, addComponentAndView) {
+    SparkInternal::Entity::removeAllEntities();
+
+    auto entId = Spark::Entity::addEntity();
+    auto& test = Spark::Entity::addComponent<TestComponent>(entId);
+    test.a = 2;
+
+    auto& view = Spark::Entity::getEntities<TestComponent>();
+    for (auto entity : view) {
+        auto [ testComponent ] = view.get<TestComponent>(entity);
+        ASSERT_EQ(testComponent.a, 2); // Ensure component data is set correctly
+        // Ensure it is updated
+        testComponent.a = 3;
+    }
+
+    ASSERT_EQ(test.a, 3);
+
+    SparkInternal::Entity::removeAllEntities();
+}
+
 TEST(Entities, getEntitiesByComponentType) {
     auto entity1 = Spark::Entity::addEntity();
     auto& test1 = Spark::Entity::addComponent<TestComponent>(entity1);
