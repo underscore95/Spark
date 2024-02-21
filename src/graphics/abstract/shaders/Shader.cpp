@@ -21,7 +21,7 @@ void Spark::Graphics::Shader::read()
 	stream.close();
 }
 
-Spark::Graphics::Shader::Shader(const std::string& filePath) : filePath{ filePath }
+Spark::Graphics::Shader::Shader(const std::string& filePath) : filePath{ filePath }, rendererId{ 0 }
 {
 #ifdef NDEBUG
 	source = "";

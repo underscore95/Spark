@@ -6,6 +6,8 @@ Spark::Graphics::GL::VertexBuffer::VertexBuffer(unsigned int size, const void* d
 	glGenBuffers(1, &rendererId);
 	glBindBuffer(GL_ARRAY_BUFFER, rendererId);
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+
+	assert(rendererId != 0);
 }
 
 Spark::Graphics::GL::VertexBuffer::~VertexBuffer()

@@ -6,6 +6,8 @@ Spark::Graphics::GL::IndexBuffer::IndexBuffer(unsigned int size, unsigned int co
 	glGenBuffers(1, &rendererId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+
+	assert(rendererId != 0);
 }
 
 Spark::Graphics::GL::IndexBuffer::~IndexBuffer()
