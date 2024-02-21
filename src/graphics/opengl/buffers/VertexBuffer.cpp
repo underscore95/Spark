@@ -1,5 +1,7 @@
 #include "VertexBuffer.h"
 #include <GL/glew.h>
+#include "logging/Logger.h"
+#include "logging/Logging.h"
 
 Spark::Graphics::GL::VertexBuffer::VertexBuffer(unsigned int size, const void* data) : Spark::Graphics::VertexBuffer(size, data)
 {
@@ -7,7 +9,12 @@ Spark::Graphics::GL::VertexBuffer::VertexBuffer(unsigned int size, const void* d
 	glBindBuffer(GL_ARRAY_BUFFER, rendererId);
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 
-	assert(rendererId != 0);
+#ifndef NDEBUG
+	if (rendererId == 0) {
+		auto& logger = SparkInternal::getLogger();
+		logger.warning("OpenGL ShaderProgram has id 0");
+	}
+#endif
 }
 
 Spark::Graphics::GL::VertexBuffer::~VertexBuffer()
