@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "logging/Logger.h"
 #include "logging/Logging.h"
+#include <GLFW/glfw3.h>
 
 static void GLAPIENTRY errorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -70,6 +71,8 @@ Spark::Graphics::GL::Renderer::Renderer()
 
 	glEnable(GL_DEBUG_OUTPUT);
 	glDebugMessageCallback(errorCallback, 0);
+
+	glfwSwapInterval(1); // TODO: Make a function for this in window
 }
 
 void Spark::Graphics::GL::Renderer::draw(const VertexArray& vertexArray, const ShaderProgram& shaders) const

@@ -30,6 +30,9 @@ target_link_libraries(Spark PRIVATE glfw)
 find_package(glm REQUIRED)
 target_link_libraries(Spark PUBLIC glm::glm)
 
+find_package(OpenGL REQUIRED)
+target_link_libraries(Spark PRIVATE OpenGL::GL)
+
 find_package(GLEW REQUIRED)
 target_link_libraries(Spark PRIVATE GLEW::GLEW)
 
