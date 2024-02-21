@@ -21,7 +21,7 @@ namespace Spark::Graphics {
 	* 
 	* \return unique pointer to a renderer
 	*/
-	std::unique_ptr<Renderer> createRenderer(Spark::Window::Window& window);
+	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window);
 
 	/*
 	* \return unique pointer to a vertex buffer layout

@@ -43,7 +43,7 @@ static void GLAPIENTRY errorCallback(GLenum source, GLenum type, GLuint id, GLen
 	logger.severe(ss);
 }
 
-Spark::Graphics::GL::Renderer::Renderer()
+Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> window) : Spark::Graphics::Renderer(window)
 {
 	auto& logger = SparkInternal::getLogger();
 	logger.info("Initialising OpenGL...");

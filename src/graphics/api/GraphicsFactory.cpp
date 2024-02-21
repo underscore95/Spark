@@ -26,10 +26,10 @@ namespace Spark::Graphics {
 		return *SparkInternal::Graphics::mvp;
 	}
 
-	std::unique_ptr<Renderer> createRenderer(Spark::Window::Window& window)
+	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window)
 	{
 #ifdef _WIN32
-		return std::make_unique<Spark::Graphics::GL::Renderer>();
+		return std::make_unique<Spark::Graphics::GL::Renderer>(window);
 #else
 		throw std::runtime_error("No graphics implementations for this platform.");
 #endif
