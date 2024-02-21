@@ -16,7 +16,7 @@ bool View::iterator::operator!=(const iterator& other) const {
 }
 
 // Dereference operator
-unsigned int View::iterator::operator*() const {
+EntityID View::iterator::operator*() const {
     return entityIt->first;
 }
 

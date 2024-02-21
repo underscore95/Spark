@@ -22,6 +22,7 @@
 #include "entities/EntityManager.h"
 #include "entities/ComponentTypeRegistry.h"
 #include "entities/View.h"
+#include "entities/EntityID.h"
 
 // Systems
 #include "systems/System.h"

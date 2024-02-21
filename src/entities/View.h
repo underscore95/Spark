@@ -5,11 +5,12 @@
 #include "logging/Logger.h"
 #include "logging/Logging.h"
 #include "ComponentTypeRegistry.h"
+#include "EntityID.h"
 
 namespace Spark::Entity {
 	class View {
 	private:
-		const std::unordered_map<unsigned int, std::vector<Spark::Entity::BaseComponent*>> entities;
+		const std::unordered_map<EntityID, std::vector<Spark::Entity::BaseComponent*>> entities;
 
 	public:
 		// Entity id iterator
@@ -26,12 +27,12 @@ namespace Spark::Entity {
 			bool operator!=(const iterator& other) const;
 
 			// Dereference operator
-			unsigned int operator*() const;
+			EntityID operator*() const;
 		};
 
 		View() = delete;
 		View(const View&) = delete;
-		View(const std::unordered_map<unsigned int, std::vector<Spark::Entity::BaseComponent*>>& entities)
+		View(const std::unordered_map<EntityID, std::vector<Spark::Entity::BaseComponent*>>& entities)
 			: entities{ entities } {};
 
 		iterator begin() const;
@@ -41,7 +42,7 @@ namespace Spark::Entity {
 
 		// Get all components of a specific type on this entity
 		template<typename... T>
-		inline std::tuple<T&...> get(unsigned int entityId) const {
+		inline std::tuple<T&...> get(EntityID entityId) const {
 			auto it = entities.find(entityId);
 #ifndef NDEBUG
 			if (it == entities.end()) {
