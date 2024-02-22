@@ -6,6 +6,7 @@
 #include "logging/Logging.h"
 
 Spark::Graphics::GL::Texture::Texture(const std::string& filePath) : Spark::Graphics::Texture(filePath) {
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* localBuffer = stbi_load(filePath.c_str(), &size.x, &size.y, &bytesPerPixel, 4);
 
 	glGenTextures(1, &rendererId);
