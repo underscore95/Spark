@@ -12,12 +12,6 @@
 
 namespace Spark::Graphics {
 	/*
-	* Note that this is not passed into any shader programs automatically.
-	* \return valid reference to the main model view projection matrix.
-	*/
-	MVP& getMVP();
-
-	/*
 	* \param window The window to render on
 	* 
 	* \return unique pointer to a renderer
