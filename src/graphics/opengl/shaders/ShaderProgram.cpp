@@ -22,6 +22,8 @@ Spark::Graphics::GL::ShaderProgram::ShaderProgram(const std::vector<Shader>& sha
 		logger.warning("OpenGL ShaderProgram has id 0");
 	}
 #endif
+
+	bind();
 }
 
 Spark::Graphics::GL::ShaderProgram::~ShaderProgram() {
@@ -62,6 +64,18 @@ void Spark::Graphics::GL::ShaderProgram::setUniform2f(const std::string name, fl
 void Spark::Graphics::GL::ShaderProgram::setUniform1i(const std::string name, int i0)
 {
 	glUniform1i(getUniformLocation(name), i0);
+}
+
+void Spark::Graphics::GL::ShaderProgram::setUniformSampler2D(const std::string name, Spark::Graphics::Texture& texture)
+{
+	auto slot = texture.getTextureSlot();
+#ifndef NDEBUG
+	if (slot == Spark::Graphics::NO_TEXTURE_SLOT) {
+		auto& logger = SparkInternal::getLogger();
+		logger.warning("Setting uniform Sampler2D texture to an unbound texture.");
+	}
+#endif
+	setUniform1i(name, slot);
 }
 
 void Spark::Graphics::GL::ShaderProgram::setUniformMat4f(const std::string name, const glm::mat4& m0)
