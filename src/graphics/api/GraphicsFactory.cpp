@@ -9,6 +9,7 @@
 #include "graphics/opengl/shaders/FragmentShader.h"
 #include "graphics/opengl/shaders/VertexShader.h"
 #include "graphics/opengl/shaders/ShaderProgram.h"
+#include "graphics/opengl/textures/Texture.h"
 #endif
 
 namespace SparkInternal::Graphics {
@@ -38,9 +39,9 @@ namespace Spark::Graphics {
 	std::unique_ptr<VertexBufferLayout> createVertexBufferLayout()
 	{
 #ifdef _WIN32
-			return std::make_unique<Spark::Graphics::GL::VertexBufferLayout>();
+		return std::make_unique<Spark::Graphics::GL::VertexBufferLayout>();
 #else
-			throw std::runtime_error("No graphics implementations for this platform.");
+		throw std::runtime_error("No graphics implementations for this platform.");
 #endif
 	}
 
@@ -94,6 +95,15 @@ namespace Spark::Graphics {
 	{
 #ifdef _WIN32
 		return std::make_unique<Spark::Graphics::GL::ShaderProgram>(shaders);
+#else
+		throw std::runtime_error("No graphics implementations for this platform.");
+#endif
+	}
+
+	std::unique_ptr<Texture> loadTexture(const std::string& filePath)
+	{
+#ifdef _WIN32
+		return std::make_unique<Spark::Graphics::GL::Texture>(filePath);
 #else
 		throw std::runtime_error("No graphics implementations for this platform.");
 #endif

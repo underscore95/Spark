@@ -32,7 +32,8 @@ Spark::Graphics::GL::Texture::~Texture() {
 }
 
 void Spark::Graphics::GL::Texture::bind(Spark::Graphics::TextureSlot slot) const
-{glActiveTexture(GL_TEXTURE0 + slot);
+{
+	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, rendererId);
 }
 
