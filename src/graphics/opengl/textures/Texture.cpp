@@ -22,9 +22,6 @@ Spark::Graphics::GL::Texture::Texture(const std::string& filePath) : Spark::Grap
 	if (localBuffer) {
 		stbi_image_free(localBuffer);
 	}
-
-	auto& logger = SparkInternal::getLogger();
-	logger.debug("Loaded texture " + filePath + " successfully!");
 }
 
 Spark::Graphics::GL::Texture::~Texture() {

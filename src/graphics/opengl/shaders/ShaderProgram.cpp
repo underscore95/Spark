@@ -41,7 +41,7 @@ const int Spark::Graphics::GL::ShaderProgram::getUniformLocation(const std::stri
 
 	if (location == -1) {
 		auto& logger = SparkInternal::getLogger();
-		logger.warning("No uniform with location " + variableName + " found in program.");
+		logger.warning("No uniform with location '" + variableName + "' found in program.");
 	}
 	return location;
 }
