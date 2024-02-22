@@ -19,8 +19,15 @@ Spark::Graphics::GL::Texture::Texture(const std::string& filePath) : Spark::Grap
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 	unbind();
 
+	auto& logger = SparkInternal::getLogger();
 	if (localBuffer) {
 		stbi_image_free(localBuffer);
+		logger.debug("Loaded texture " + filePath + " successfully!");
+	}
+	else {
+		std::stringstream ss;
+		ss << "Failed to load texture " << filePath << ":\n" << stbi_failure_reason();
+		logger.severe(ss);
 	}
 }
 
