@@ -31,12 +31,14 @@ Spark::Graphics::GL::Texture::~Texture() {
 	glDeleteTextures(1, &rendererId);
 }
 
-void Spark::Graphics::GL::Texture::bind(Spark::Graphics::TextureSlot slot) const
+void Spark::Graphics::GL::Texture::bind(Spark::Graphics::TextureSlot slot)
 {
+	SparkInternal::Graphics::Textures::updateBoundTexture(this, slot);
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, rendererId);
 }
 
-void Spark::Graphics::GL::Texture::unbind() const {
+void Spark::Graphics::GL::Texture::unbind() {
+	SparkInternal::Graphics::Textures::unbindTexture(this);
 	glBindTexture(GL_TEXTURE_2D, rendererId);
 }

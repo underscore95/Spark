@@ -8,7 +8,7 @@ namespace Spark::Graphics::GL {
 		Texture(const std::string& filePath);
 		~Texture();
 
-		void bind(Spark::Graphics::TextureSlot slot = DEFAULT_TEXTURE_SLOT) const override;
-		void unbind() const override;
+		void bind(Spark::Graphics::TextureSlot slot = DEFAULT_TEXTURE_SLOT) override;
+		void unbind() override;
 	};
 }
