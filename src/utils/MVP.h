@@ -5,7 +5,7 @@
 
 namespace Spark::Graphics {
 	/*
-	* Holds the Model View Projection matrix
+	* Holds a Model View Projection matrix
 	* This class is implemented using column major matrices since that is how OpenGL works (proj * view * model). May be changed in the future.
 	* By default, all matrices are identity matrices
 	*/

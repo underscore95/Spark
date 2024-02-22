@@ -12,21 +12,7 @@
 #include "graphics/opengl/textures/Texture.h"
 #endif
 
-namespace SparkInternal::Graphics {
-	std::unique_ptr<Spark::Graphics::MVP> mvp;
-
-	void init()
-	{
-		mvp = std::make_unique<Spark::Graphics::MVP>();
-	}
-}
-
 namespace Spark::Graphics {
-	MVP& getMVP()
-	{
-		return *SparkInternal::Graphics::mvp;
-	}
-
 	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window)
 	{
 #ifdef _WIN32
