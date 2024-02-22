@@ -4,6 +4,7 @@
 #include "graphics/abstract/shaders/Shader.h"
 #include "graphics/abstract/Renderer.h"
 #include "graphics/abstract/MVP.h"
+#include "graphics/abstract/textures/Texture.h"
 
 #include "pch.h"
 
@@ -75,6 +76,13 @@ namespace Spark::Graphics {
 	* \return unique pointer to a shader program.
 	*/
 	std::unique_ptr<ShaderProgram> createShaderProgram(const std::vector<Shader>& shaders);
+
+	/*
+	* \param filePath Path to the image file, relative to your game executable.
+	*
+	* \return unique pointer to a texture.
+	*/
+	std::unique_ptr<Texture> loadTexture(const std::string& filePath);
 }
 
 namespace SparkInternal::Graphics {
