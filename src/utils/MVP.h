@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Spark::Graphics {
+namespace Spark::Utils {
 	/*
 	* Holds a Model View Projection matrix
 	* This class is implemented using column major matrices since that is how OpenGL works (proj * view * model). May be changed in the future.

@@ -3,7 +3,6 @@
 #include "graphics/abstract/buffers/VertexArray.h"
 #include "graphics/abstract/shaders/Shader.h"
 #include "graphics/abstract/Renderer.h"
-#include "graphics/abstract/MVP.h"
 #include "graphics/abstract/textures/Texture.h"
 
 #include "pch.h"

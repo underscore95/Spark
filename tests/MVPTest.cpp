@@ -3,7 +3,7 @@
 #include "pch.h"
 
 TEST(MVP, ensureInitialisedAsIdentity) {
-    Spark::Graphics::MVP mvp;
+    Spark::Utils::MVP mvp;
     auto identity = glm::identity<glm::mat4>();
     ASSERT_EQ(mvp.getModel(), identity);
     ASSERT_EQ(mvp.getView(), identity);
@@ -12,7 +12,7 @@ TEST(MVP, ensureInitialisedAsIdentity) {
 }
 
 TEST(MVP, setModel) {
-    Spark::Graphics::MVP mvp;
+    Spark::Utils::MVP mvp;
     auto newModel = glm::mat4(1.0f); // Example new model matrix
 
     mvp.setModel(newModel);
@@ -23,7 +23,7 @@ TEST(MVP, setModel) {
 }
 
 TEST(MVP, setView) {
-    Spark::Graphics::MVP mvp;
+    Spark::Utils::MVP mvp;
     auto newView = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)); // Example new view matrix
 
     mvp.setView(newView);
@@ -34,7 +34,7 @@ TEST(MVP, setView) {
 }
 
 TEST(MVP, setProj) {
-    Spark::Graphics::MVP mvp;
+    Spark::Utils::MVP mvp;
     auto newProj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f); // Example new projection matrix
 
     mvp.setProj(newProj);
