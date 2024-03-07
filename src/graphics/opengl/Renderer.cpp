@@ -75,7 +75,7 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 	window->setSwapInterval(1);
 }
 
-void Spark::Graphics::GL::Renderer::draw(const VertexArray& vertexArray, const ShaderProgram& shaders) const
+void Spark::Graphics::GL::Renderer::draw(const VertexArray& vertexArray, ShaderProgram& shaders) const
 {
 	shaders.bind();
 	vertexArray.bind();

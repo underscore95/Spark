@@ -12,7 +12,7 @@ namespace Spark::Graphics {
 	public:
 		Renderer(std::shared_ptr<Spark::Window::Window> window) : window{ window } {};
 
-		virtual void draw(const VertexArray& vertexArray, const ShaderProgram& shaders) const = 0;
+		virtual void draw(const VertexArray& vertexArray, ShaderProgram& shaders) const = 0;
 		virtual void clear() const = 0;
 	};
 }
