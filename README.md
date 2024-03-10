@@ -19,7 +19,7 @@ Warning: Will likely be abandoned eventually.
 - [x] Systems
 - [x] Automated Tests
 - [ ] Renderer - WIP
-- [ ] Camera
+- [ ] Camera - WIP
 - [ ] User Input
 - [ ] Sound Effects
 - [ ] Music
