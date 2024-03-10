@@ -4,6 +4,7 @@
 #include "graphics/abstract/shaders/Shader.h"
 #include "graphics/abstract/Renderer.h"
 #include "graphics/abstract/textures/Texture.h"
+#include "graphics/api/Camera.h"
 
 #include "pch.h"
 
@@ -15,7 +16,7 @@ namespace Spark::Graphics {
 	* 
 	* \return unique pointer to a renderer
 	*/
-	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window);
+	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera);
 
 	/*
 	* \return unique pointer to a vertex buffer layout

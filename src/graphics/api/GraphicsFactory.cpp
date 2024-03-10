@@ -13,10 +13,10 @@
 #endif
 
 namespace Spark::Graphics {
-	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window)
+	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera)
 	{
 #ifdef _WIN32
-		return std::make_unique<Spark::Graphics::GL::Renderer>(window);
+		return std::make_unique<Spark::Graphics::GL::Renderer>(window, camera);
 #else
 		throw std::runtime_error("No graphics implementations for this platform.");
 #endif

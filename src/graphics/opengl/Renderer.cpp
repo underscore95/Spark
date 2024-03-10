@@ -43,7 +43,8 @@ static void GLAPIENTRY errorCallback(GLenum source, GLenum type, GLuint id, GLen
 	logger.severe(ss);
 }
 
-Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> window) : Spark::Graphics::Renderer(window)
+Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera)
+	: Spark::Graphics::Renderer(window, camera)
 {
 	auto& logger = SparkInternal::getLogger();
 	logger.info("Initialising OpenGL...");
@@ -75,10 +76,12 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 	window->setSwapInterval(1);
 }
 
-void Spark::Graphics::GL::Renderer::draw(const VertexArray& vertexArray, ShaderProgram& shaders) const
+void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& vertexArray, Spark::Graphics::ShaderProgram& shaders)
 {
 	shaders.bind();
 	vertexArray.bind();
+
+	shaders.setUniformMat4f("Sp_MVP", camera->getMatrix().getMVP());
 
 	glDrawElements(GL_TRIANGLES, vertexArray.getIndicesCount(), GL_UNSIGNED_INT, nullptr);
 }

@@ -2,9 +2,15 @@
 #include "ShaderUtils.h"
 #include "pch.h"
 
+void Spark::Graphics::GL::VertexShader::injectShaderCode()
+{
+	
+}
+
 Spark::Graphics::GL::VertexShader::VertexShader(const std::string& filePath) : Spark::Graphics::Shader(filePath)
 {
 	read();
+	injectShaderCode();
 	compileShader(GL_VERTEX_SHADER, source, filePath, rendererId);
 
 #ifndef NDEBUG
