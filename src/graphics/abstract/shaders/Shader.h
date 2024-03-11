@@ -9,8 +9,7 @@ namespace Spark::Graphics {
 		std::string filePath;
 		unsigned int rendererId;
 
-		void read();
-
+		void read(const std::string& sourceToInject);
 	public:
 		Shader(const std::string& filePath);
 
