@@ -7,19 +7,15 @@ namespace Spark::Graphics {
 	private:
 		static constexpr glm::mat4 IDENTITY{ glm::identity<glm::mat4>() };
 
-		const bool orthographic;
-
 		MVP mvp;
 
 		glm::vec3 position;
 		glm::vec3 rotation;
 
 		void updateView();
-
-	protected:
-		Camera(const MVP& mvp, const bool orthographic);
-
 	public:
+		Camera(const MVP& mvp);
+
 		/*
 		* Creates an orthographic camera positioned at the origin, looking down the positive z axis.
 		*/

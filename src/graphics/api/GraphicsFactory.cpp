@@ -22,6 +22,16 @@ namespace Spark::Graphics {
 #endif
 	}
 
+	std::unique_ptr<Camera> ortho(const float left, const float right, const float bottom, const float top, const float zNear, const float zFar)
+	{
+		return std::move(Spark::Graphics::Camera::ortho(left, right, bottom, top, zNear, zFar));
+	}
+
+	std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear, const float zFar)
+	{
+		return std::move(Spark::Graphics::Camera::perspective(fovY, aspect, zNear, zFar));
+	}
+
 	std::unique_ptr<VertexBufferLayout> createVertexBufferLayout()
 	{
 #ifdef _WIN32

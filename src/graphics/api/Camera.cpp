@@ -1,8 +1,8 @@
 #include "Camera.h"
 
 namespace Spark::Graphics {
-	Camera::Camera(const MVP& mvp, const bool orthographic) : mvp{ mvp }, orthographic{ orthographic },
-		position{ 0,0,0 }, rotation{ 0,0,0 }
+	Camera::Camera(const MVP& mvp) :
+		mvp{ mvp }, position{ 0,0,0 }, rotation{ 0,0,0 }
 	{
 		updateView();
 	}
@@ -11,13 +11,13 @@ namespace Spark::Graphics {
 		const float zNear, const float zFar) {
 		MVP mvp;
 		mvp.setProj(glm::ortho(left, right, bottom, top, zNear, zFar));
-		return std::unique_ptr<Camera>(new Camera(mvp, true));
+		return std::unique_ptr<Camera>(new Camera(mvp));
 	}
 
 	std::unique_ptr<Camera> Camera::perspective(const float fovY, const float aspect, const float zNear, const float zFar) {
 		MVP mvp;
 		mvp.setProj(glm::perspective(fovY, aspect, zNear, zFar));
-		return std::unique_ptr<Camera>(new Camera(mvp, false));
+		return std::unique_ptr<Camera>(new Camera(mvp));
 	}
 
 	void Camera::updateView()
