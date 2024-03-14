@@ -28,3 +28,5 @@ Example Project: https://github.com/underscore95/SparkGame
 - [ ] User Input
 - [ ] Sound Effects
 - [ ] Music
+- [ ] Models
+- [ ] Animations
