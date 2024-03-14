@@ -10,6 +10,8 @@ Contact me on discord: underscore95
 
 Warning: Will likely be abandoned eventually.
 
+Setup Guide: See docs/Setup.md
+
 ## Features
 - [x] Documentation
 - [x] Logging
