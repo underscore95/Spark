@@ -21,12 +21,12 @@ namespace Spark::Graphics {
 	/*
 	* Creates an orthographic camera positioned at the origin, looking down the positive z axis.
 	*/
-	static std::unique_ptr<Camera> ortho(const float left, const float right, const float bottom, const float top, const float zNear = 0.1f, const float zFar = 100.0f);
+	std::unique_ptr<Camera> ortho(const float left, const float right, const float bottom, const float top, const float zNear = 0.1f, const float zFar = 100.0f);
 
 	/*
 	* Creates a perspective camera positioned at the origin, looking down the positive z axis.
 	*/
-	static std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear = 0.1f, const float zFar = 100.0f);
+	std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear = 0.1f, const float zFar = 100.0f);
 
 	/*
 	* \return unique pointer to a vertex buffer layout
