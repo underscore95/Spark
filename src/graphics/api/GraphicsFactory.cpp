@@ -13,13 +13,23 @@
 #endif
 
 namespace Spark::Graphics {
-	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window)
+	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera)
 	{
 #ifdef _WIN32
-		return std::make_unique<Spark::Graphics::GL::Renderer>(window);
+		return std::make_unique<Spark::Graphics::GL::Renderer>(window, camera);
 #else
 		throw std::runtime_error("No graphics implementations for this platform.");
 #endif
+	}
+
+	std::unique_ptr<Camera> ortho(const float left, const float right, const float bottom, const float top, const float zNear, const float zFar)
+	{
+		return std::move(Spark::Graphics::Camera::ortho(left, right, bottom, top, zNear, zFar));
+	}
+
+	std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear, const float zFar)
+	{
+		return std::move(Spark::Graphics::Camera::perspective(fovY, aspect, zNear, zFar));
 	}
 
 	std::unique_ptr<VertexBufferLayout> createVertexBufferLayout()

@@ -30,6 +30,6 @@
 
 // Graphics
 #include "graphics/api/GraphicsFactory.h"
+#include "graphics/api/Camera.h"
 
 // Utils
-#include "utils/MVP.h"

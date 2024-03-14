@@ -4,15 +4,22 @@
 #include "shaders/ShaderProgram.h"
 #include "pch.h"
 #include "window/abstract/Window.h"
+#include "graphics/api/Camera.h"
 
 namespace Spark::Graphics {
 	class Renderer {
 	protected:
 		std::shared_ptr<Spark::Window::Window> window;
+		std::shared_ptr<Spark::Graphics::Camera> camera;
 	public:
-		Renderer(std::shared_ptr<Spark::Window::Window> window) : window{ window } {};
+		Renderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera)
+			: window{ window }, camera{ camera } {};
 
-		virtual void draw(const VertexArray& vertexArray, const ShaderProgram& shaders) const = 0;
+		void setCamera(std::shared_ptr<Spark::Graphics::Camera> camera) { 
+			assert(camera != nullptr);
+			this->camera = camera; 
+		}
+		virtual void draw(const VertexArray& vertexArray, ShaderProgram& shaders) = 0;
 		virtual void clear() const = 0;
 	};
 }

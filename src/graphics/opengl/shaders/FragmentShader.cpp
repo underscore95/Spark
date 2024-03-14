@@ -1,9 +1,13 @@
 #include "FragmentShader.h"
 #include "ShaderUtils.h"
 
+const std::string INJECT_SOURCE = R"(
+        
+    )";
+
 Spark::Graphics::GL::FragmentShader::FragmentShader(const std::string& filePath) : Spark::Graphics::Shader(filePath)
 {
-	read();
+	read(INJECT_SOURCE);
 	compileShader(GL_FRAGMENT_SHADER, source, filePath, rendererId);
 
 #ifndef NDEBUG

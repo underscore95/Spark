@@ -2,7 +2,7 @@
 #include "logging/Logger.h"
 #include "logging/Logging.h"
 
-void Spark::Graphics::Shader::read()
+void Spark::Graphics::Shader::read(const std::string& sourceToInject)
 {
 	std::string line;
 	std::ifstream stream(filePath);
@@ -14,9 +14,15 @@ void Spark::Graphics::Shader::read()
 	}
 
 	std::stringstream buffer;
+	bool hasInjected = false;
 	while (std::getline(stream, line)) {
+		if (!hasInjected && (line.empty() || line[0] != '#')) {
+			hasInjected = true;
+			buffer << sourceToInject << '\n';
+		}
 		buffer << line << '\n';
 	}
+
 	source = buffer.str();
 	stream.close();
 }

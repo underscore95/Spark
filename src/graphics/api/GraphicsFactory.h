@@ -4,6 +4,7 @@
 #include "graphics/abstract/shaders/Shader.h"
 #include "graphics/abstract/Renderer.h"
 #include "graphics/abstract/textures/Texture.h"
+#include "graphics/api/Camera.h"
 
 #include "pch.h"
 
@@ -15,7 +16,17 @@ namespace Spark::Graphics {
 	* 
 	* \return unique pointer to a renderer
 	*/
-	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window);
+	std::unique_ptr<Renderer> createRenderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera);
+
+	/*
+	* Creates an orthographic camera positioned at the origin, looking down the positive z axis.
+	*/
+	static std::unique_ptr<Camera> ortho(const float left, const float right, const float bottom, const float top, const float zNear = 0.1f, const float zFar = 100.0f);
+
+	/*
+	* Creates a perspective camera positioned at the origin, looking down the positive z axis.
+	*/
+	static std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear = 0.1f, const float zFar = 100.0f);
 
 	/*
 	* \return unique pointer to a vertex buffer layout

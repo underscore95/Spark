@@ -80,7 +80,7 @@ void Spark::Graphics::GL::ShaderProgram::setUniformSampler2D(const std::string n
 
 void Spark::Graphics::GL::ShaderProgram::setUniformMat4f(const std::string name, const glm::mat4& m0)
 {
-	const size_t MATRIX_COUNT = 1;
-	const bool REQUIRES_TRANSPOSE = GL_FALSE;
+	constexpr size_t MATRIX_COUNT = 1;
+	constexpr bool REQUIRES_TRANSPOSE = GL_FALSE;
 	glUniformMatrix4fv(getUniformLocation(name), MATRIX_COUNT, REQUIRES_TRANSPOSE, &m0[0][0]);
 }
