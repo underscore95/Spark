@@ -20,12 +20,30 @@ Once a program has been created, the shaders are free to be deleted.
 
 See Renderer documentation for how to apply a shader.
 
+## Uniforms
 Data can be sent to the shader using uniform variables, example:
 ```
 // CPU
 program->setUniform2f("u_SomeVector", x, y);
 
 // GPU (Shader)
-uniform vec2 u_SomeVector; // Usually uniforms are prefixed with u, this is not enforced by the compiler however.
+uniform vec2 u_SomeVector; // Usually uniforms are prefixed with u, however this is not enforced by the compiler.
 ```
 
+## Spark Uniforms
+
+Some uniforms are automatically injected into your shader by Spark. These uniforms are always prefixed with `Sp_`.
+For example, `Sp_MVP` is injected into your vertex shader, so the following is a valid Spark vertex shader:
+```
+#version 330 core
+
+layout(location = 0) in vec4 position;
+
+void main() {
+	gl_Position = Sp_MVP * position; // Multiply position by model view projection matrix to get the position after all transformations (including camera).
+}
+```
+
+### List of all Spark Uniforms:
+Name | Datatype | Shader types | Description
+Sp_MVP | mat4 | Vertex | The model view projection matrix.
