@@ -13,7 +13,8 @@ add_compile_definitions(-DSPARK_VERSION="v${CMAKE_PROJECT_VERSION}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Need this for .lib
 
-include(C:/Users/unfea/Documents/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
+include(settings.cmake)
+include(${VCPKG_PATH})
 
 include_directories(${CMAKE_SOURCE_DIR}/src/)
 

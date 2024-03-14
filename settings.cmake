@@ -1,0 +1,1 @@
+set(VCPKG_PATH "C:/some/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE PATH "Path to vcpkg.cmake")
