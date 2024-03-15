@@ -25,7 +25,7 @@ Example Project: https://github.com/underscore95/SparkGame
 - [x] Renderer
 - [x] Camera
 - [ ] Materials
-- [ ] User Input
+- [x] User Input
 - [ ] Sound Effects
 - [ ] Music
 - [ ] Models
