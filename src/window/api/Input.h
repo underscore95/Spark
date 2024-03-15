@@ -1,24 +1,22 @@
 #pragma once
 
 #include "pch.h"
+#include "KeysAndButtons.h"
 
 namespace Spark::Window {
 	class Window;
 	class GLFWWindow;
-
-	enum class MouseButton {
-		LEFT, RIGHT
-	};
 
 	class Input {
 	private:
 		Spark::Window::Window* window;
 
 		glm::dvec2 mousePosition;
-		std::unordered_set<MouseButton> mouseButtonsPressed;
-		std::unordered_set<MouseButton> mouseButtonsPressedLastFrame;
+		std::unordered_set<Spark::Window::Mouse::MouseButton> mouseButtonsPressed;
+		std::unordered_set<Spark::Window::Mouse::MouseButton> mouseButtonsPressedLastFrame;
 
-		void setMouseButtonPressed(MouseButton button);
+		std::unordered_set<Spark::Window::Keyboard::Key> keysPressed;
+		std::unordered_set<Spark::Window::Keyboard::Key> keysPressedLastFrame;
 
 		void handleInputSetup();
 
@@ -39,13 +37,39 @@ namespace Spark::Window {
 		[[nodiscard]] constexpr const glm::vec2 getClampedMousePos() const;
 
 		/*
+		* \param button The button
 		* \return True if the mouse button is currently down
 		*/
-		[[nodiscard]] const bool isMouseButtonDown(const MouseButton button) const { return mouseButtonsPressed.contains(button); }
+		[[nodiscard]] const bool isMouseButtonDown(const Spark::Window::Mouse::MouseButton button) const
+		{
+			return mouseButtonsPressed.contains(button);
+		}
 
 		/*
+		* \param button The button
 		* \return True if the mouse button was just pressed this frame
 		*/
-		[[nodiscard]] const bool isMouseButtonPressed(const MouseButton button) const { return isMouseButtonDown(button) && !mouseButtonsPressedLastFrame.contains(button); }
+		[[nodiscard]] const bool isMouseButtonPressed(const Spark::Window::Mouse::MouseButton button) const
+		{
+			return isMouseButtonDown(button) && !mouseButtonsPressedLastFrame.contains(button);
+		}
+
+		/*
+		* \param key The key
+		* \return True if the key is currently down
+		*/
+		[[nodiscard]] const bool isKeyDown(const Spark::Window::Keyboard::Key key) const
+		{
+			return keysPressed.contains(key);
+		}
+
+		/*
+		* \param key The key
+		* \return True if the key was just pressed this frame
+		*/
+		[[nodiscard]] const bool isKeyPressed(const Spark::Window::Keyboard::Key key) const
+		{
+			return isKeyDown(key) && !keysPressedLastFrame.contains(key);
+		}
 	};
 }

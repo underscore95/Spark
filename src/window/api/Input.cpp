@@ -2,15 +2,13 @@
 #include "window/abstract/Window.h"
 
 namespace Spark::Window {
-	void Input::setMouseButtonPressed(MouseButton button)
-	{
-		mouseButtonsPressed.insert(button);
-	}
-
 	void Input::handleInputSetup()
 	{
 		mouseButtonsPressedLastFrame = mouseButtonsPressed;
 		mouseButtonsPressed.clear();
+
+		keysPressedLastFrame = keysPressed;
+		keysPressed.clear();
 	}
 
 	[[nodiscard]] constexpr const glm::vec2 Input::getClampedMousePos() const {

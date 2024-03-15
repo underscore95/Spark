@@ -68,8 +68,15 @@ void Spark::Window::GLFWWindow::handleInput() {
 
 	glfwGetCursorPos(window, &(input.mousePosition.x), &(input.mousePosition.y));
 
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) input.setMouseButtonPressed(MouseButton::LEFT);
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) input.setMouseButtonPressed(MouseButton::RIGHT);
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) input.mouseButtonsPressed.insert(Spark::Window::Mouse::LEFT);
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) input.mouseButtonsPressed.insert(Spark::Window::Mouse::RIGHT);
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS) input.mouseButtonsPressed.insert(Spark::Window::Mouse::MIDDLE);
+
+	for (int key = GLFW_KEY_SPACE; key <= GLFW_KEY_LAST; ++key) {
+		if (glfwGetKey(window, key)) {
+			input.keysPressed.insert(key);
+		}
+	}
 }
 
 void Spark::Window::GLFWWindow::update()
