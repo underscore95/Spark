@@ -8,6 +8,10 @@
 #include "window/abstract/Window.h"
 #include "window/api/WindowFactory.h"
 
+// Input
+#include "window/api/Input.h"
+#include "window/api/KeysAndButtons.h"
+
 // Logging
 #include "logging/Logger.h"
 #include "logging/Logging.h"
