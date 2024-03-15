@@ -10,6 +10,7 @@ namespace Spark::Window {
 		bool shouldClose{ false };
 
 		void windowResizeCallback(GLFWwindow* window, int width, int height);
+		void handleInput();
 
 	protected:
 		bool createWindow() override;

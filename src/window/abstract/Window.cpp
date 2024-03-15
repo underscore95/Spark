@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Spark::Window::Window::Window(const std::string& title, const glm::uvec2& dimensions) : title{ title }, dimensions{ dimensions }
+Spark::Window::Window::Window(const std::string& title, const glm::uvec2& dimensions) : title{ title }, dimensions{ dimensions }, input{ this }
 {
 }
 
@@ -27,4 +27,13 @@ const bool Spark::Window::Window::isWindowClosed() const
 const bool Spark::Window::Window::isWindowOpen() const
 {
 	return !isWindowClosed() && isSuccessfullyInitialised();
+}
+
+void Spark::Window::Window::setSwapInterval(int interval)
+{
+}
+
+Spark::Window::Input& Spark::Window::Window::getUserInput()
+{
+	return input;
 }

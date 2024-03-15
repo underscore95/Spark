@@ -3,6 +3,7 @@
 #include "logging/Logging.h"
 #include "events/EventHandler.h"
 #include "events/Events.h"
+#include "window/api/Input.h"
 
 void errorCallback(int error, const char* description) {
 	auto& logger = SparkInternal::getLogger();
@@ -62,6 +63,10 @@ Spark::Window::GLFWWindow::~GLFWWindow()
 	glfwTerminate();
 }
 
+void Spark::Window::GLFWWindow::handleInput() {
+	glfwGetCursorPos(window, &(input.mousePosition.x), &(input.mousePosition.y));
+}
+
 void Spark::Window::GLFWWindow::update()
 {
 	if (isWindowClosed()) return;
@@ -72,6 +77,7 @@ void Spark::Window::GLFWWindow::update()
 	}
 
 	glfwPollEvents();
+	handleInput();
 }
 
 void Spark::Window::GLFWWindow::setTitle(const std::string& title)

@@ -34,3 +34,7 @@
 #include <typeindex>
 #include <iterator>
 #include <cassert>
+
+// Maths
+
+#include <glm/glm.hpp>
