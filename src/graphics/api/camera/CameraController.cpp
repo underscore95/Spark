@@ -6,7 +6,7 @@ std::vector<Spark::Graphics::CameraController*> controllers;
 void SparkInternal::Graphics::CameraControllerManager::handleInput(float dt)
 {
 	for (auto controller : controllers) {
-		if (controller) controller->handleInput(dt);
+		if (controller->isEnabled()) controller->handleInput(dt);
 	}
 }
 
