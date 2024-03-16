@@ -35,5 +35,7 @@
 // Graphics
 #include "graphics/api/GraphicsFactory.h"
 #include "graphics/api/Camera/Camera.h"
+#include "graphics/api/Camera/CameraController.h"
+#include "graphics/api/Camera/KeyboardCameraController.h"
 
 // Utils
