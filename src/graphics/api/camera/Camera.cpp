@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "CameraController.h"
 
 namespace Spark::Graphics {
 	Camera::Camera(const MVP& mvp) :
@@ -18,6 +19,12 @@ namespace Spark::Graphics {
 		MVP mvp;
 		mvp.setProj(glm::perspective(fovY, aspect, zNear, zFar));
 		return std::unique_ptr<Camera>(new Camera(mvp));
+	}
+
+	void Camera::setCameraController(std::unique_ptr<CameraController> controller)
+	{
+		this->controller = std::move(controller);
+		this->controller->belongsToCamera = true;
 	}
 
 	void Camera::updateView()

@@ -3,6 +3,8 @@
 #include "MVP.h"
 
 namespace Spark::Graphics {
+	class CameraController;
+
 	class Camera {
 	private:
 		static constexpr glm::mat4 IDENTITY{ glm::identity<glm::mat4>() };
@@ -11,6 +13,8 @@ namespace Spark::Graphics {
 
 		glm::vec3 position;
 		glm::vec3 rotation;
+
+		std::unique_ptr<CameraController> controller;
 
 		void updateView();
 	public:
@@ -25,6 +29,11 @@ namespace Spark::Graphics {
 		* Creates a perspective camera positioned at the origin, looking down the positive z axis.
 		*/
 		static std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear = 0.1f, const float zFar = 100.0f);
+
+		/*
+		* Sets the camera controller, destroying any previous controller linked to this camera.
+		*/
+		void setCameraController(std::unique_ptr<CameraController> controller);
 
 		/*
 		* Set the camera position

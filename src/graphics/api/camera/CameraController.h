@@ -3,8 +3,26 @@
 #include "window/api/Input.h"
 #include "graphics/api/camera/Camera.h"
 
+namespace SparkInternal::Graphics {
+	class CameraControllerManager {
+	private:
+		CameraControllerManager() {};
+	public:
+		void handleInput(float dt);
+
+		[[nodiscard]] static CameraControllerManager& singleton() {
+			static auto s = std::make_unique<CameraControllerManager>();
+			return *s;
+		}
+	};
+}
+
 namespace Spark::Graphics {
 	class CameraController {
+	private:
+		bool belongsToCamera = false;
+
+		friend class Camera;
 	protected:
 		std::shared_ptr<Camera> camera;
 		Spark::Window::Input& input;
@@ -13,6 +31,7 @@ namespace Spark::Graphics {
 		bool enabled = true;
 
 		virtual void handleInput(float dt) = 0;
+		friend class SparkInternal::Graphics::CameraControllerManager;
 	public:
 		/*
 		* \param camera A shared ptr to the camera to control
@@ -20,14 +39,10 @@ namespace Spark::Graphics {
 		* \param speed Speed to move, defaults to 100.
 		* \param sensitivity Speed to rotate, defaults to 100.
 		*/
-		CameraController(std::shared_ptr<Camera> camera, Spark::Window::Input& input, const float speed = 100.0f, const float sensitivity = 100.0f)
-			: camera{ camera }, input{ input }, speed{ speed }, sensitivity{ sensitivity } {
-			assert(camera != nullptr);
-			assert(speed >= 0);
-			assert(sensitivity >= 0);
-		}
+		CameraController(std::shared_ptr<Camera> camera, Spark::Window::Input& input, const float speed = 100.0f, const float sensitivity = 100.0f);
+		~CameraController();
 
-		[[nodiscard]] constexpr const bool isEnabled() const { return enabled; }
+		[[nodiscard]] constexpr const bool isEnabled() const { return enabled && belongsToCamera; }
 		constexpr void enable() { enabled = true; }
 		constexpr void disable() { enabled = false; }
 	};
