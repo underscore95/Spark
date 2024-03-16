@@ -14,11 +14,12 @@ namespace Spark::Graphics {
 		glm::vec3 position;
 		glm::vec3 rotation;
 
-		std::unique_ptr<CameraController> controller;
+		CameraController* controller;
 
 		void updateView();
 	public:
 		Camera(const MVP& mvp);
+		~Camera();
 
 		/*
 		* Creates an orthographic camera positioned at the origin, looking down the positive z axis.

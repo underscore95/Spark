@@ -11,8 +11,8 @@ namespace SparkInternal::Graphics {
 		void handleInput(float dt);
 
 		[[nodiscard]] static CameraControllerManager& singleton() {
-			static auto s = std::make_unique<CameraControllerManager>();
-			return *s;
+			static CameraControllerManager inst;
+			return inst;
 		}
 	};
 }

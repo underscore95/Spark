@@ -3,6 +3,8 @@
 
 void Spark::Graphics::KeyboardCameraController::handleInput(float dt)
 {
+	std::cout << "updated\n";
+
 	glm::vec3 dp(
 		input.isKeyDown(Spark::Window::Keyboard::D) - input.isKeyDown(Spark::Window::Keyboard::A), 
 		input.isKeyDown(Spark::Window::Keyboard::SPACE) - input.isKeyDown(Spark::Window::Keyboard::LEFT_SHIFT),

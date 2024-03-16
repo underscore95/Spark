@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Camera.h"
 #include "CameraController.h"
 
 namespace Spark::Graphics {
@@ -6,6 +7,11 @@ namespace Spark::Graphics {
 		mvp{ mvp }, position{ 0,0,0 }, rotation{ 0,0,0 }
 	{
 		updateView();
+	}
+
+	Camera::~Camera()
+	{
+		delete controller;
 	}
 
 	std::unique_ptr<Camera> Camera::ortho(const float left, const float right, const float bottom, const float top,
@@ -23,7 +29,8 @@ namespace Spark::Graphics {
 
 	void Camera::setCameraController(std::unique_ptr<CameraController> controller)
 	{
-		this->controller = std::move(controller);
+
+		this->controller = controller.release();
 		this->controller->belongsToCamera = true;
 	}
 
