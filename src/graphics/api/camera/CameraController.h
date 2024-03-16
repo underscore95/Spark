@@ -10,6 +10,9 @@ namespace Spark::Graphics {
 		Spark::Window::Input& input;
 		float speed;
 		float sensitivity;
+		bool enabled = true;
+
+		virtual void handleInput(float dt) = 0;
 	public:
 		/*
 		* \param camera A shared ptr to the camera to control
@@ -24,6 +27,8 @@ namespace Spark::Graphics {
 			assert(sensitivity >= 0);
 		}
 
-		virtual void handleInput(float dt) = 0;
+		[[nodiscard]] constexpr const bool isEnabled() const { return enabled; }
+		constexpr void enable() { enabled = true; }
+		constexpr void disable() { enabled = false; }
 	};
 }

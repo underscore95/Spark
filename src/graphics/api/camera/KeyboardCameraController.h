@@ -4,7 +4,7 @@
 
 namespace Spark::Graphics {
 	class KeyboardCameraController : public CameraController {
-	public:
+	protected:
 		virtual void handleInput(float dt) override;
 	};
 }
