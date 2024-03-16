@@ -34,6 +34,6 @@
 
 // Graphics
 #include "graphics/api/GraphicsFactory.h"
-#include "graphics/api/Camera.h"
+#include "graphics/api/Camera/Camera.h"
 
 // Utils

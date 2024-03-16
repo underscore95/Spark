@@ -4,7 +4,7 @@
 #include "graphics/abstract/shaders/Shader.h"
 #include "graphics/abstract/Renderer.h"
 #include "graphics/abstract/textures/Texture.h"
-#include "graphics/api/Camera.h"
+#include "graphics/api/camera/Camera.h"
 
 #include "pch.h"
 

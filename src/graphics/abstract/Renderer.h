@@ -4,7 +4,7 @@
 #include "shaders/ShaderProgram.h"
 #include "pch.h"
 #include "window/abstract/Window.h"
-#include "graphics/api/Camera.h"
+#include "graphics/api/camera/Camera.h"
 
 namespace Spark::Graphics {
 	class Renderer {
