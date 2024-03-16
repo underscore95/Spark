@@ -48,8 +48,18 @@ namespace Spark::Graphics {
 		void setRotationInRadians(const glm::vec3& rotation);
 
 		/*
-		* Return the model view projection matrix for this camera
+		* \return The model view projection matrix for this camera
 		*/
 		MVP& getMatrix() { return mvp; }
+
+		/*
+		* \return The camera position
+		*/
+		const glm::vec3& getPosition() const { return position; }
+
+		/*
+		* \return The camera rotation in radians
+		*/
+		const glm::vec3& getRotation() const { return rotation; }
 	};
 }
