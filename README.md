@@ -14,6 +14,14 @@ Setup Guide: See docs/Setup.md
 
 Example Project: https://github.com/underscore95/SparkGame
 
+## Dependencies:
+ - glfw
+ - OpenGL
+ - GLM
+ - magic_enum
+ - STB
+ - GTest
+
 ## Features
 - [x] Documentation
 - [x] Logging
