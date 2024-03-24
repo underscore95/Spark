@@ -74,10 +74,13 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 	glDebugMessageCallback(errorCallback, 0);
 
 	window->setSwapInterval(1);
+
+	glShadeModel(GL_SMOOTH);
 }
 
 void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& vertexArray, Spark::Graphics::ShaderProgram& shaders)
 {
+
 	shaders.bind();
 	vertexArray.bind();
 
@@ -89,4 +92,5 @@ void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& ver
 void Spark::Graphics::GL::Renderer::clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	glClearDepth(1.0f);
 }
