@@ -14,6 +14,8 @@ Setup Guide: See docs/Setup.md
 
 Example Project: https://github.com/underscore95/SparkGame
 
+Showcase Video: https://youtu.be/1SpQFqmziPY
+
 ## Dependencies:
  - glfw
  - OpenGL
