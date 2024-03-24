@@ -38,16 +38,16 @@ void Spark::Graphics::KeyboardCameraController::handleInput(float dt)
 
 	glm::vec3 dr(0.0f); // Delta rotation
 	if (input.isKeyDown(Spark::Window::Keyboard::RIGHT)) {
-		dr.y -= 1.0f;
-	}
-	if (input.isKeyDown(Spark::Window::Keyboard::LEFT)) {
-		dr.y += 1.0f;
-	}
-	if (input.isKeyDown(Spark::Window::Keyboard::UP)) {
 		dr.x += 1.0f;
 	}
-	if (input.isKeyDown(Spark::Window::Keyboard::DOWN)) {
+	if (input.isKeyDown(Spark::Window::Keyboard::LEFT)) {
 		dr.x -= 1.0f;
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::UP)) {
+		dr.y += 1.0f;
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::DOWN)) {
+		dr.y -= 1.0f;
 	}
 
 	if (glm::length(dr) > 0) {
