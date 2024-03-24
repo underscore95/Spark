@@ -10,6 +10,13 @@ void SparkInternal::Graphics::CameraControllerManager::handleInput(float dt)
 	}
 }
 
+void SparkInternal::Graphics::CameraControllerManager::update(float dt)
+{
+	for (auto controller : controllers) {
+		if (controller->isEnabled()) controller->update(dt);
+	}
+}
+
 Spark::Graphics::CameraController::CameraController(std::shared_ptr<Camera> camera, Spark::Window::Input& input, const float speed, const float sensitivity)
 	: camera{ camera }, input{ input }, speed{ speed }, sensitivity{ sensitivity } {
 	assert(camera != nullptr);

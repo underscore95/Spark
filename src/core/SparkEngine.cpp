@@ -39,6 +39,7 @@ namespace SparkInternal {
 			SparkInternal::Systems::onUpdate(deltaTime);
 
 			// ------- RENDER -------
+			SparkInternal::Graphics::CameraControllerManager::singleton().update(deltaTime);
 			app->render();
 			SparkInternal::Systems::onRender();
 			// ------- END MAIN GAME LOGIC -----

@@ -4,6 +4,7 @@
 void Spark::Graphics::KeyboardCameraController::handleInput(float dt)
 {
 	// Note this class could be implemented much more efficiently
+	// Designed for perspective camera
 
 	glm::vec3 dp(0.0f); // Delta position
 

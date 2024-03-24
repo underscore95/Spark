@@ -9,6 +9,7 @@ namespace SparkInternal::Graphics {
 		CameraControllerManager() {};
 	public:
 		void handleInput(float dt);
+		void update(float dt);
 
 		[[nodiscard]] static CameraControllerManager& singleton() {
 			static CameraControllerManager inst;
@@ -30,7 +31,8 @@ namespace Spark::Graphics {
 		float sensitivity;
 		bool enabled = true;
 
-		virtual void handleInput(float dt) = 0;
+		virtual void handleInput(float dt) {};
+		virtual void update(float dt) {};
 		friend class SparkInternal::Graphics::CameraControllerManager;
 	public:
 		/*
