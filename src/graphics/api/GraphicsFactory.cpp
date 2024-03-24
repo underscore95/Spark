@@ -27,9 +27,9 @@ namespace Spark::Graphics {
 		return std::move(Spark::Graphics::Camera::ortho(left, right, bottom, top, zNear, zFar));
 	}
 
-	std::unique_ptr<Camera> perspective(const float fovY, const float aspect, const float zNear, const float zFar)
+	std::unique_ptr<Camera> perspective(const float fovY, const glm::vec2 windowDimensions, const float zNear, const float zFar)
 	{
-		return std::move(Spark::Graphics::Camera::perspective(fovY, aspect, zNear, zFar));
+		return std::move(Spark::Graphics::Camera::perspective(fovY, windowDimensions, zNear, zFar));
 	}
 
 	std::unique_ptr<VertexBufferLayout> createVertexBufferLayout()

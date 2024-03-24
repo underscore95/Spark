@@ -5,6 +5,7 @@
 #include "entities/EntityManager.h"
 #include "systems/SystemManager.h"
 #include "graphics/api/GraphicsFactory.h"
+#include "graphics/api/camera/CameraController.h"
 
 namespace SparkInternal {
 	Spark::Application* app;
@@ -31,11 +32,14 @@ namespace SparkInternal {
 			auto startFrame = std::chrono::system_clock::now();
 
 			// ------- MAIN GAME LOGIC -------
+			// ------- INPUT -------
+			SparkInternal::Graphics::CameraControllerManager::singleton().handleInput(deltaTime);
 			// ------- UPDATE -------
 			app->update(deltaTime);
 			SparkInternal::Systems::onUpdate(deltaTime);
 
 			// ------- RENDER -------
+			SparkInternal::Graphics::CameraControllerManager::singleton().update(deltaTime);
 			app->render();
 			SparkInternal::Systems::onRender();
 			// ------- END MAIN GAME LOGIC -----
