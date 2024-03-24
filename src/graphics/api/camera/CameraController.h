@@ -36,10 +36,10 @@ namespace Spark::Graphics {
 		/*
 		* \param camera A shared ptr to the camera to control
 		* \param input A reference to the input class to use
-		* \param speed Speed to move, defaults to 100.
-		* \param sensitivity Speed to rotate, defaults to 100.
+		* \param speed Speed to move
+		* \param sensitivity Speed to rotate
 		*/
-		CameraController(std::shared_ptr<Camera> camera, Spark::Window::Input& input, const float speed = 100.0f, const float sensitivity = 100.0f);
+		CameraController(std::shared_ptr<Camera> camera, Spark::Window::Input& input, const float speed, const float sensitivity);
 		~CameraController();
 
 		[[nodiscard]] constexpr const bool isEnabled() const { return enabled && belongsToCamera; }

@@ -3,21 +3,57 @@
 
 void Spark::Graphics::KeyboardCameraController::handleInput(float dt)
 {
-	glm::vec3 dp(
-		input.isKeyDown(Spark::Window::Keyboard::D) - input.isKeyDown(Spark::Window::Keyboard::A), 
-		input.isKeyDown(Spark::Window::Keyboard::SPACE) - input.isKeyDown(Spark::Window::Keyboard::LEFT_SHIFT),
-		input.isKeyDown(Spark::Window::Keyboard::S) - input.isKeyDown(Spark::Window::Keyboard::W)
-	);
-	dp *= (dt * speed);
+	// Note this class could be implemented much more efficiently
 
-	camera->setPosition(camera->getPosition() + dp);
+	glm::vec3 dp(0.0f); // Delta position
 
-	glm::vec3 dr(
-		input.isKeyDown(Spark::Window::Keyboard::RIGHT) - input.isKeyDown(Spark::Window::Keyboard::LEFT),
-		input.isKeyDown(Spark::Window::Keyboard::UP) - input.isKeyDown(Spark::Window::Keyboard::DOWN),
-		0
-	);
-	dr *= (dt * sensitivity);
+	// Forward and backward
+	if (input.isKeyDown(Spark::Window::Keyboard::W)) {
+		dp += camera->getForward();
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::S)) {
+		dp -= camera->getForward();
+	}
+
+	// Right and left 
+	if (input.isKeyDown(Spark::Window::Keyboard::D)) {
+		dp += camera->getRight();
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::A)) {
+		dp -= camera->getRight();
+	}
+
+	// Up and down 
+	if (input.isKeyDown(Spark::Window::Keyboard::SPACE)) {
+		dp += camera->getUp();
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::LEFT_SHIFT)) {
+		dp -= camera->getUp();
+	}
+
+	if (glm::length(dp) > 0) {
+		dp = glm::normalize(dp) * (dt * speed);
+		camera->setPosition(camera->getPosition() + dp);
+	}
+
+	glm::vec3 dr(0.0f); // Delta rotation
+	if (input.isKeyDown(Spark::Window::Keyboard::RIGHT)) {
+		dr.y -= 1.0f;
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::LEFT)) {
+		dr.y += 1.0f;
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::UP)) {
+		dr.x += 1.0f;
+	}
+	if (input.isKeyDown(Spark::Window::Keyboard::DOWN)) {
+		dr.x -= 1.0f;
+	}
+
+	if (glm::length(dr) > 0) {
+		dr = glm::normalize(dr) * (dt * sensitivity);
+		camera->setRotationInRadians(camera->getRotation() + dr);
+	}
 
 	camera->setRotationInRadians(camera->getRotation() + dr);
 }

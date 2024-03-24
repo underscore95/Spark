@@ -13,6 +13,9 @@ namespace Spark::Graphics {
 
 		glm::vec3 position;
 		glm::vec3 rotation;
+		glm::vec3 forward;
+		glm::vec3 up;
+		glm::vec3 right;
 
 		CameraController* controller{ nullptr };
 
@@ -71,5 +74,20 @@ namespace Spark::Graphics {
 		* \return The camera rotation in radians
 		*/
 		const glm::vec3& getRotation() const { return rotation; }
+
+		/*
+		* \return A normalised vector pointing in the camera's up direction
+		*/
+		const glm::vec3& getUp() const { return up; }
+
+		/*
+		* \return A normalised vector pointing in the camera's forward direction
+		*/
+		const glm::vec3& getForward() const { return forward; }
+
+		/*
+		* \return A normalised vector pointing in the camera's right direction
+		*/
+		const glm::vec3& getRight() const { return right; }
 	};
 }

@@ -6,7 +6,7 @@
 
 namespace Spark::Graphics {
 	Camera::Camera(const MVP& mvp) :
-		mvp{ mvp }, position{ 0,0,0 }, rotation{ 0,0,0 }
+		mvp{ mvp }, position{ 0,0,0 }, rotation{ 0,0,0 }, forward{ 0,0,0 }, up{ 0,0,0 }, right{ 0,0,0 }
 	{
 		updateView();
 	}
@@ -41,6 +41,8 @@ namespace Spark::Graphics {
 
 	void Camera::updateView()
 	{
+		auto& l = SparkInternal::getLogger();
+
 		// yaw, pitch, roll
 		const float cosY = cosf(rotation.x);
 		const float cosP = cosf(rotation.y);
@@ -49,26 +51,22 @@ namespace Spark::Graphics {
 		const float sinP = sinf(rotation.y);
 		const float sinR = sinf(rotation.z);
 
-		glm::vec3 lookAt;
-		lookAt.x = sinY * cosP;
-		lookAt.y = sinP;
-		lookAt.z = cosP * -cosY;
+		forward.x = sinY * cosP;
+		forward.y = sinP;
+		forward.z = cosP * -cosY;
+		forward = glm::normalize(forward);
 
 		// Calculate the right vector
-		glm::vec3 rightVector;
-		rightVector.x = cosY * cosR - sinY * sinP * sinR;
-		rightVector.y = -cosP * sinR;
-		rightVector.z = sinY * cosR + sinP * sinR * cosY;
+		right.x = cosY * cosR - sinY * sinP * sinR;
+		right.y = -cosP * sinR;
+		right.z = sinY * cosR + sinP * sinR * cosY;
+		right = glm::normalize(right);
 
 		// Calculate the up vector
-		glm::vec3 upVector = glm::cross(rightVector, lookAt);
+		up = glm::cross(right, forward);
+		up = glm::normalize(up);
 
-		auto& l = Spark::getLogger("spark");
-		l.info("position: " + std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(position.z));
-		l.info("lookAt: " + std::to_string(lookAt.x) + ", " + std::to_string(lookAt.y) + ", " + std::to_string(lookAt.z));
-		l.info("upVector: " + std::to_string(upVector.x) + ", " + std::to_string(upVector.y) + ", " + std::to_string(upVector.z));
-
-		mvp.setView(glm::lookAt(position, position + lookAt, glm::normalize(upVector)));
+		mvp.setView(glm::lookAt(position, position + forward, up));
 	}
 
 	void Camera::setPosition(const glm::vec3& position)
