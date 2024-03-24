@@ -13,7 +13,9 @@ namespace Spark::Graphics {
 
 	Camera::~Camera()
 	{
-		delete controller;
+		if (controller) {
+			delete controller;
+		}
 	}
 
 	std::unique_ptr<Camera> Camera::ortho(const float left, const float right, const float bottom, const float top,

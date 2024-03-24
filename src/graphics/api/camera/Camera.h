@@ -14,7 +14,7 @@ namespace Spark::Graphics {
 		glm::vec3 position;
 		glm::vec3 rotation;
 
-		CameraController* controller;
+		CameraController* controller{ nullptr };
 
 		void updateView();
 	public:
