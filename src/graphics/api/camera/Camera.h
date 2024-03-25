@@ -2,12 +2,17 @@
 
 #include "MVP.h"
 
+namespace Spark::Window {
+	class Window;
+}
+
 namespace Spark::Graphics {
 	class CameraController;
 
 	class Camera {
 	private:
 		static constexpr glm::mat4 IDENTITY{ glm::identity<glm::mat4>() };
+		static constexpr float NONE = FLT_MIN;
 
 		MVP mvp;
 
@@ -17,11 +22,18 @@ namespace Spark::Graphics {
 		glm::vec3 up;
 		glm::vec3 right;
 
+		float fovY;
+		float zNear;
+		float zFar;
+
 		CameraController* controller{ nullptr };
 
 		void updateView();
 	public:
-		Camera(const MVP& mvp);
+		/*
+		* Use ortho() and perspective() static methods in this class to construct an instance, it is easier.
+		*/
+		Camera(const MVP& mvp, float fovY = NONE, float zNear = NONE, float zFar = NONE);
 		~Camera();
 
 		/*
@@ -38,6 +50,24 @@ namespace Spark::Graphics {
 		* Sets the camera controller, destroying any previous controller linked to this camera.
 		*/
 		void setCameraController(std::unique_ptr<CameraController> controller);
+
+		/*
+		* Update the projection matrix to be an orthographic projection.
+		* See GraphicsFactory.ortho
+		*/
+		void setOrthographicProjection(const float left, const float right, const float bottom, const float top, const float zNear = 0.1f, const float zFar = 100.0f);
+
+		/*
+		* Update the projection matrix to be a perspective projection.
+		* 
+		* See GraphicsFactory.perspective
+		*/
+		void setPerspectiveProjection(const float fovY, const glm::vec2 windowDimensions, const float zNear = 0.1f, const float zFar = 100.0f);
+
+		/*
+		* Update the perspective projection matrix with a new window size.
+		*/
+		void updatePerspectiveProjection(const glm::vec2& windowDimensions);
 
 		/*
 		* Set the camera position

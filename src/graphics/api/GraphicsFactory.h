@@ -25,6 +25,9 @@ namespace Spark::Graphics {
 
 	/*
 	* Creates a perspective camera positioned at the origin, looking down the negative z axis.
+	* 
+	* \param fovY Field of view in radians
+	* \param windowDimensions Dimensions of window (used to create aspect ratio)
 	*/
 	std::unique_ptr<Camera> perspective(const float fovY, const glm::vec2 windowDimensions, const float zNear = 0.1f, const float zFar = 100.0f);
 

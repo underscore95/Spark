@@ -1,12 +1,16 @@
 #include "Camera.h"
 #include "Camera.h"
+#include "Camera.h"
+#include "Camera.h"
+#include "Camera.h"
 #include "CameraController.h"
 #include "logging/Logger.h"
 #include "logging/Logging.h"
 
 namespace Spark::Graphics {
-	Camera::Camera(const MVP& mvp) :
-		mvp{ mvp }, position{ 0,0,0 }, rotation{ 0,0,0 }, forward{ 0,0,0 }, up{ 0,0,0 }, right{ 0,0,0 }
+	Camera::Camera(const MVP& mvp, float fovY, float zNear, float zFar) :
+		mvp{ mvp }, position{ 0,0,0 }, rotation{ 0,0,0 }, forward{ 0,0,0 }, up{ 0,0,0 }, right{ 0,0,0 },
+		fovY{ fovY }, zNear{ zNear }, zFar{ zFar }
 	{
 		updateView();
 	}
@@ -28,8 +32,8 @@ namespace Spark::Graphics {
 	std::unique_ptr<Camera> Camera::perspective(const float fovY, const glm::vec2 windowDimensions, const float zNear, const float zFar) {
 		MVP mvp;
 		const auto proj = glm::perspective(fovY, windowDimensions.x / windowDimensions.y, zNear, zFar);
-		mvp.setProj(proj); // Scale down to 0 to 1 range
-		return std::unique_ptr<Camera>(new Camera(mvp));
+		mvp.setProj(proj);
+		return std::unique_ptr<Camera>(new Camera(mvp, fovY, zNear, zFar));
 	}
 
 	void Camera::setCameraController(std::unique_ptr<CameraController> controller)
@@ -37,6 +41,27 @@ namespace Spark::Graphics {
 
 		this->controller = controller.release();
 		this->controller->belongsToCamera = true;
+	}
+
+	void Camera::setOrthographicProjection(const float left, const float right, const float bottom, const float top, const float zNear, const float zFar)
+	{
+		mvp.setProj(glm::ortho(left, right, bottom, top, zNear, zFar));
+		this->fovY = NONE;
+		this->zNear = NONE;
+		this->zFar = NONE;
+	}
+
+	void Camera::setPerspectiveProjection(const float fovY, const glm::vec2 windowDimensions, const float zNear, const float zFar)
+	{
+		this->fovY = fovY;
+		this->zNear = zNear;
+		this->zFar = zFar;
+		updatePerspectiveProjection(windowDimensions);
+	}
+
+	void Camera::updatePerspectiveProjection(const glm::vec2& windowDimensions)
+	{
+		mvp.setProj(glm::perspective(fovY, windowDimensions.x / windowDimensions.y, zNear, zFar));
 	}
 
 	void Camera::updateView()
