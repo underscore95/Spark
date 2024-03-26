@@ -12,11 +12,7 @@ You can create a camera using:
 `Spark::Graphics::perspective(const float fovY, const float aspect, const float zNear = 0.1f, const float zFar = 100.0f);`
 
 You can set the position and rotation of a camera to adjust the view matrix.
-If you want to modify the projection matrix, you can use:
-
-`camera.getMatrix().setProjection(const glm::mat4&)`
-
-Note that attempts to modify the view or model matrices in the MVP is undefined behaviour and may be overwritten by the camera or renderer.
+Although you can get the MVP from the camera with `getMatrix()`, editing it will cause undefined behaviour.
 
 To move the camera you can use the setRotation and setPosition methods.
 You can attach a CameraController to a camera like this:
@@ -33,3 +29,10 @@ Spark will manage the lifetime of your controller for you.
 
 Note that you do not have to use a camera controller to control a camera, you can directly use setPosition and setRotation methods 
 if it is easier for you.
+
+You can use the methods `setPerspectiveProjection` and `setOrthographicProjection` to change the projection.
+If you just want to update the window dimensions and don't want to change anything else, you can use the methods
+`updatePerspectiveProjection` and `updateOrthographicProjection`.
+
+Updating the projection every time the window is resized is annoying. You can use `linkWindow` which will automatically update
+the camera projection matrix to be the correct size. Note that you must have a camera controller set to use window linking.
