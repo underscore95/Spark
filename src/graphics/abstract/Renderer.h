@@ -22,11 +22,7 @@ namespace Spark::Graphics {
 			this->camera = camera; 
 		}
 
-		void startDrawing(std::shared_ptr<Material> material) {
-			assert(material != nullptr);
-			this->material = material;
-			this->material->bind();
-		}
+		void startDrawing(std::shared_ptr<Material> material);
 
 		void stopDrawing() {
 			material = nullptr;

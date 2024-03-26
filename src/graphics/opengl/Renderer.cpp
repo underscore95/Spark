@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Renderer.h"
 #include <GL/glew.h>
 #include "pch.h"
 #include "logging/Logger.h"
@@ -76,6 +77,14 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 	window->setSwapInterval(1);
 
 	glShadeModel(GL_SMOOTH);
+}
+
+void Spark::Graphics::Renderer::startDrawing(std::shared_ptr<Material> material)
+{
+	assert(material != nullptr);
+	clear();
+	this->material = material;
+	this->material->bind();
 }
 
 void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& vertexArray)
