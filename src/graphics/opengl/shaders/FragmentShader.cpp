@@ -2,7 +2,8 @@
 #include "ShaderUtils.h"
 
 const std::string INJECT_SOURCE = R"(
-        uniform sampler2D Sp_Texture_0;
+
+		uniform sampler2D Sp_Texture_0;
 		uniform sampler2D Sp_Texture_1;
 		uniform sampler2D Sp_Texture_2;
 		uniform sampler2D Sp_Texture_3;
