@@ -5,12 +5,14 @@
 #include "pch.h"
 #include "window/abstract/Window.h"
 #include "graphics/api/camera/Camera.h"
+#include "Material.h"
 
 namespace Spark::Graphics {
 	class Renderer {
 	protected:
 		std::shared_ptr<Spark::Window::Window> window;
 		std::shared_ptr<Spark::Graphics::Camera> camera;
+		std::shared_ptr<Material> material;
 	public:
 		Renderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera)
 			: window{ window }, camera{ camera } {};
@@ -19,7 +21,14 @@ namespace Spark::Graphics {
 			assert(camera != nullptr);
 			this->camera = camera; 
 		}
-		virtual void draw(const VertexArray& vertexArray, ShaderProgram& shaders) = 0;
+
+		void startDrawing(std::shared_ptr<Material> material);
+
+		void stopDrawing() {
+			material = nullptr;
+		}
+
+		virtual void draw(const VertexArray& vertexArray) = 0;
 		virtual void clear() const = 0;
 	};
 }

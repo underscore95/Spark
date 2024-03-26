@@ -9,6 +9,11 @@ namespace Spark::Graphics {
 	inline constexpr TextureSlot DEFAULT_TEXTURE_SLOT = 0;
 	inline constexpr TextureSlot NO_TEXTURE_SLOT = -1;
 
+	inline constexpr void assertValidTextureSlot(const TextureSlot slot) {
+		assert(slot >= 0);
+		assert(slot <= 31);
+	}
+
 	class Texture;
 }
 
