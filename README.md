@@ -34,7 +34,7 @@ Showcase Video: https://youtu.be/1SpQFqmziPY
 - [x] Automated Tests
 - [x] Renderer
 - [x] Camera
-- [ ] Materials
+- [x] Materials
 - [x] User Input
 - [ ] Sound Effects
 - [ ] Music
