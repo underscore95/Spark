@@ -1,19 +1,28 @@
 #include "CameraController.h"
 #include "pch.h"
+#include "Camera.h"
 
 std::vector<Spark::Graphics::CameraController*> controllers;
 
 void SparkInternal::Graphics::CameraControllerManager::handleInput(float dt)
 {
 	for (auto controller : controllers) {
-		if (controller->isEnabled()) controller->handleInput(dt);
+		if (controller->isEnabled()) { 
+			controller->handleInput(dt); 
+		}
 	}
 }
 
 void SparkInternal::Graphics::CameraControllerManager::update(float dt)
 {
 	for (auto controller : controllers) {
-		if (controller->isEnabled()) controller->update(dt);
+		if (controller->isEnabled()) {
+			controller->update(dt);
+		}
+		
+		if (controller->belongsToCamera) {
+			controller->camera->updateProjectionMatrix();
+		}
 	}
 }
 

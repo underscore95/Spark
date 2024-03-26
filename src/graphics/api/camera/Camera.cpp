@@ -1,8 +1,5 @@
 #include "Camera.h"
-#include "Camera.h"
-#include "Camera.h"
-#include "Camera.h"
-#include "Camera.h"
+#include "window/abstract/Window.h"
 #include "CameraController.h"
 #include "logging/Logger.h"
 #include "logging/Logging.h"
@@ -26,7 +23,7 @@ namespace Spark::Graphics {
 		const float zNear, const float zFar) {
 		MVP mvp;
 		mvp.setProj(glm::ortho(left, right, bottom, top, zNear, zFar));
-		return std::unique_ptr<Camera>(new Camera(mvp));
+		return std::unique_ptr<Camera>(new Camera(mvp, NONE, zNear, zFar));
 	}
 
 	std::unique_ptr<Camera> Camera::perspective(const float fovY, const glm::vec2 windowDimensions, const float zNear, const float zFar) {
@@ -34,6 +31,32 @@ namespace Spark::Graphics {
 		const auto proj = glm::perspective(fovY, windowDimensions.x / windowDimensions.y, zNear, zFar);
 		mvp.setProj(proj);
 		return std::unique_ptr<Camera>(new Camera(mvp, fovY, zNear, zFar));
+	}
+
+	void Camera::linkWindow(std::shared_ptr<Spark::Window::Window> window, const float scaleOrthographic)
+	{
+		assert(controller != nullptr);
+
+		this->scaleOrthographic = scaleOrthographic;
+		this->window = window;
+		updateProjectionMatrix();
+	}
+
+	void Camera::updateProjectionMatrix()
+	{
+		if (window != nullptr) {
+			if (isPerspectiveCamera()) {
+				updatePerspectiveProjection(window->getDimensions());
+			}
+			else {
+				updateOrthographicProjection(window->getDimensions());
+			}
+		}
+	}
+
+	bool Camera::isPerspectiveCamera() const
+	{
+		return fovY != NONE;
 	}
 
 	void Camera::setCameraController(std::unique_ptr<CameraController> controller)
@@ -47,8 +70,13 @@ namespace Spark::Graphics {
 	{
 		mvp.setProj(glm::ortho(left, right, bottom, top, zNear, zFar));
 		this->fovY = NONE;
-		this->zNear = NONE;
-		this->zFar = NONE;
+		this->zNear = zNear;
+		this->zFar = zFar;
+	}
+
+	void Camera::updateOrthographicProjection(const glm::vec2& windowDimensions)
+	{
+		setOrthographicProjection(0.0f, windowDimensions.x * scaleOrthographic, windowDimensions.y * scaleOrthographic, 0.0f, zNear, zFar);
 	}
 
 	void Camera::setPerspectiveProjection(const float fovY, const glm::vec2 windowDimensions, const float zNear, const float zFar)
@@ -61,6 +89,7 @@ namespace Spark::Graphics {
 
 	void Camera::updatePerspectiveProjection(const glm::vec2& windowDimensions)
 	{
+		assert(isPerspectiveCamera());
 		mvp.setProj(glm::perspective(fovY, windowDimensions.x / windowDimensions.y, zNear, zFar));
 	}
 
