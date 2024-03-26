@@ -11,19 +11,19 @@ namespace Spark::Graphics {
 	*/
 	class VertexArray {
 	protected:
-		std::unique_ptr<IndexBuffer> indexBuffer;
+		std::shared_ptr<IndexBuffer> indexBuffer;
 		std::unique_ptr<VertexBuffer> vertexBuffer;
-		std::unique_ptr<VertexBufferLayout> vertexBufferLayout;
+		std::shared_ptr<VertexBufferLayout> vertexBufferLayout;
 	public:
 		/*
 		* \param indexBuffer The index buffer
 		* \param vertexBuffer The vertex buffer
 		* \param vertexBufferLayout The vertex buffer layout
 		*/
-		VertexArray(std::unique_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
+		VertexArray(std::shared_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
 			std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
-			std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
-			: indexBuffer{ std::move(indexBuffer) }, vertexBuffer{ std::move(vertexBuffer) }, vertexBufferLayout{ std::move(vertexBufferLayout) }
+			std::shared_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
+			: indexBuffer{ indexBuffer }, vertexBuffer{ std::move(vertexBuffer) }, vertexBufferLayout{ vertexBufferLayout }
 		{
 		}
 

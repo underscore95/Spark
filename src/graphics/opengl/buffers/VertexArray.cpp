@@ -26,10 +26,10 @@ namespace Spark::Graphics::GL {
 		indexBuffer->bind();
 	}
 
-	VertexArray::VertexArray(std::unique_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
+	VertexArray::VertexArray(std::shared_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
 		std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
-		std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
-		: Spark::Graphics::VertexArray(std::move(indexBuffer), std::move(vertexBuffer), std::move(vertexBufferLayout)),
+		std::shared_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
+		: Spark::Graphics::VertexArray(indexBuffer, std::move(vertexBuffer), vertexBufferLayout),
 		rendererId{ 0 }
 	{
 		init();

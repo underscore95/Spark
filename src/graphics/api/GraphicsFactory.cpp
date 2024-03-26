@@ -59,11 +59,11 @@ namespace Spark::Graphics {
 #endif
 	}
 
-	std::unique_ptr<VertexArray> createVertexArray(std::unique_ptr<IndexBuffer> indexBuffer,
-		std::unique_ptr<VertexBuffer> vertexBuffer, std::unique_ptr<VertexBufferLayout> vertexBufferLayout)
+	std::unique_ptr<VertexArray> createVertexArray(std::shared_ptr<IndexBuffer> indexBuffer,
+		std::unique_ptr<VertexBuffer> vertexBuffer, std::shared_ptr<VertexBufferLayout> vertexBufferLayout)
 	{
 #ifdef _WIN32
-		return std::make_unique<Spark::Graphics::GL::VertexArray>(std::move(indexBuffer), std::move(vertexBuffer), std::move(vertexBufferLayout));
+		return std::make_unique<Spark::Graphics::GL::VertexArray>(indexBuffer, std::move(vertexBuffer), vertexBufferLayout);
 #else
 		throw std::runtime_error("No graphics implementations for this platform.");
 #endif

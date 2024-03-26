@@ -10,9 +10,9 @@ namespace Spark::Graphics::GL {
 
 		void init();
 	public:
-		VertexArray(std::unique_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
+		VertexArray(std::shared_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
 			std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
-			std::unique_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout);
+			std::shared_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout);
 		~VertexArray();
 
 		void bind() const override;
