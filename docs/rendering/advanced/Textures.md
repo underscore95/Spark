@@ -13,6 +13,7 @@ The default value for `slot` is 0.
 
 Negative slot numbers are considered invalid.
 
+Spark supports texture slots 0 to 31.
 OpenGL supports texture slots 0 to 31.
 
 ## Sampler2D

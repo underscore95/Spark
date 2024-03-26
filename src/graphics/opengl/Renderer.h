@@ -9,7 +9,7 @@ namespace Spark::Graphics::GL {
 	public:
 		Renderer(std::shared_ptr<Spark::Window::Window> window, std::shared_ptr<Spark::Graphics::Camera> camera);
 
-		void draw(const Spark::Graphics::VertexArray& vertexArray, Spark::Graphics::ShaderProgram& shaders) override;
+		void draw(const Spark::Graphics::VertexArray& vertexArray) override;
 		void clear() const override;
 	};
 }

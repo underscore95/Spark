@@ -78,13 +78,12 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 	glShadeModel(GL_SMOOTH);
 }
 
-void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& vertexArray, Spark::Graphics::ShaderProgram& shaders)
+void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& vertexArray)
 {
-
-	shaders.bind();
+	assert(material != nullptr);
 	vertexArray.bind();
 
-	shaders.setUniformMat4f("Sp_MVP", camera->getMatrix().getMVP());
+	material->getShaders().setUniformMat4f("Sp_MVP", camera->getMatrix().getMVP());
 
 	glDrawElements(GL_TRIANGLES, vertexArray.getIndicesCount(), GL_UNSIGNED_INT, nullptr);
 }
