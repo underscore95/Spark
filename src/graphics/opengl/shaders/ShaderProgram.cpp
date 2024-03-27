@@ -39,10 +39,15 @@ const int Spark::Graphics::GL::ShaderProgram::getUniformLocation(const std::stri
 	int location = glGetUniformLocation(rendererId, variableName.c_str());
 	cachedUniformLocations.insert({ variableName, location });
 
-	if (location == -1) {
+#ifndef NDEBUG
+	// Spark injected uniforms may not be used and we shouldn't log warnings for it.
+	// If a developer isn't using their own uniform however, that may be an issue they should know about.
+	if (location == -1 && !variableName.starts_with("Sp_")) {
 		auto& logger = SparkInternal::getLogger();
 		logger.warning("No uniform with location '" + variableName + "' found in program. Note that the optimiser may have removed the uniform if you aren't using it, in which case you can ignore this warning.");
 	}
+#endif
+
 	return location;
 }
 
@@ -68,14 +73,13 @@ void Spark::Graphics::GL::ShaderProgram::setUniform1i(const std::string name, in
 
 void Spark::Graphics::GL::ShaderProgram::setUniformSampler2D(const std::string name, Spark::Graphics::Texture& texture)
 {
-	auto slot = texture.getTextureSlot();
-#ifndef NDEBUG
-	if (slot == Spark::Graphics::NO_TEXTURE_SLOT) {
-		auto& logger = SparkInternal::getLogger();
-		logger.warning("Setting uniform Sampler2D texture to an unbound texture.");
-	}
-#endif
-	setUniform1i(name, slot);
+	auto textureSlot = texture.getTextureSlot();
+	setUniformSampler2D(name, textureSlot);
+}
+
+void Spark::Graphics::GL::ShaderProgram::setUniformSampler2D(const std::string name, const Spark::Graphics::TextureSlot textureSlot)
+{
+	setUniform1i(name, textureSlot);
 }
 
 void Spark::Graphics::GL::ShaderProgram::setUniformMat4f(const std::string name, const glm::mat4& m0)
