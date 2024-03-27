@@ -25,7 +25,13 @@ namespace Spark::Graphics {
 		void setActiveTexture(const TextureSlot slot);
 		const TextureSlot getActiveTexture() const;
 
+		/*
+		* Bind the material, note that it must be unbound before another material is bound.
+		*/
 		void bind();
+		/*
+		* Unbind the material.
+		*/
 		void unbind();
 
 		ShaderProgram& getShaders();
