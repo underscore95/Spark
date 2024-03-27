@@ -6,12 +6,14 @@
 
 namespace Spark::Graphics {
 	typedef short TextureSlot;
-	inline constexpr TextureSlot DEFAULT_TEXTURE_SLOT = 0;
+	inline constexpr TextureSlot FIRST_TEXTURE_SLOT = 0;
+	inline constexpr TextureSlot DEFAULT_TEXTURE_SLOT = FIRST_TEXTURE_SLOT;
 	inline constexpr TextureSlot NO_TEXTURE_SLOT = -1;
+	inline constexpr TextureSlot LAST_TEXTURE_SLOT = 31;
 
 	inline constexpr void assertValidTextureSlot(const TextureSlot slot) {
-		assert(slot >= 0);
-		assert(slot <= 31);
+		assert(slot >= FIRST_TEXTURE_SLOT);
+		assert(slot <= LAST_TEXTURE_SLOT);
 	}
 
 	class Texture;

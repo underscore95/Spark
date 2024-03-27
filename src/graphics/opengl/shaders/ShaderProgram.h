@@ -16,6 +16,7 @@ namespace Spark::Graphics::GL {
 		void setUniform2f(const std::string name, float v0, float v1) override;
 		void setUniform1i(const std::string name, int i0) override;
 		void setUniformSampler2D(const std::string name, Spark::Graphics::Texture& texture) override;
+		void setUniformSampler2D(const std::string name, const Spark::Graphics::TextureSlot textureSlot) override;
 		void setUniformMat4f(const std::string name, const glm::mat4& m0) override;
 	};
 }

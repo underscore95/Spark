@@ -18,7 +18,7 @@ OpenGL supports texture slots 0 to 31.
 
 ## Sampler2D
 Sampler2D is a type in GLSL (read https://www.khronos.org/opengl/wiki/Sampler_(GLSL) for more information) that represents a texture.
-You can pass a texture as a uniform to a fragment shader using `setUniformSampler2D("uniformName", textureReference);`.
+Many sampler2D uniforms are injected into your fragment shader by Spark, see shaders documentation for a list.
 
 Example fragment shader:
 ```

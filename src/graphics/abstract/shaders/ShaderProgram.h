@@ -21,6 +21,7 @@ namespace Spark::Graphics {
 		virtual void setUniform2f(const std::string name, float v0, float v1) = 0;
 		virtual void setUniform1i(const std::string name, int i0) = 0;
 		virtual void setUniformSampler2D(const std::string name, Spark::Graphics::Texture& texture) = 0;
+		virtual void setUniformSampler2D(const std::string name, const Spark::Graphics::TextureSlot textureSlot) = 0;
 		virtual void setUniformMat4f(const std::string name, const glm::mat4& m0) = 0;
 	};
 }
