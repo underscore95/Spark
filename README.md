@@ -14,7 +14,7 @@ Setup Guide: See docs/Setup.md
 
 Example Project: https://github.com/underscore95/SparkGame
 
-Showcase Video: https://youtu.be/1SpQFqmziPY
+Showcase: https://www.youtube.com/playlist?list=PLKBtzLA-bWh6f0WenxYFNpmxaHr2pWxVl
 
 ## Dependencies:
  - glfw
