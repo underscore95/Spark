@@ -34,6 +34,7 @@
 #include <typeindex>
 #include <iterator>
 #include <cassert>
+#include <filesystem>
 
 // Maths
 

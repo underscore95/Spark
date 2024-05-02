@@ -61,7 +61,7 @@ namespace Spark::Graphics {
 	* \return unique pointer to a vertex array.
 	*/
 	std::unique_ptr<VertexArray> createVertexArray(std::shared_ptr<IndexBuffer> indexBuffer,
-		std::unique_ptr<VertexBuffer> vertexBuffer, std::shared_ptr<VertexBufferLayout> vertexBufferLayout);
+		std::shared_ptr<VertexBuffer> vertexBuffer, std::shared_ptr<VertexBufferLayout> vertexBufferLayout);
 
 	/*
 	* \param filePath Path to the shader source code, relative to your game executable.

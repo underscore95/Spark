@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "Renderer.h"
+#include "Renderer.h"
 #include <GL/glew.h>
 #include "pch.h"
 #include "logging/Logger.h"
@@ -101,4 +102,13 @@ void Spark::Graphics::GL::Renderer::clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearDepth(1.0f);
+}
+
+void Spark::Graphics::Renderer::renderModel(const Model& model)
+{
+	for (const auto& segment : model.getSegments()) {
+		startDrawing(segment.material);
+		draw(*(segment.vertexArray));
+		stopDrawing();
+	}
 }

@@ -6,6 +6,7 @@
 #include "window/abstract/Window.h"
 #include "graphics/api/camera/Camera.h"
 #include "Material.h"
+#include "graphics/abstract/models/Model.h"
 
 namespace Spark::Graphics {
 	class Renderer {
@@ -30,5 +31,8 @@ namespace Spark::Graphics {
 
 		virtual void draw(const VertexArray& vertexArray) = 0;
 		virtual void clear() const = 0;
+
+		virtual void renderModel(const Model& model);
+		inline virtual void renderModel(const std::shared_ptr<Model> model) { renderModel(*model); }
 	};
 }
