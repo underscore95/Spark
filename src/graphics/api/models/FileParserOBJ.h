@@ -17,6 +17,7 @@ namespace Spark::Graphics::Models {
 	* 
 	* Does not support multiple objects in the same file.
 	* Faces must be triangles. Faces must be at the end of the file.
+	* Stringstream is used for parsing, so spaces in file names, etc, will not work.
 	* 
 	* See FileParserMTL.h for supported mtl features
 	* 

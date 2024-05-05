@@ -93,8 +93,8 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 	// intentionally leak the vectors memory and the buffer will clean up the raw arrays for us.
 	// TODO: Store a pointer to the vector in the model so we are able to delete it when the model is deleted
 	std::vector<float>* vertexData = new std::vector<float>();
-	std::list<std::vector<unsigned int>*> indexBuffers;
-	std::list<std::shared_ptr<Material>> materials;
+	std::vector<std::vector<unsigned int>*> indexBuffers;
+	std::vector<std::shared_ptr<Material>> materials;
 	unsigned int i = 0;
 
 	std::string line;
@@ -108,6 +108,7 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 			std::string path;
 			ss >> path;
 			auto newMtl = parseMtl(folder, path, objProperties);
+			assert(newMtl != nullptr);
 			mtllib = mergeMTLFiles(std::move(mtllib), std::move(newMtl)); // Merge all the materials together
 		}
 		else if (token == "v") {
@@ -121,8 +122,11 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 		}
 		else if (token == "f") {
 			pushFace(ss, vertexData, verts, norms, texs); // Triangle face
-			indexBuffers.back()->push_back(i);
-			++i;
+			// Add index for each vertex in the face
+			for (int j = 0; j < 3; ++j) {
+				indexBuffers.back()->push_back(i);
+				++i;
+			}
 		}
 		else if (token == "usemtl") {
 			std::string material;
@@ -147,12 +151,10 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 
 	for (size_t i = 0; i < indexBuffers.size(); ++i) {
 		// Get the first index buffer and material
-		indexBuffers.front()->shrink_to_fit();
-		std::shared_ptr<IndexBuffer> indexBuffer = Spark::Graphics::createIndexBuffer(indexBuffers.front()->size(), indexBuffers.front()->size(), indexBuffers.front()->data());
-		indexBuffers.pop_front();
+		indexBuffers[i]->shrink_to_fit();
+		std::shared_ptr<IndexBuffer> indexBuffer = Spark::Graphics::createIndexBuffer(sizeof(unsigned int) * indexBuffers.front()->size(), indexBuffers.front()->size(), indexBuffers.front()->data());
 
-		std::shared_ptr<Material> material = materials.front();
-		materials.pop_front();
+		std::shared_ptr<Material> material = materials[i];
 
 		// Now we need to make a model segment
 		std::shared_ptr<VertexArray> va = Spark::Graphics::createVertexArray(indexBuffer, vertexBuffer, vertexBufferLayout);
@@ -170,6 +172,11 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 
 	constexpr const float floatsPerFace = (3 + 3 + 2) * 3;
 	logger.info("Loaded .obj file: " + path + " with " + std::to_string(vertexData->size() / floatsPerFace) + " faces.\n");
+
+	std::cout << "vertex data: " << vertexData->size() << "\n";
+	for (auto indexBuffer : indexBuffers) {
+		std::cout << "index buffer: " << indexBuffer->size() << "\n";
+	}
 
 	return std::move(model);
 }
