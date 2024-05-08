@@ -152,7 +152,7 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 	for (size_t i = 0; i < indexBuffers.size(); ++i) {
 		// Get the first index buffer and material
 		indexBuffers[i]->shrink_to_fit();
-		std::shared_ptr<IndexBuffer> indexBuffer = Spark::Graphics::createIndexBuffer(sizeof(unsigned int) * indexBuffers.front()->size(), indexBuffers.front()->size(), indexBuffers.front()->data());
+		std::shared_ptr<IndexBuffer> indexBuffer = Spark::Graphics::createIndexBuffer(sizeof(unsigned int) * indexBuffers[i]->size(), indexBuffers[i]->size(), indexBuffers[i]->data());
 
 		std::shared_ptr<Material> material = materials[i];
 
