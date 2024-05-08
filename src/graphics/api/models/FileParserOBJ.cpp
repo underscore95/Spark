@@ -1,8 +1,10 @@
 #include "FileParserOBJ.h"
 #include "logging/Logger.h"
 #include "graphics/api/GraphicsFactory.h"
+#include "Utils/WeakVector.h"
 
 using namespace Spark::Graphics;
+using namespace SparkInternal::Utils;
 
 void pushVec3(std::stringstream& ss, std::vector<glm::vec3>& vectors)
 {
@@ -21,7 +23,7 @@ void pushVec2(std::stringstream& ss, std::vector<glm::vec2>& vectors)
 	vectors.emplace_back(x, y);
 }
 
-void pushVertex(const std::string& token, std::vector<float>* vertexData, const std::vector<glm::vec3>& verts, const std::vector<glm::vec3>& norms, const std::vector<glm::vec2>& texs)
+void pushVertex(const std::string& token, WeakVector<float>& vertexData, const std::vector<glm::vec3>& verts, const std::vector<glm::vec3>& norms, const std::vector<glm::vec2>& texs)
 {
 	std::stringstream ss;
 	ss << token;
@@ -32,19 +34,19 @@ void pushVertex(const std::string& token, std::vector<float>* vertexData, const 
 	ss.ignore(std::numeric_limits<std::streamsize>::max(), '/');
 	ss >> n;
 
-	vertexData->push_back(verts[v - 1].x);
-	vertexData->push_back(verts[v - 1].y);
-	vertexData->push_back(verts[v - 1].z);
+	vertexData.push_back(verts[v - 1].x);
+	vertexData.push_back(verts[v - 1].y);
+	vertexData.push_back(verts[v - 1].z);
 
-	vertexData->push_back(norms[n - 1].x);
-	vertexData->push_back(norms[n - 1].y);
-	vertexData->push_back(norms[n - 1].z);
+	vertexData.push_back(norms[n - 1].x);
+	vertexData.push_back(norms[n - 1].y);
+	vertexData.push_back(norms[n - 1].z);
 
-	vertexData->push_back(texs[t - 1].x);
-	vertexData->push_back(texs[t - 1].y);
+	vertexData.push_back(texs[t - 1].x);
+	vertexData.push_back(texs[t - 1].y);
 }
 
-void pushFace(std::stringstream& ss, std::vector<float>* vertexData, const std::vector<glm::vec3>& verts, const std::vector<glm::vec3>& norms, const std::vector<glm::vec2>& texs)
+void pushFace(std::stringstream& ss, WeakVector<float>& vertexData, const std::vector<glm::vec3>& verts, const std::vector<glm::vec3>& norms, const std::vector<glm::vec2>& texs)
 {
 	std::string token;
 	for (int i = 0; i < 3; ++i)
@@ -88,12 +90,8 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 	std::vector<glm::vec3> norms;
 	std::vector<glm::vec2> texs;
 
-	// So, we need to transfer ownership of the data inside these vectors to the buffers we're going to create
-	// however, vectors don't have a way for us to steal their data, so what we're going to do is
-	// intentionally leak the vectors memory and the buffer will clean up the raw arrays for us.
-	// TODO: Store a pointer to the vector in the model so we are able to delete it when the model is deleted
-	std::vector<float>* vertexData = new std::vector<float>();
-	std::vector<std::vector<unsigned int>*> indexBuffers;
+	WeakVector<float> vertexData;
+	std::vector<WeakVector<unsigned int>> indexBuffers;
 	std::vector<std::shared_ptr<Material>> materials;
 	unsigned int i = 0;
 
@@ -124,7 +122,7 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 			pushFace(ss, vertexData, verts, norms, texs); // Triangle face
 			// Add index for each vertex in the face
 			for (int j = 0; j < 3; ++j) {
-				indexBuffers.back()->push_back(i);
+				indexBuffers.back().push_back(i);
 				++i;
 			}
 		}
@@ -133,7 +131,7 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 			ss >> material;
 			// Start a new model segment
 			materials.push_back(mtllib->materials[material]);
-			indexBuffers.push_back(new std::vector<unsigned int>());
+			indexBuffers.push_back(WeakVector<unsigned int>());
 #ifndef NDEBUG
 			if (materials.back() == nullptr) {
 				logger.severe("Material not found: " + material + "\n");
@@ -144,15 +142,15 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 
 	// Finished parsing, now we need to build the buffer objects
 	// We'll build once massive vertex buffer and reuse it for each segment
-	vertexData->shrink_to_fit();
-	std::shared_ptr<VertexBuffer> vertexBuffer = Spark::Graphics::createVertexBuffer(sizeof(float) * vertexData->size(), vertexData->data());
+	vertexData.shrink_to_fit();
+	std::shared_ptr<VertexBuffer> vertexBuffer = Spark::Graphics::createVertexBuffer(sizeof(float) * vertexData.get_size(), vertexData.get_data());
 	assert(indexBuffers.size() == materials.size());
 	assert(!materials.empty());
 
 	for (size_t i = 0; i < indexBuffers.size(); ++i) {
 		// Get the first index buffer and material
-		indexBuffers[i]->shrink_to_fit();
-		std::shared_ptr<IndexBuffer> indexBuffer = Spark::Graphics::createIndexBuffer(sizeof(unsigned int) * indexBuffers[i]->size(), indexBuffers[i]->size(), indexBuffers[i]->data());
+		indexBuffers[i].shrink_to_fit();
+		std::shared_ptr<IndexBuffer> indexBuffer = Spark::Graphics::createIndexBuffer(sizeof(unsigned int) * indexBuffers[i].get_size(), indexBuffers[i].get_size(), indexBuffers[i].get_data());
 
 		std::shared_ptr<Material> material = materials[i];
 
@@ -171,7 +169,7 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 #endif
 
 	constexpr const float floatsPerFace = (3 + 3 + 2) * 3;
-	logger.info("Loaded .obj file: " + path + " with " + std::to_string(vertexData->size() / floatsPerFace) + " faces.\n");
+	logger.info("Loaded .obj file: " + path + " with " + std::to_string(vertexData.get_size() / floatsPerFace) + " faces.\n");
 
 	return std::move(model);
 }
