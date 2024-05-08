@@ -38,6 +38,5 @@ Showcase: https://www.youtube.com/playlist?list=PLKBtzLA-bWh6f0WenxYFNpmxaHr2pWx
 - [x] User Input
 - [ ] Sound Effects
 - [ ] Music
-- [ ] Models
-- [ ] Animations
+- [x] Models
 - [ ] Physics (Jolt?)
