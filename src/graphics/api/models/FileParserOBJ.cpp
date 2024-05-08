@@ -27,9 +27,9 @@ void pushVertex(const std::string& token, std::vector<float>* vertexData, const 
 	ss << token;
 	int v, t, n;
 	ss >> v;
-	ss.ignore(1);
+	ss.ignore(std::numeric_limits<std::streamsize>::max(), '/');
 	ss >> t;
-	ss.ignore(1);
+	ss.ignore(std::numeric_limits<std::streamsize>::max(), '/');
 	ss >> n;
 
 	vertexData->push_back(verts[v - 1].x);
@@ -172,11 +172,6 @@ std::unique_ptr<Spark::Graphics::Model> Spark::Graphics::Models::parseObj(const 
 
 	constexpr const float floatsPerFace = (3 + 3 + 2) * 3;
 	logger.info("Loaded .obj file: " + path + " with " + std::to_string(vertexData->size() / floatsPerFace) + " faces.\n");
-
-	std::cout << "vertex data: " << vertexData->size() << "\n";
-	for (auto indexBuffer : indexBuffers) {
-		std::cout << "index buffer: " << indexBuffer->size() << "\n";
-	}
 
 	return std::move(model);
 }
