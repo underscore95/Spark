@@ -16,6 +16,7 @@ namespace Spark::Graphics::Models {
 	* Parse a .mtl file and return a Material object.
 	* Can only parse very basic files, only understands diffuse texture maps.
 	* Stringstream is used for parsing, so spaces in file names, etc, will not work.
+        * Only can parse .png textures.
 	*/
 	[[nodiscard]] std::unique_ptr<MTLFile> parseMtl(const std::string& folder, const std::string& path, OBJProperties& objProperties);
 
