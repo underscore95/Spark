@@ -27,7 +27,7 @@ namespace Spark::Graphics::GL {
 	}
 
 	VertexArray::VertexArray(std::shared_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
-		std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
+		std::shared_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
 		std::shared_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout)
 		: Spark::Graphics::VertexArray(indexBuffer, std::move(vertexBuffer), vertexBufferLayout),
 		rendererId{ 0 }

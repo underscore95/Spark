@@ -60,7 +60,7 @@ namespace Spark::Graphics {
 	}
 
 	std::unique_ptr<VertexArray> createVertexArray(std::shared_ptr<IndexBuffer> indexBuffer,
-		std::unique_ptr<VertexBuffer> vertexBuffer, std::shared_ptr<VertexBufferLayout> vertexBufferLayout)
+		std::shared_ptr<VertexBuffer> vertexBuffer, std::shared_ptr<VertexBufferLayout> vertexBufferLayout)
 	{
 #ifdef _WIN32
 		return std::make_unique<Spark::Graphics::GL::VertexArray>(indexBuffer, std::move(vertexBuffer), vertexBufferLayout);

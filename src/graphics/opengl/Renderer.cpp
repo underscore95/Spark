@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "Renderer.h"
+#include "Renderer.h"
 #include <GL/glew.h>
 #include "pch.h"
 #include "logging/Logger.h"
@@ -76,7 +77,9 @@ Spark::Graphics::GL::Renderer::Renderer(std::shared_ptr<Spark::Window::Window> w
 
 	window->setSwapInterval(1);
 
-	glShadeModel(GL_SMOOTH);
+	//glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
 }
 
 void Spark::Graphics::Renderer::startDrawing(std::shared_ptr<Material> material)
@@ -85,6 +88,7 @@ void Spark::Graphics::Renderer::startDrawing(std::shared_ptr<Material> material)
 	clear();
 	this->material = material;
 	this->material->bind();
+
 }
 
 void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& vertexArray)
@@ -100,5 +104,15 @@ void Spark::Graphics::GL::Renderer::draw(const Spark::Graphics::VertexArray& ver
 void Spark::Graphics::GL::Renderer::clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
 	glClearDepth(1.0f);
+}
+
+void Spark::Graphics::Renderer::renderModel(const Model& model)
+{
+	for (const auto& segment : model.getSegments()) {
+		startDrawing(segment.material);
+		draw(*(segment.vertexArray));
+		stopDrawing();
+	}
 }

@@ -37,5 +37,7 @@
 #include "graphics/api/Camera/Camera.h"
 #include "graphics/api/Camera/CameraController.h"
 #include "graphics/api/Camera/KeyboardCameraController.h"
+#include "graphics/api/models/FileParserMTL.h"
+#include "graphics/api/models/FileParserOBJ.h"
 
 // Utils

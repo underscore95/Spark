@@ -11,7 +11,7 @@ namespace Spark::Graphics::GL {
 		void init();
 	public:
 		VertexArray(std::shared_ptr<Spark::Graphics::IndexBuffer> indexBuffer,
-			std::unique_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
+			std::shared_ptr<Spark::Graphics::VertexBuffer> vertexBuffer,
 			std::shared_ptr<Spark::Graphics::VertexBufferLayout> vertexBufferLayout);
 		~VertexArray();
 
