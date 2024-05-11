@@ -6,6 +6,7 @@
 #include "systems/SystemManager.h"
 #include "graphics/api/GraphicsFactory.h"
 #include "graphics/api/camera/CameraController.h"
+#include "audio/Audio.h"
 
 namespace SparkInternal {
 	Spark::Application* app;
@@ -67,6 +68,9 @@ namespace SparkInternal {
 		std::stringstream ss;
 		ss << "Initialised Spark Engine " << SPARK_VERSION;
 		logger.info(ss);
+
+		// Audio
+		SparkInternal::Audio::init();
 
 		// Start the game
 		app = appInitialiser(); // This should be the last thing in the init function
