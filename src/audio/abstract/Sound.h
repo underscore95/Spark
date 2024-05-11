@@ -10,7 +10,7 @@ namespace Spark::Audio {
 		size_t size;
 		int frequency;
 		SparkInternal::Audio::AudioFormat format;
-		std::vector<float> data;
+		std::vector<short> data;
 
 		virtual void createBuffer() = 0;
 	public:

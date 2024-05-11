@@ -19,7 +19,7 @@ Spark::Audio::Sound::Sound(const std::string_view& path) : frequency(-1), format
 	format = sfInfo.channels == 1 ? SparkInternal::Audio::MONO16 : SparkInternal::Audio::STEREO16;
 
 	data.resize(sfInfo.frames * sfInfo.channels);
-	sf_readf_float(file, data.data(), sfInfo.frames);
+	sf_readf_short(file, data.data(), sfInfo.frames);
 
 	sf_close(file);
 
