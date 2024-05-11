@@ -1,14 +1,8 @@
 #include "Audio.h"
 
 #include "logging/Logger.h"
-
-#ifdef WIN32
-
-#define SPARK_OPENAL
-
-#endif
-
-
+#include "AudioPlatforms.h"
+#include "AudioFactory.h"
 
 #ifdef SPARK_OPENAL
 
@@ -41,6 +35,8 @@ namespace SparkInternal::Audio {
 		logger.severe("No audio backend available. (Unsupported Platform)");
 		return;
 #endif
+
+		Spark::Audio::AudioFactory::getListener();
 	}
 
 	void exit() {

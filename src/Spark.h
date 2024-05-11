@@ -41,3 +41,4 @@
 #include "graphics/api/models/FileParserOBJ.h"
 
 // Audio
+#include "audio/AudioFactory.h"

@@ -5,7 +5,8 @@
 
 namespace Spark::Audio::OpenAL {
 	class Sound : public Spark::Audio::Sound {
-	public:
+	protected:
+		friend class Spark::Audio::AudioFactory;
 		void createBuffer() override;
 	public:
 		Sound(const std::string_view& path) : Spark::Audio::Sound(path) {};

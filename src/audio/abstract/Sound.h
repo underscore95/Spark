@@ -4,8 +4,10 @@
 #include "audio/Audio.h"
 
 namespace Spark::Audio {
+	class AudioFactory;
+
 	class Sound {
-	public:
+	protected:
 		unsigned int id;
 		size_t size;
 		int frequency;
@@ -13,6 +15,8 @@ namespace Spark::Audio {
 		std::vector<short> data;
 
 		virtual void createBuffer() = 0;
+
+		friend class Spark::Audio::AudioFactory;
 	public:
 		Sound(const std::string_view& path);
 		~Sound();
