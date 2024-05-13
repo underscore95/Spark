@@ -9,5 +9,5 @@ namespace SparkInternal::Audio {
 	extern const AudioFormat STEREO16;
 
 	void init();
-	void exit();
+	void onExit();
 }

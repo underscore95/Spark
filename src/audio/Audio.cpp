@@ -39,7 +39,7 @@ namespace SparkInternal::Audio {
 		Spark::Audio::AudioFactory::getListener();
 	}
 
-	void exit() {
+	void onExit() {
 		if (!initialised) [[unlikely]] {
 			return;
 			}

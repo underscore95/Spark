@@ -19,7 +19,7 @@ namespace Spark::Audio {
 		friend class Spark::Audio::AudioFactory;
 	public:
 		Sound(const std::string_view& path);
-		~Sound();
+		virtual ~Sound();
 
 		[[nodiscard]] const unsigned int getId() const { return id; }
 	};

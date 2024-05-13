@@ -9,7 +9,8 @@ namespace Spark::Audio {
 		unsigned int id;
 	public:
 		Source(const Sound& sound) : soundBufferId{ sound.getId() }, id{ UINT_MAX } {};
-
+		virtual ~Source() {};
+	
 		virtual	void setPitch(float pitch) = 0;
 		virtual	void setGain(float gain) = 0;
 		virtual void setPosition(float x, float y, float z) = 0;

@@ -22,6 +22,8 @@ namespace SparkInternal {
 		SparkInternal::Logging::onExit();
 
 		delete app;
+
+		SparkInternal::Audio::onExit();
 	}
 
 	static void mainLoop() {

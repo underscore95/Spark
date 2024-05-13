@@ -30,16 +30,13 @@ namespace SparkInternal::Audio::OpenAL {
 
 	void exit() {
 		alcMakeContextCurrent(nullptr);
-		CHECK_AL_ERROR();
 
 		if (context) {
 			alcDestroyContext(context);
-			CHECK_AL_ERROR();
 		}
 
 		if (device) {
 			alcCloseDevice(device);
-			CHECK_AL_ERROR();
 		}
 	}
 }

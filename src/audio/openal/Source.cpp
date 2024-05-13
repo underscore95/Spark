@@ -1,6 +1,7 @@
 #include "Source.h"
 
 namespace Spark::Audio::OpenAL {
+
 	Source::Source(const Spark::Audio::Sound& sound) : Spark::Audio::Source(sound) {
 		alGenSources(1, &id);
 		CHECK_AL_ERROR();
