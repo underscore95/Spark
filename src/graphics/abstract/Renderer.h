@@ -33,6 +33,9 @@ namespace Spark::Graphics {
 		virtual void clear() const = 0;
 
 		virtual void renderModel(const Model& model);
-		inline virtual void renderModel(const std::shared_ptr<Model> model) { renderModel(*model); }
+		inline virtual void renderModel(const std::shared_ptr<Model> model) {
+			assert(model != nullptr);
+			renderModel(*model);
+		}
 	};
 }
