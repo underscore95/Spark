@@ -9,7 +9,7 @@ namespace Spark::Audio {
 	class AudioFactory {
 	public:
 		static [[nodiscard]] Listener& getListener();
-		static [[nodiscard]] std::shared_ptr<Sound> loadSound(const std::string_view& path);
+		static [[nodiscard]] std::unique_ptr<Sound> loadSound(const std::string_view& path);
 		static [[nodiscard]] std::unique_ptr<Source> createSource(const Sound& sound);
 	};
 }

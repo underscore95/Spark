@@ -7,7 +7,7 @@ if (POLICY CMP0141)
 endif()
 
 # Version
-project ("Spark" LANGUAGES CXX VERSION 0.17.0)
+project ("Spark" LANGUAGES CXX VERSION 0.17.1)
 add_compile_definitions(-DSPARK_VERSION="v${CMAKE_PROJECT_VERSION}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)

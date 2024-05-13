@@ -11,14 +11,14 @@ namespace Spark::Audio {
 		return listener;
 	}
 
-	std::shared_ptr<Sound> [[nodiscard]] AudioFactory::loadSound(const std::string_view& path) {
+	std::unique_ptr<Sound> [[nodiscard]] AudioFactory::loadSound(const std::string_view& path) {
 #ifdef SPARK_OPENAL
-		auto sound = std::make_shared<Spark::Audio::OpenAL::Sound>(path);
+		auto sound = std::make_unique<Spark::Audio::OpenAL::Sound>(path);
 #else
 		std::unreachable();
 #endif
 		sound->createBuffer();
-		return sound;
+		return std::move(sound);
 	}
 
 	std::unique_ptr<Source> [[nodiscard]] AudioFactory::createSource(const Sound& sound) {
