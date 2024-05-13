@@ -36,7 +36,8 @@ Showcase: https://www.youtube.com/playlist?list=PLKBtzLA-bWh6f0WenxYFNpmxaHr2pWx
 - [x] Camera
 - [x] Materials
 - [x] User Input
-- [ ] Sound Effects
+- [x] Sound Effects
 - [ ] Music
 - [x] Models
 - [ ] Physics (Jolt?)
+- [ ] Text Rendering
