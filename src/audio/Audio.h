@@ -7,6 +7,7 @@ namespace SparkInternal::Audio {
 	extern const AudioFormat MONO16;
 	extern const AudioFormat STEREO8;
 	extern const AudioFormat STEREO16;
+	inline const AudioFormat INVALID_AUDIO_FORMAT = -1;
 
 	void init();
 	void onExit();

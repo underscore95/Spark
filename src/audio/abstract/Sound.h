@@ -1,17 +1,14 @@
 #pragma once
 
 #include "pch.h"
-#include "audio/Audio.h"
+#include "Playable.h"
 
 namespace Spark::Audio {
 	class AudioFactory;
 
-	class Sound {
+	class Sound : public Playable {
 	protected:
 		unsigned int id;
-		size_t size;
-		int frequency;
-		SparkInternal::Audio::AudioFormat format;
 		std::vector<short> data;
 
 		virtual void createBuffer() = 0;
